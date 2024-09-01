@@ -1,3 +1,5 @@
+CREATE DATABASE UnityClass;
+
 CREATE TABLE Beneficiarios (
     matricula VARCHAR(7) NOT NULL,
     nombres   VARCHAR(255) NOT NULL,
