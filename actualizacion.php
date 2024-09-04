@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php'; 
 
-// Verifica si se han enviado los datos por POST
+// Verifica si se han enviado los datos 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoge los datos del formulario
     $matricula = $_POST['matricula'];
