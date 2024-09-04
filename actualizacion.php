@@ -1,5 +1,51 @@
-<?php include 'header.php'; ?>
+<?php
+include 'conexion.php'; 
 
+// Verifica si se han enviado los datos por POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recoge los datos del formulario
+    $matricula = $_POST['matricula'];
+    $nombres = $_POST['nombres'];
+    $apellidopaterno = $_POST['apellidopaterno'];
+    $apellidomaterno = $_POST['apellidomaterno'];
+    $correo = $_POST['correo'];
+    $edad = $_POST['edad'];
+    $contrasena = $_POST['contrasena'];
+    $confirmarcontrasena = $_POST['confirmarcontrasena'];
+
+    // Verifica si las contraseñas coinciden
+    if ($contrasena !== $confirmarcontrasena) {
+        echo json_encode(array(
+            'status' => 'error',
+            'message' => 'Las contraseñas no coinciden. Por favor, verifica.'
+        ));
+        exit();
+    }
+
+    // Hashea la contraseña
+    $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+
+    // Consulta de actualización
+    $stmt = $con->prepare("UPDATE Beneficiarios SET nombres = ?, apellidopaterno = ?, apellidomaterno = ?, correo = ?, edad = ?, contrasena = ? WHERE matricula = ?");
+    $stmt->bind_param("sssssss", $nombres, $apellidopaterno, $apellidomaterno, $correo, $edad, $hashedPassword, $matricula);
+
+    if ($stmt->execute()) {
+        echo json_encode(array(
+            'status' => 'success',
+            'message' => 'Datos actualizados con éxito.'
+        ));
+    } else {
+        echo json_encode(array(
+            'status' => 'error',
+            'message' => 'Error al actualizar los datos: ' . $stmt->error
+        ));
+    }
+
+    // Cierra la declaración y la conexión
+    $stmt->close();
+    $con->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -135,3 +181,4 @@
     </div>
 </body>
 </html>
+
