@@ -1,0 +1,79 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    position: relative;
+    background-color: #00738C;
+    padding: 10px;
+    text-align: right;
+}
+
+/* Icono del menú (las tres rayas) */
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+}
+
+.main-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background-color: #00738C;
+    border: 1px solid #005f6b;
+}
+
+.main-menu li {
+    position: relative;
+}
+
+.main-menu li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    display: block;
+}
+
+.main-menu li:hover > a {
+    background-color: #005f6b;
+}
+
+/* Submenú */
+.submenu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 0;
+    right: 100%; /* Ahora se despliega hacia la izquierda */
+    background-color: #005f6b;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.submenu li a {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.submenu li a:hover {
+    background-color: #004d59;
+}
+
+
+/* Mostrar submenú cuando se pasa por "Beneficiarios" */
+.main-menu li:hover .submenu {
+    display: block;
+}
+
