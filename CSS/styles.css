@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-title h1 {
+    font-size: 18px;
+}
+
+.hero {
+    background-color: #406080;
+    color: #fff;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.hero-text h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.register {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.register input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.terms {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.terms label {
+    margin-left: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cta {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.cta div {
+    background-color: #406080;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 45%;
+    text-align: center;
+}
+
+.cta h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.cta p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.button-donate, .button-volunteer {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+}

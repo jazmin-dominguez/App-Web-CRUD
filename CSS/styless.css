@@ -1,0 +1,111 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+}
+
+header {
+    background-color: #355962;
+    color: white;
+    padding: 10px 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro-form-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre la intro y el formulario */
+    align-items: flex-start; /* Alinea ambos elementos en la parte superior */
+    margin: 20px 0;
+    padding: 20px; /* Añade un poco de padding para separarlo del contenido circundante */
+    background-color: #355962; /* Mismo color de fondo que la intro */
+}
+
+.intro {
+    text-align: left;
+    padding-right: 20px; /* Añade espacio entre la intro y el formulario */
+    color: white;
+    flex: 1; /* Permite que la intro ocupe el espacio disponible */
+}
+
+.intro h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.intro a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.formulario {
+    flex: 1; /* Permite que el formulario ocupe el espacio restante */
+    padding-left: 20px; /* Añade espacio entre la intro y el formulario */
+    max-width: 400px; /* Limita el ancho del formulario */
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    padding: 20px; /* Espacio dentro del formulario */
+    border-radius: 10px; /* Bordes redondeados para el formulario */
+}
+
+.formulario form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario label,
+.formulario input {
+    margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+    background-color: #ffffff;
+}
+
+.actions .donate, .actions .volunteer {
+    width: 30%;
+    padding: 10px 20px;
+    background-color: #355962;
+    color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    max-height: 150px;
+}
+
+.actions h3 {
+    margin-bottom: 10px;
+}
+
+.actions p {
+    margin-bottom: 20px;
+}
+
+.actions button {
+    padding: 10px 20px;
+    background-color: #2a69ac;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #B1BFB2;
+    color: white;
+}

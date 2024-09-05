@@ -9,6 +9,7 @@ CREATE TABLE Beneficiarios (
     edad DATE NOT NULL,
     contrasena VARCHAR(8) NOT NULL,
     confirmarcontrasena VARCHAR(8) NOT NULL,
+    roll STRING(10) NULL,
     idactividad VARCHAR(5) NOT NULL,
     idcurso VARCHAR(5) NOT NULL,
     `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
