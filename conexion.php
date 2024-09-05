@@ -1,5 +1,5 @@
 <?php
 
-$con = mysqli_connect("localhost", "root", "", "khan");
+$con = mysqli_connect("localhost", "root", "", "unityclass");
 
 ?>
