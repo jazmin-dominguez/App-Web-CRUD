@@ -69,4 +69,14 @@ CREATE TABLE Programa (
     nombre VARCHAR(255) NOT NULL,
     informacion VARCHAR(255) NOT NULL,
     `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
-)
+);
+
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    correo VARCHAR(255) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
+    nombres VARCHAR(255) NOT NULL,
+    apellidopaterno VARCHAR(255) NOT NULL,
+    apellidomaterno VARCHAR(255) NOT NULL,
+    fecha_registro TIMESTAMP NOT NULL DEFAULT current_timestamp()
+);

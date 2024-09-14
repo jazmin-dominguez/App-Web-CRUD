@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Comentarios</title>
+  
+  <style>
+    /* Estilo general */
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #FFFCF7;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Estilo del formulario */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #E4F0D0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+    }
+
+    label {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #738290;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #A1B5D8;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      resize: none;
+    }
+
+    input[type="submit"] {
+      background-color: #A1B5D8;
+      color: #FFFCF7;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #738290;
+    }
+  </style>
+</head>
+<body>
+  
+  <form action="#" method="post">
+    <label for="titulo">TÍTULO</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Escribe el título de tu comentario" required>
+
+    <label for="descripcion">DESCRIPCIÓN</label>
+    <textarea id="descripcion" name="descripcion" rows="5" placeholder="Escribe tu comentario aquí..." required></textarea>
+
+    <input type="submit" value="Enviar">
+  </form>
+
+</body>
+</html>
