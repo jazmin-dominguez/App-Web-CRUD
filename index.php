@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="CSS/registro.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
