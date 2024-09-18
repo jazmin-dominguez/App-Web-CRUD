@@ -194,12 +194,11 @@
             showSlide(currentSlide);
         }
 
-        setInterval(nextSlide, 3000); // Cambia de imagen cada 3 segundos
+        setInterval(nextSlide, 3000); 
 
-        // Mostrar la primera imagen al cargar la página
+        
         showSlide(currentSlide);
 
-        // Maneja el cambio de la selección de donación
         function handleDonateChange(select) {
             const value = select.value;
             const otherInput = document.getElementById('otherInput');
@@ -214,7 +213,7 @@
             donateButton.classList.remove('hidden');
         }
 
-        // Maneja el botón de donar
+        
         function handleDonate() {
             const select = document.getElementById('donationSelect');
             const otherInput = document.getElementById('otherInput');
@@ -228,7 +227,7 @@
             alert('Seleccionaste: ' + donationValue);
             thankYouMessage.style.display = 'block';
 
-            // Ocultar el mensaje después de 5 segundos
+            
             setTimeout(() => {
                 thankYouMessage.style.display = 'none';
             }, 5000);

@@ -124,7 +124,7 @@ $conn->close();
             rows.forEach(row => table.tBodies[0].appendChild(row));
         }
 
-        // Cargar datos en la tabla
+        // Cargar datos en la tablA
         document.addEventListener('DOMContentLoaded', function() {
             const donations = <?php echo json_encode($donations); ?>;
             const tableBody = document.getElementById('donationsTable').querySelector('tbody');
