@@ -8,17 +8,20 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            display: flex;
+            flex-direction: column;
             font-family: Arial, sans-serif;
         }
 
         .content {
-            min-height: 100%;
+            /*min-height: 100%;
             padding-bottom: 60px; /* Debe ser igual a la altura del footer */
+            flex: 1;
+            padding-bottom:60px;
             box-sizing: border-box;
         }
 
         .footer {
-            position: absolute;
             bottom: 0;
             width: 100%;
             height: 80px; /* Altura del footer */
@@ -52,7 +55,7 @@
     </div>
     <div class="footer">
         <div>
-            <img src="img/descarga (2).png" alt="Logo">
+            <img src="img/logo_ong.jpeg" alt="Logo">
             <p>Unity class | Khan Academy &#x2714;</p>
             <img src="img/images.png" alt="Logo"><br>
             <p>&copy; Copyright 2024</p><br>

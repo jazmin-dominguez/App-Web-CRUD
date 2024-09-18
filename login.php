@@ -26,7 +26,7 @@
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
-                    <img src="img/logo.png" alt="Logo" style="height: 80px; margin-right: 10px;">
+                    <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo" style="height: 80px; margin-right: 10px;">
                     <span class="h1 fw-bold mb-0">Unity Class</span>
                   </div>
 
