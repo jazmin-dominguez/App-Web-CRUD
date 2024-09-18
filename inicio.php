@@ -13,21 +13,21 @@
       <input type="checkbox" id="check">
       <header>
         </div>
-        <h2><a href="#" class="logo">Logo</a></h2>
+        <h2><a href="#" class="logo">Unity Class</a></h2>
         
         <div class="navigation">
           <!--<a href="#">Home</a>-->
-          <a href="#">About</a>
-          <a href="#">¿Quieres ser voluntario?</a>
-          <a href="#">¿Quieres Donar?</a>
+          <a href="about.php">About</a>
+          <a href="registro.php">¿Do you want to volunteer?</a>
+          <a href="registro.php">¿Do you want to donate?</a>
           <div class="dropdown">
-            <a href="#">Iniciar Sesion</a>
+            <a href="#">Login</a>
               <ul class="dropdown-menu">
-                <li><a href="">Administrador</a></li>
-                <li><a href="">Coordinador</a></li>
-                <li><a href="">Voluntario</a></li>
-                <li><a href="login.php">Donante</a></li>
-                <li><a href="login.php">Beneficiario</a></li>
+                <li><a href="login.php">Administrator</a></li>
+                <li><a href="login.php">Coordinator</a></li>
+                <li><a href="login.php">Volunteer</a></li>
+                <li><a href="login.php">Donor</a></li>
+                <li><a href="login.php">Beneficiary</a></li>
               </ul>
             </div>
           </div>
@@ -42,16 +42,15 @@
       <div class="content">
         <div class="info">
           <h2>There is no limit<br><span>to what you can learn!</span></h2>
-          <p>Khan Academy ofrece ejercicios de práctica, videos instructivos y un
-            panel de aprendizaje personalizado que empodera a los estudiantes
-            para que estudien a su propio ritmo, tanto dentro como fuera del aula.
-            Aborda matemáticas, ciencias, informática, historia, historia del arte,
-            economía y más. Se enfoca en el dominio de habilidades para ayudar a
-            los estudiantes a establecer bases sólidas.</p>
+          <p><span>Khan Academy offers practice exercises, instructional videos, and a personalized
+            learning dashboard that empowers studentsto study at their own pace, both in and 
+            out of the classroom.
+            It covers math, science, computer science, history, art history,economics, and more. 
+            It focuses on skill mastery to help students build strong foundations.</span></p>
           <a href="https://es.khanacademy.org/" target="_blank" class="info-btn">More info</a>
         </div>
       </div>
-      <div class="media-icons">
+    <!-- <div class="media-icons">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-twitter"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>

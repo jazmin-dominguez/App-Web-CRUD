@@ -85,9 +85,14 @@ header .navigation a:hover{
 }
 
 .content .info p{
+  text-align: justify;
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 40px;
+}
+.content .info p span{
+  color: #000;
+  background-color: #226A80;
 }
 
 .content .info-btn{

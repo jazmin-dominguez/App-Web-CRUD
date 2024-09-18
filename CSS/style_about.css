@@ -1,0 +1,136 @@
+*{
+    margin: 0px;
+    padding:0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background-color: #f2f2f2;
+}
+
+section {
+    margin-top: 5rem;
+}
+
+.heading{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px auto;
+}
+.heading h1{
+    font-size: 50px;
+    color: #000;
+    margin-bottom: 25px;
+    position: relative;
+}
+.heading h1::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    display: block;
+    margin: 0 auto;
+    background-color: #0cb7f2;
+}
+.heading p{
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 35px;
+}
+.container-about{
+    max-width: 1140px;
+    width: 100%;
+    margin:0 auto;
+    padding: 10px 20px;
+}
+.about{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.about-image{
+    flex: 1;
+    margin-right: 40px;
+    overflow: visible;
+}
+.about-image img{
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: 0.5s ease;
+}
+.about-image:hover img{
+    transform: scale(1.2);
+}
+.about-content{
+    flex: 1;
+}
+.about-content h2{
+    font-size: 23px;
+    margin-bottom: 15px;
+    color: #0979b0 
+}
+.about-content p{
+    font-size: 18px;
+    text-align: justify;
+    line-height: 1.5;
+    color: #666;
+}
+.about-content .read-more{
+    display: inline-block;
+    padding: 10px 20 px;
+    background-color: #004173;
+    color: #fff;
+    font-size: 19px;
+    text-decoration: none;
+    border-bottom: 30px;
+    margin-top: 15px;
+    transition: 0.3s ease;
+    border: 12px solid #004173;
+}
+.about-content .read-more:hover{
+    background-color: #0cb7f2;
+
+}
+@media screen and (max-width: 768px){
+    .about-image:hover img{
+        transform: none;
+    }
+    .heading{
+        padding: 0px 20 px;
+    }
+    .heading h1{
+        font-size: 36px;
+    }
+    .heading p{
+        font-size: 17px;
+        margin-bottom: 0px;
+    }
+    .container-about{
+        padding: 0px;
+    }
+    .about{
+        padding: 20px;
+        flex-direction: column;
+    }
+    .about-image{
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+    .about-content {
+        padding: 2rem;
+    }
+    .about-content p{
+        font-size: 16px;
+    }
+    .about-content .read-more{
+        font-size: 16px; 
+    }
+}
