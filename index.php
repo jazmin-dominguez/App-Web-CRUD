@@ -1,78 +1,63 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
-<head>
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="CSS/registro.css">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    <div class="main">
-        <div class="container a-container" id="a-container">
-            <form class="form" id="registrationForm" method="POST">
-                <h2 class="form_title title">Create Account</h2>
-                <input class="form__input" type="text" name="matricula" placeholder="AccNumber">
-                <input class="form__input" type="text" name="nombres" placeholder="Name">
-                <input class="form__input" type="text" name="apellidopaterno" placeholder="PaternalSurname">
-                <input class="form__input" type="text" name="apellidomaterno" placeholder="MaternalSurname">
-                <input class="form__input" type="text" name="correo" placeholder="Correo">
-                <input class="form__input" type="date" name="edad" placeholder="Birthday">
-                <input class="form__input" type="password" name="contrasena" placeholder="Password">
-                <input class="form__input" type="password" name="confirmarcontrasena" placeholder="PaswordConfirmation">
-                <button class="form__button button submit" id="submit">SIGN UP</button>
-            </form>
-            <div id="alertMessage" class="alert" style="display:none;"></div>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Website</title>
+    <link rel="stylesheet" href="CSS/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  </head>
+  <body>
+
+    <section>
+      <input type="checkbox" id="check">
+      <header>
         </div>
-        <div class="switch" id="switch-cnt">
-            <div class="switch__circle"></div>
-            <div class="switch__circle switch__circle--t"></div>
-            <div class="switch__container" id="switch-c1">
-                <h2 class="switch__title title">Welcome Back !</h2>
-                <p class="switch__description description">do you already have an account? Sign in HERE.</p>
-                <button class="switch__button button switch-btn">SIGN IN</button>
+        <h2><a href="#" class="logo">Unity Class</a></h2>
+        
+        <div class="navigation">
+          <!--<a href="#">Home</a>-->
+          <a href="about.php">About</a>
+          <a href="Registro_Usuariosform.php">¿Do you want to volunteer?</a>
+          <a href="Registro_Usuariosform.php">¿Do you want to donate?</a>
+          <div class="dropdown">
+            <a href="#">Login</a>
+              <ul class="dropdown-menu">
+                <li><a href="login.php">Administrator</a></li>
+                <li><a href="login.php">Coordinator</a></li>
+                <li><a href="login.php">Volunteer</a></li>
+                <li><a href="login.php">Donor</a></li>
+                <li><a href="login.php">Beneficiary</a></li>
+              </ul>
             </div>
+          </div>
+
+        <label for="check">
+        <i class="fas fa-bars menu-btn"></i>
+        <i class="fas fa-times close-btn"></i>
+        </label>
+      </header>
+
+
+      <div class="content">
+        <div class="info">
+          <h2>There is no limit<br><span>to what you can learn!</span></h2>
+          <p><span>Khan Academy offers practice exercises, instructional videos, and a personalized
+            learning dashboard that empowers studentsto study at their own pace, both in and 
+            out of the classroom.
+            It covers math, science, computer science, history, art history,economics, and more. 
+            It focuses on skill mastery to help students build strong foundations.</span></p>
+          <a href="https://es.khanacademy.org/" target="_blank" class="info-btn">More info</a>
         </div>
-    </div>
-    <script src="main.js"></script>
-    <script src="./script.js"></script>
-    <script>
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+      </div>
+    <!-- <div class="media-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </section>
 
-        var formData = new FormData(this);
+    
 
-        fetch('registro.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'error') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message,
-                });
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: data.message,
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An error occurred while processing your request.',
-            });
-        });
-    });
-</script>
-
-</body>
+  </body>
 </html>
