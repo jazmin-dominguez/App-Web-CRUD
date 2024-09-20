@@ -29,7 +29,7 @@
                 <div class="swiper-wrapper">
                     <article class="card__article swiper-slide">
                         <div class="circle-container">
-                            <img src="img/avatar-1.png" alt="image" class="card__img">
+                            <img src="../../img/avatar-1.png" alt="image" class="card__img">
                             <div class="card__shadow"></div>
                         </div>
         
@@ -44,7 +44,7 @@
         
                     <article class="card__article swiper-slide">
                         <div class="circle-container">
-                            <img src="img/avatar-3.png" alt="image" class="card__img">
+                            <img src="../../img/avatar-3.png" alt="image" class="card__img">
                             <div class="card__shadow"></div>
                         </div>
         
@@ -59,7 +59,7 @@
         
                     <article class="card__article swiper-slide">
                         <div class="circle-container">
-                            <img src="img/avatar-1.png" alt="image" class="card__img">
+                            <img src="../../img/avatar-1.png" alt="image" class="card__img">
                             <div class="card__shadow"></div>
                         </div>
         
@@ -74,7 +74,7 @@
         
                     <article class="card__article swiper-slide">
                         <div class="circle-container">
-                            <img src="img/avatar-3.png" alt="image" class="card__img">
+                            <img src="../../img/avatar-3.png" alt="image" class="card__img">
                             <div class="card__shadow"></div>
                         </div>
         
@@ -89,7 +89,7 @@
 
                     <article class="card__article swiper-slide">
                         <div class="circle-container">
-                            <img src="img/avatar-3.png" alt="image" class="card__img">
+                            <img src="../../img/avatar-3.png" alt="image" class="card__img">
                             <div class="card__shadow"></div>
                         </div>
         
@@ -118,7 +118,7 @@
             </div>
         </section>
         
-        <?php include 'footer.php' ;?>
+        <?php include '../../footer.php' ;?>  
         
         <!--=============== SWIPER JS ===============-->
         <script src="swiper-bundle.min.js"></script>
