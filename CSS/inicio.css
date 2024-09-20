@@ -91,8 +91,8 @@ header .navigation a:hover{
   margin-bottom: 40px;
 }
 .content .info p span{
+  background-color: hwb(200 68% 31%);
   color: #000;
-  background-color: #226A80;
 }
 
 .content .info-btn{
