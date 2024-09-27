@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombreactividad) || empty($tipo) || empty($descripcion) || empty($duracion) || empty($video['name'])) {
         $response = array(
             'status' => 'error',
-            'message' => 'Por favor, completa todos los campos antes de enviar.'
+            'message' => 'Please complete all fields before submitting.'
         );
         echo json_encode($response);
         exit();
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $response = array(
             'status' => 'error',
-            'message' => 'La actividad que intentas crear ya existe.'
+            'message' => 'The activity you are trying to create already exists.'
         );
         echo json_encode($response);
         exit();
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!move_uploaded_file($video['tmp_name'], $videoPath)) {
         $response = array(
             'status' => 'error',
-            'message' => 'Error al subir el archivo de video.'
+            'message' => 'Error uploading video file.'
         );
         echo json_encode($response);
         exit();
@@ -63,13 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         $response = array(
             'status' => 'success',
-            'message' => 'Registro exitoso.'
+            'message' => 'Successful registration.'
         );
         echo json_encode($response);
     } else {
         $response = array(
             'status' => 'error',
-            'message' => 'Error al registrar la actividad: ' . $stmt->error
+            'message' => 'Error logging the activity: ' . $stmt->error
         );
         echo json_encode($response);
     }
