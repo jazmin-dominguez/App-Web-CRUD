@@ -31,7 +31,7 @@
             <div class="switch__container" id="switch-c1">
                 <h2 class="switch__title title">Welcome Back !</h2>
                 <p class="switch__description description">do you already have an account? Sign in HERE.</p>
-                <button class="switch__button button switch-btn">SIGN IN</button>
+                <a href="login.php"><button class="switch__button button switch-btn">SIGN IN</button></a>
             </div>
         </div>
     </div>
