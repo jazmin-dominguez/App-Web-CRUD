@@ -110,7 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <a class="small text-muted" href="#!">Forgot password?</a>
                   <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="Registro_Usuariosform.php"
                       style="color: #393f81;">Register here</a></p>
->>>>>>> 7140922f4853659754412e222fc4fd32699de2c3
                   <a href="#!" class="small text-muted">Terms of use.</a>
                   <a href="#!" class="small text-muted">Privacy policy</a>
                 </form>
