@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donantes</title>
+    <title>Donors</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -129,52 +129,52 @@
 </head>
 <body>
     <div class="carousel">
-        <img src="../img/c1.jpg" alt="Slide 1">
-        <img src="../img/c2.jpg" alt="Slide 2">
-        <img src="../img/c3.jpg" alt="Slide 3">
+        <img src="../../img/c1.jpg" alt="Slide 1">
+        <img src="../../img/c2.jpg" alt="Slide 2">
+        <img src="../../img/c3.jpg" alt="Slide 3">
     </div>
 
     <main>
         <section class="card">
-            <h2>INFORMES</h2>
-            <p>Transparencia y resultados: Explora nuestros informes para ver cómo tus contribuciones están cambiando vidas.</p>
+            <h2>INFORMATION</h2>
+            <p>Transparency and results: Explore our reports to see how your contributions are changing lives.</p>
             <div class="button-container">
-                <button onclick="location.href='#'">Ver más</button>
+                <button onclick="location.href='#'">Read more</button>
             </div>
         </section>
 
         <section class="card">
-            <h2>DONACIONES</h2>
-            <p>Cada contribución cuenta. Dona ahora y sé parte del cambio que quieres ver en el mundo. Consulta el historial de tus donaciones para ver el impacto que has logrado.</p>
+            <h2>DONATIONS</h2>
+            <p>Every contribution counts. Donate now and be part of the change you want to see in the world. View your donation history to see the impact you've made.</p>
             <div class="button-container">
                 <div class="button-row">
-                    <button onclick="location.href='#'">Ver</button>
+                    <button onclick="location.href='#'">See</button>
                     <div class="select-container">
                         <select id="donationSelect" onchange="handleDonateChange(this)">
-                            <option value="" disabled selected>Donar</option>
-                            <option value="voluntario">Tiempo como voluntario</option>
-                            <option value="materiales">Materiales o suministros</option>
-                            <option value="tecnologia">Equipos tecnológicos</option>
-                            <option value="otro">Otro (especificar)</option>
+                            <option value="" disabled selected>Donate</option>
+                            <option value="voluntario">Volunteer time</option>
+                            <option value="materiales">Materials or supplies</option>
+                            <option value="tecnologia">Technological equipment</option>
+                            <option value="otro">Other (specify)</option>
                         </select>
                     </div>
                 </div>
                 <input type="text" id="otherInput" class="hidden" placeholder="Especifica aquí">
-                <button id="donateButton" class="hidden" onclick="handleDonate()">Donar</button>
+                <button id="donateButton" class="hidden" onclick="handleDonate()">Donate</button>
             </div>
         </section>
 
         <section class="card">
-            <h2>CONTACTO</h2>
-            <p>Queremos escucharte. Ponte en contacto con nosotros para colaborar o recibir más información sobre nuestras actividades.</p>
+            <h2>CONTACT</h2>
+            <p>We want to hear you. Contact us to collaborate or receive more information about our activities.</p>
             <div class="button-container">
-                <button onclick="location.href='#'">Contactar</button>
+                <button onclick="location.href='#'">Contact</button>
             </div>
         </section>
     </main>
 
     <div id="thankYouMessage" class="message">
-        Gracias por creer en nuestra causa y por ser parte de esta comunidad que se esfuerza por un futuro mejor.
+    Thank you for believing in our cause and for being part of this community that strives for a better future.
     </div>
 
     <script>
