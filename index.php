@@ -23,11 +23,11 @@
           <div class="dropdown">
             <a href="#">Login</a>
               <ul class="dropdown-menu">
-                <li><a href="login.php">Administrator</a></li>
-                <li><a href="login.php">Coordinator</a></li>
-                <li><a href="login.php">Volunteer</a></li>
-                <li><a href="login.php">Donor</a></li>
-                <li><a href="login.php">Beneficiary</a></li>
+                  <li><a href="login.php?role=administrador">Administrator</a></li>
+                  <li><a href="login.php?role=coordinador">Coordinator</a></li>
+                  <li><a href="login.php?role=voluntario">Volunteer</a></li>
+                  <li><a href="login.php?role=donante">Donor</a></li>
+                  <li><a href="login.php?role=beneficiario">Beneficiary</a></li>
               </ul>
             </div>
           </div>
