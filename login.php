@@ -1,22 +1,8 @@
 <?php
-session_start(); // iniciar la sesion al principio 
+session_start(); // Iniciar la sesión al principio
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $correo = $_POST['correo']; // El correo ingresado en el formulario de login
-
-    // Validar el correo y la contraseña en la base de datos
-    // Aquí se realiza la validación del usuario en la base de datos
-
-    // Si el login es exitoso, guardar el correo en la sesión
-    $_SESSION['correo_usuario'] = $correo;
-
-    // Redirigir a la página principal
-    header("Location: \Voluntarios");
-    exit();
-}
-
-// Captura el tipo de usuario desde la URL
-$tipo_usuario = isset($_GET['tipo']) ? $_GET['tipo'] : '';
+// Capturar el tipo de usuario desde la URL
+$tipo_usuario = isset($_GET['role']) ? $_GET['role'] : ''; 
 
 // Si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['tipo_usuario'] = $tipo_usuario; // Guarda el tipo de usuario
 
             // Redirigir a la página principal
-            header("Location: \Voluntarios");
+            header("Location: dashboard.php?role=" . urlencode($tipo_usuario));
             exit();
         } else {
             echo "<div class='alert alert-danger'>Contraseña incorrecta.</div>";
@@ -55,9 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $con->close();
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <div class="card-body p-4 p-lg-5 text-black">
 
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?role=" . urlencode($tipo_usuario); ?>">
-
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo" style="height: 80px; margin-right: 10px;">
