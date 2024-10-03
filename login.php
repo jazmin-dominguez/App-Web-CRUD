@@ -1,22 +1,8 @@
 <?php
-session_start(); // iniciar la sesion al principio 
+session_start(); // Iniciar la sesión al principio
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $correo = $_POST['correo']; // El correo ingresado en el formulario de login
-
-    // Validar el correo y la contraseña en la base de datos
-    // Aquí se realiza la validación del usuario en la base de datos
-
-    // Si el login es exitoso, guardar el correo en la sesión
-    $_SESSION['correo_usuario'] = $correo;
-
-    // Redirigir a la página principal
-    header("Location: \Voluntarios");
-    exit();
-}
-
-// Captura el tipo de usuario desde la URL
-$tipo_usuario = isset($_GET['tipo']) ? $_GET['tipo'] : '';
+// Capturar el tipo de usuario desde la URL
+$tipo_usuario = isset($_GET['role']) ? $_GET['role'] : ''; 
 
 // Si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['tipo_usuario'] = $tipo_usuario; // Guarda el tipo de usuario
 
             // Redirigir a la página principal
-            header("Location: \Voluntarios");
+            header("Location: dashboard.php?role=" . urlencode($tipo_usuario));
             exit();
         } else {
             echo "<div class='alert alert-danger'>Contraseña incorrecta.</div>";
@@ -55,9 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $con->close();
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?tipo=" . $tipo_usuario); ?>">
+              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?role=" . urlencode($tipo_usuario); ?>">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo" style="height: 80px; margin-right: 10px;">
@@ -108,9 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
 
                   <a class="small text-muted" href="#!">Forgot password?</a>
-                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="Registro_Usuariosform.php"
-                      style="color: #393f81;">Register here</a></p>
->>>>>>> 7140922f4853659754412e222fc4fd32699de2c3
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="Registro_Usuariosform.php?role=<?php echo urlencode($tipo_usuario); ?>" style="color: #393f81;">Register here</a></p>
                   <a href="#!" class="small text-muted">Terms of use.</a>
                   <a href="#!" class="small text-muted">Privacy policy</a>
                 </form>

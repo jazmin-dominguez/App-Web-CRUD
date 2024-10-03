@@ -25,9 +25,9 @@
               <ul class="dropdown-menu">
                   <li><a href="login.php?role=administrador">Administrator</a></li>
                   <li><a href="login.php?role=coordinador">Coordinator</a></li>
-                  <li><a href="login.php?role=voluntario">Volunteer</a></li>
+                  <li><a href="login.php?role=voluntarios">Volunteer</a></li>
                   <li><a href="login.php?role=donante">Donor</a></li>
-                  <li><a href="login.php?role=beneficiario">Beneficiary</a></li>
+                  <li><a href="login.php?role=beneficiarios">Beneficiary</a></li>
               </ul>
             </div>
           </div>
@@ -56,7 +56,7 @@
         <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
     </section>
-
+    -->  
     
 
   </body>

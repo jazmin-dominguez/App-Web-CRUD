@@ -1,9 +1,13 @@
+<?php
+$role = isset($_GET['role']) ? $_GET['role'] : ''; // Obtener el rol desde la URL
+?>
+
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 <head>
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="CSS/registro.css">
+<link rel="stylesheet" type="text/css" href="registro/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui/material-ui.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -11,13 +15,13 @@
 <body>
     <div class="main">
         <div class="container a-container" id="a-container">
-            <form class="form" id="registrationForm" method="POST">
+        <form class="form" id="registrationForm" method="POST" action="registro.php?role=<?php echo isset($_GET['role']) ? $_GET['role'] : ''; ?>">
                 <h2 class="form_title title">Create Account</h2>
                 <input class="form__input" type="text" name="matricula" placeholder="AccNumber">
                 <input class="form__input" type="text" name="nombres" placeholder="Name">
                 <input class="form__input" type="text" name="apellidopaterno" placeholder="PaternalSurname">
                 <input class="form__input" type="text" name="apellidomaterno" placeholder="MaternalSurname">
-                <input class="form__input" type="text" name="correo" placeholder="Correo">
+                <input class="form__input" type="email" name="correo" placeholder="Correo">
                 <input class="form__input" type="date" name="edad" placeholder="Birthday">
                 <input class="form__input" type="password" name="contrasena" placeholder="Password">
                 <input class="form__input" type="password" name="confirmarcontrasena" placeholder="PaswordConfirmation">
@@ -39,40 +43,46 @@
     <script src="./script.js"></script>
     <script>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        var formData = new FormData(this);
+    var formData = new FormData(this);
+    var role = new URLSearchParams(window.location.search).get('role') || '';
 
-        fetch('registro.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'error') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message,
-                });
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: data.message,
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+    fetch('registro.php?role=' + encodeURIComponent(role), {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'error') {
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'An error occurred while processing your request.',
+                title: 'Oops...',
+                text: data.message,
             });
+        } else {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: data.message,
+            }).then(() => {
+                // Redirige al login respectivo
+                window.location.href = data.redirect;
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred while processing your request.',
         });
     });
+});
+
 </script>
 
 </body>
 </html>
+}
