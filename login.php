@@ -84,7 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?tipo=" . $tipo_usuario); ?>">
+              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?role=" . urlencode($tipo_usuario); ?>">
+
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo" style="height: 80px; margin-right: 10px;">
@@ -108,8 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
 
                   <a class="small text-muted" href="#!">Forgot password?</a>
-                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="Registro_Usuariosform.php"
-                      style="color: #393f81;">Register here</a></p>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="Registro_Usuariosform.php?role=<?php echo urlencode($tipo_usuario); ?>" style="color: #393f81;">Register here</a></p>
                   <a href="#!" class="small text-muted">Terms of use.</a>
                   <a href="#!" class="small text-muted">Privacy policy</a>
                 </form>
