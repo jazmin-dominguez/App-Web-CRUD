@@ -12,48 +12,38 @@
 </head>
 <body>
 
-    <div class="header">
-        <h1 class="title-project"><i class="fa-regular fa-face-smile"></i> ********** | Khan Academy <img src="khan.png" alt="Icono de ejemplo" class="custom-icon"></h1> 
-    </div>
-
-    <div class="nav">
-        <button><span class="left-arrow">&lt;</span> Registro de actividades</button>
-        <button><span class="left-arrow">&lt;</span> Actualización de estados de tarea</button>
-        <button class="transparent-btn"><i class="fa-solid fa-envelope"></i> Coordinadores</button>
-        <button class="transparent-btn"><i class="fa-solid fa-envelope"></i> Voluntarios</button>
-    </div>
     <div class="container">
-        <h1>Registro de Actividad</h1>
+        <h1>Activity register</h1>
 
             <form id="registro-actividad-form" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="nombreactividad" class="form-label">Nombre de la Actividad</label>
-                    <input type="text" class="form-control" id="nombreactividad" name="nombreactividad" placeholder="Nombre de la actividad">
+                    <label for="nombreactividad" class="form-label">Name activity</label>
+                    <input type="text" class="form-control" id="nombreactividad" name="nombreactividad" placeholder="Name activity">
                 </div>
 
                 <div class="mb-3">
-                    <label for="tipo_actividad" class="form-label">Tipo de Actividad</label>
+                    <label for="tipo_actividad" class="form-label">Activity type</label>
                     <select id="tipo_actividad" name="tipo" class="form-control">
                         <option value="AudioVisual">AudioVisual</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="video" class="form-label">Inserta actividad Video</label>
+                    <label for="video" class="form-label">Insert Video Activity</label>
                     <input type="file" class="form-control" accept="video/mp4" id="video" name="video">
                 </div>
 
                 <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción</label>
+                    <label for="descripcion" class="form-label">Description</label>
                     <textarea id="descripcion" name="descripcion" class="form-control" rows="4" placeholder="Descripción breve"></textarea>
                 </div>
 
                 <div class="mb-3">
-                    <label for="duracion" class="form-label">Duración</label>
+                    <label for="duracion" class="form-label">Duration</label>
                     <input type="date" class="form-control" id="duracion" name="duracion">
                 </div>
 
-                <button type="button" class="btn btn-primary" id="guardar-btn">Guardar</button>
+                <button type="button" class="btn btn-primary" id="guardar-btn">Submitt</button>
             </form>
     </div>
 
@@ -75,7 +65,7 @@
                     // Mostrar alerta SweetAlert2 para éxito
                     Swal.fire({
                         icon: 'success',
-                        title: '¡Registro exitoso!',
+                        title: '¡Successful registration!',
                         text: data.message,
                         confirmButtonText: 'OK'
                     });
@@ -85,7 +75,7 @@
                         icon: 'error',
                         title: 'Error',
                         text: data.message,
-                        confirmButtonText: 'Intentar de nuevo'
+                        confirmButtonText: 'Try Again'
                     });
                 }
             })
@@ -93,9 +83,9 @@
                 console.error('Error en la solicitud:', error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en la solicitud',
-                    text: 'Ocurrió un problema al enviar los datos.',
-                    confirmButtonText: 'Intentar de nuevo'
+                    title: 'Error in the submitt',
+                    text: 'A problem occurred while sending the data.',
+                    confirmButtonText: 'Try again.'
                 });
             });
         });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Actividades</title>
+    <title>Activity History</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,9 +84,9 @@
     </style>
 </head>
 <body>
-    <h1>Historial de Actividades</h1>
+    <h1>Activity History</h1>
     <div class="search-bar">
-        <input type="text" placeholder="Buscar actividades...">
+        <input type="text" placeholder="Search activities...">
         <button>🔍</button>
     </div>
     <div class="table-container">
@@ -94,10 +94,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Estado</th>
-                    <th>Cantidad</th>
-                    <th>Fecha de Registro</th>
+                    <th>Name</th>
+                    <th>State</th>
+                    <th>Amount</th>
+                    <th>Registration Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,7 +131,7 @@
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5'>No hay actividades registradas</td></tr>";
+                    echo "<tr><td colspan='5'>There are no registered activities</td></tr>";
                 }
 
                 

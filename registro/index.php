@@ -17,7 +17,7 @@
                 <input class="form__input" type="text" name="nombres" placeholder="Name">
                 <input class="form__input" type="text" name="apellidopaterno" placeholder="PaternalSurname">
                 <input class="form__input" type="text" name="apellidomaterno" placeholder="MaternalSurname">
-                <input class="form__input" type="text" name="correo" placeholder="Correo">
+                <input class="form__input" type="email" name="correo" placeholder="Correo">
                 <input class="form__input" type="date" name="edad" placeholder="Birthday">
                 <input class="form__input" type="password" name="contrasena" placeholder="Password">
                 <input class="form__input" type="password" name="confirmarcontrasena" placeholder="PaswordConfirmation">

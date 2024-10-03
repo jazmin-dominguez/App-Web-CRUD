@@ -16,7 +16,7 @@ $Confirmarcontrasena = $_POST['confirmarcontrasena'];
 if (empty($Matricula) || empty($Nombres) || empty($Apellidopaterno) || empty($Apellidomaterno) || empty($Correo) || empty($Edad) || empty($Contrasena) || empty($Confirmarcontrasena)) {
     $response = array(
         'status' => 'error',
-        'message' => 'Por favor, completa todos los campos antes de enviar.'
+        'message' => 'Please complete all fields before submitting.'
     );
     echo json_encode($response);
     exit();
@@ -31,7 +31,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $response = array(
         'status' => 'error',
-        'message' => 'El correo y/o la matricula de beneficiario ya están registrados. ¡Inicia Sesión!'
+        'message' => 'Your email and/or beneficiary registration is already registered, please login!'
     );
     echo json_encode($response);
     exit();
@@ -41,7 +41,7 @@ if ($result->num_rows > 0) {
 if ($Contrasena !== $Confirmarcontrasena) {
     $response = array(
         'status' => 'error',
-        'message' => 'Las contraseñas no coinciden. Por favor, verifica.'
+        'message' => 'Incorrect password, Try again.'
     );
     echo json_encode($response);
     exit();
@@ -57,13 +57,13 @@ $stmt->bind_param("sssssss", $Matricula, $Nombres, $Apellidopaterno, $Apellidoma
 if ($stmt->execute()) {
     $response = array(
         'status' => 'success',
-        'message' => 'Registro exitoso. ¡Bienvenido!'
+        'message' => 'Succesful Registration. ¡Welcome!'
     );
     echo json_encode($response);
 } else {
     $response = array(
         'status' => 'error',
-        'message' => 'Error al registrar el usuario: ' . $stmt->error
+        'message' => 'Error when registering the user: ' . $stmt->error
     );
     echo json_encode($response);
 }
