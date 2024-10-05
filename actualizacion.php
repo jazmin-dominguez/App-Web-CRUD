@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Beneficiario</title>
+    <title>Update Beneficiary</title>
     <style>
         * {
             margin: 0;
@@ -139,42 +139,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Actualizar Datos del Beneficiario</h2>
+            <h2>Update Beneficiary Data</h2>
             <form id="updateForm" action="actualizacion.php" method="post">
                 <div class="input-group">
-                    <label for="matricula">Matrícula:</label>
+                    <label for="matricula">Tuition:</label>
                     <input type="text" id="matricula" name="matricula" required>
                 </div>
                 <div class="input-group">
-                    <label for="nombres">Nombres:</label>
+                    <label for="nombres">Names:</label>
                     <input type="text" id="nombres" name="nombres" required>
                 </div>
                 <div class="input-group">
-                    <label for="apellidopaterno">Apellido Paterno:</label>
+                    <label for="apellidopaterno">Paternal Last Name:label>
                     <input type="text" id="apellidopaterno" name="apellidopaterno" required>
                 </div>
                 <div class="input-group">
-                    <label for="apellidomaterno">Apellido Materno:</label>
+                    <label for="apellidomaterno">Maternal Surname:</label>
                     <input type="text" id="apellidomaterno" name="apellidomaterno" required>
                 </div>
                 <div class="input-group">
-                    <label for="correo">Correo Electrónico:</label>
+                    <label for="correo">Email:</label>
                     <input type="email" id="correo" name="correo" required>
                 </div>
                 <div class="input-group">
-                    <label for="edad">Edad:</label>
+                    <label for="edad">Age:</label>
                     <input type="date" id="edad" name="edad" required>
                 </div>
                 <div class="input-group">
-                    <label for="contrasena">Contraseña:</label>
+                    <label for="contrasena">Password:</label>
                     <input type="password" id="contrasena" name="contrasena" required>
                 </div>
                 <div class="input-group">
-                    <label for="confirmarcontrasena">Confirmar Contraseña:</label>
+                    <label for="confirmarcontrasena">Confirm Password:</label>
                     <input type="password" id="confirmarcontrasena" name="confirmarcontrasena" required>
                 </div>
                 <div class="input-group">
-                    <button type="submit">Actualizar</button>
+                    <button type="submit">Update</button>
                 </div>
             </form>
         </div>
