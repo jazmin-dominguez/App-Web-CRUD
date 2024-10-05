@@ -21,7 +21,7 @@
         <button><span class="left-arrow">&lt;</span> Actualización de estados de tarea</button>
         <button class="transparent-btn"><i class="fa-solid fa-envelope"></i> Coordinadores</button>
         <button class="transparent-btn"><i class="fa-solid fa-envelope"></i> Voluntarios</button>
-    </div>
+    </div> 
     <div class="container">
         <h1>Registro de Actividad</h1>
 

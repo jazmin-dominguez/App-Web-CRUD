@@ -1,0 +1,189 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header.main-header {
+    background-color: #C2D8B9;
+    color: #738290;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 110px;
+    margin-right: 10px;
+}
+
+.header-right{
+    display: flex;
+    align-items: center;
+}
+
+.logo span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #eee;
+    padding: 20px;
+}
+.nav{
+    width: 300px;
+}
+.nav__link{
+    color:#303440;
+    display: block;
+    padding: 15px 0;
+    text-decoration: none;
+}
+.nav__link--inside{
+    border-radius: 6px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.nav__link--inside:hover{
+    background-color: #f44336;
+}
+
+/*.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+} */
+.list{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content:baseline;
+    flex-direction: column;
+    border-radius: 0 16px 16px 0;
+}
+.list__item{
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+.list__item--click{
+    cursor: pointer;
+}
+.list__button{
+    display: flex;
+    align-items: center;
+    gap:1em;
+    width: 70%;
+    margin:0 auto;
+}
+
+.arrow .list__arrow{
+    transform: rotate(90deg);
+
+}
+
+.list__arrow{
+    margin-left: auto;
+    transition: transform .3s;
+}
+
+.list__show{
+    width: 80%;
+    margin-left: auto;
+    border-left: 2px solid #303440;
+    list-style: none;
+    transition: height .4s;
+    height: 0;
+}
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #004c93;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.skills {
+    margin-top: 20px;
+}
+
+.skills ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+/*footer {
+    background-color: #004c93;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+footer .contact p,
+footer .contact a {
+    margin-bottom: 5px;
+}*/
