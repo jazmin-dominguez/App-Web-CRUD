@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root"; // Cambia esto según tu configuración
-$password = ""; // Cambia esto según tu configuración
-$dbname = "UnityClass";
+$username = "root"; 
+$password = ""; 
+$dbname = "unityclass";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -18,10 +18,16 @@ $result = $conn->query($sql);
 
 $donations = [];
 
+if ($result === FALSE) {
+    die("Error en la consulta: " . $conn->error);
+}
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $donations[] = $row;
     }
+} else {
+    echo "No se encontraron donaciones.";
 }
 
 $conn->close();
@@ -42,7 +48,6 @@ $conn->close();
             align-items: center;
         }
 
-        /* Estilos para la tabla de donaciones */
         .table-container {
             width: 100%;
             display: flex;
@@ -97,7 +102,7 @@ $conn->close();
                 </tr>
             </thead>
             <tbody>
-                <!-- Las filas de la tabla se llenarán aquí mediante JavaScript -->
+                <!-- Aquí se cargarán los datos -->
             </tbody>
         </table>
     </div>
@@ -124,7 +129,7 @@ $conn->close();
             rows.forEach(row => table.tBodies[0].appendChild(row));
         }
 
-        // Cargar datos en la tablA
+        // Cargar datos en la tabla
         document.addEventListener('DOMContentLoaded', function() {
             const donations = <?php echo json_encode($donations); ?>;
             const tableBody = document.getElementById('donationsTable').querySelector('tbody');
