@@ -1,3 +1,64 @@
+<?php
+session_start(); // iniciar la sesion al principio 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $correo = $_POST['correo']; // El correo ingresado en el formulario de login
+
+    // Validar el correo y la contraseña en la base de datos
+    // Aquí se realiza la validación del usuario en la base de datos
+
+    // Si el login es exitoso, guardar el correo en la sesión
+    $_SESSION['correo_usuario'] = $correo;
+
+    // Redirigir a la página principal
+    header("Location: \Voluntarios");
+    exit();
+}
+
+// Captura el tipo de usuario desde la URL
+$tipo_usuario = isset($_GET['tipo']) ? $_GET['tipo'] : '';
+
+// Si se ha enviado el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $correo = $_POST['correo']; // El correo ingresado en el formulario de login
+    $contrasena = $_POST['contrasena']; // La contraseña ingresada
+
+    include 'conexion.php'; // Conexión a la base de datos
+
+    // Prepara la consulta según el tipo de usuario
+    $stmt = $con->prepare("SELECT contrasena FROM $tipo_usuario WHERE correo = ?");
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $stmt->store_result();
+
+    // Verifica si el usuario existe
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($hashedPassword);
+        $stmt->fetch();
+
+        // Verifica la contraseña
+        if (password_verify($contrasena, $hashedPassword)) {
+            // Si el login es exitoso, guardar el correo y el tipo en la sesión
+            $_SESSION['correo_usuario'] = $correo;
+            $_SESSION['tipo_usuario'] = $tipo_usuario; // Guarda el tipo de usuario
+
+            // Redirigir a la página principal
+            header("Location: \Voluntarios");
+            exit();
+        } else {
+            echo "<div class='alert alert-danger'>Contraseña incorrecta.</div>";
+        }
+    } else {
+        echo "<div class='alert alert-danger'>El correo electrónico no está registrado.</div>";
+    }
+
+    $stmt->close();
+    $con->close();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +84,7 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?tipo=" . $tipo_usuario); ?>">
 
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo" style="height: 80px; margin-right: 10px;">
@@ -55,37 +116,9 @@
                 </form>
 
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    include 'conexion.php'; 
-
-                    $correo = $_POST['correo'];
-                    $contrasena = $_POST['contrasena'];
-
-                    // Prepara la consulta
-                    $stmt = $con->prepare("SELECT contrasena FROM Beneficiarios WHERE correo = ?");
-                    $stmt->bind_param("s", $correo);
-                    $stmt->execute();
-                    $stmt->store_result();
-
-                    // Verifica si el usuario existe
-                    if ($stmt->num_rows > 0) {
-                        $stmt->bind_result($hashedPassword);
-                        $stmt->fetch();
-
-                        // Verifica la contraseña
-                        if (password_verify($contrasena, $hashedPassword)) {
-                            echo "<div class='alert alert-success'>Inicio de sesión exitoso.</div>";
-                        } else {
-                            echo "<div class='alert alert-danger'>Contraseña incorrecta.</div>";
-                        }
-                    } else {
-                        echo "<div class='alert alert-danger'>El correo electrónico no está registrado.</div>";
-                    }
-
-                    
-                    $stmt->close();
-                    $con->close();
-                }
+                  if (isset($error)) {
+                      echo "<div class='alert alert-danger'>$error</div>";
+                  }
                 ?>
 
               </div>
