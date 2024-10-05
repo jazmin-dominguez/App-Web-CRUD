@@ -1,8 +1,21 @@
 <?php
-
 include("conexion.php");
 
-// Capturando datos del formulario
+// Capturar el tipo de usuario desde la URL
+$tipo_usuario = isset($_GET['role']) ? $_GET['role'] : '';
+
+// Validar que el tipo de usuario es uno de los permitidos
+$tipos_permitidos = ['beneficiarios', 'voluntarios'];
+if (!in_array($tipo_usuario, $tipos_permitidos)) {
+    $response = array(
+        'status' => 'error',
+        'message' => 'Invalid user role specified.'
+    );
+    echo json_encode($response);
+    exit();
+}
+
+// Capturar los datos del formulario
 $Matricula = $_POST['matricula'];
 $Nombres = $_POST['nombres'];
 $Apellidopaterno = $_POST['apellidopaterno'];
@@ -16,14 +29,14 @@ $Confirmarcontrasena = $_POST['confirmarcontrasena'];
 if (empty($Matricula) || empty($Nombres) || empty($Apellidopaterno) || empty($Apellidomaterno) || empty($Correo) || empty($Edad) || empty($Contrasena) || empty($Confirmarcontrasena)) {
     $response = array(
         'status' => 'error',
-        'message' => 'Por favor, completa todos los campos antes de enviar.'
+        'message' => 'Please complete all fields before submitting.'
     );
     echo json_encode($response);
     exit();
 }
 
-// Verificación de duplicados en la base de datos
-$stmt = $con->prepare("SELECT * FROM beneficiarios WHERE matricula = ? OR correo = LOWER(?)");
+// Verificar duplicados en la base de datos
+$stmt = $con->prepare("SELECT * FROM $tipo_usuario WHERE matricula = ? OR correo = LOWER(?)");
 $stmt->bind_param("ss", $Matricula, $Correo);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -31,7 +44,7 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $response = array(
         'status' => 'error',
-        'message' => 'El correo y/o la matricula de beneficiario ya están registrados. ¡Inicia Sesión!'
+        'message' => 'Your email and/or registration is already registered, please login!'
     );
     echo json_encode($response);
     exit();
@@ -41,29 +54,30 @@ if ($result->num_rows > 0) {
 if ($Contrasena !== $Confirmarcontrasena) {
     $response = array(
         'status' => 'error',
-        'message' => 'Las contraseñas no coinciden. Por favor, verifica.'
+        'message' => 'Passwords do not match, try again.'
     );
     echo json_encode($response);
     exit();
 }
 
 // Encriptar la contraseña antes de guardarla
-$Contrasena = password_hash($Contrasena, PASSWORD_DEFAULT); 
+$Contrasena = password_hash($Contrasena, PASSWORD_DEFAULT);
 
-// Insertar los datos en la base de datos
-$stmt = $con->prepare("INSERT INTO beneficiarios (matricula, nombres, apellidopaterno, apellidomaterno, correo, edad, contrasena) VALUES (?,?,?,?,?,?,?)");
+// Insertar los datos en la base de datos según el tipo de usuario
+$stmt = $con->prepare("INSERT INTO $tipo_usuario (matricula, nombres, apellidopaterno, apellidomaterno, correo, edad, contrasena) VALUES (?,?,?,?,?,?,?)");
 $stmt->bind_param("sssssss", $Matricula, $Nombres, $Apellidopaterno, $Apellidomaterno, $Correo, $Edad, $Contrasena);
 
 if ($stmt->execute()) {
     $response = array(
         'status' => 'success',
-        'message' => 'Registro exitoso. ¡Bienvenido!'
+        'message' => 'Successful Registration. ¡Welcome!',
+        'redirect' => "login.php?role=" . urlencode($tipo_usuario) // Redirigir al login correspondiente
     );
     echo json_encode($response);
 } else {
     $response = array(
         'status' => 'error',
-        'message' => 'Error al registrar el usuario: ' . $stmt->error
+        'message' => 'Error when registering the user: ' . $stmt->error
     );
     echo json_encode($response);
 }

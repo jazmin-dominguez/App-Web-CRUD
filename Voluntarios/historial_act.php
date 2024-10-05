@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Actividades</title>
+    <title>Activity History</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -81,12 +81,62 @@
         table tr:nth-child(odd) {
             background-color: #FFFDF7; 
         }
+
+        header.main-header {
+            background-color: #C2D8B9;
+            color: #738290;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 110px;
+            margin-right: 10px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        .btn-logout {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <h1>Historial de Actividades</h1>
+    <header class="main-header">
+        <div class="logo">
+            <img src="../img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo de la ONG">
+            <span>Unity Class</span>
+        </div>
+        <div class="header-right">
+            <h1>Welcome, <?php //echo htmlspecialchars($nombreVoluntario); ?>!</h1> <!-- Mostrar el nombre del voluntario -->
+            <a href="logout.php" class="btn-logout">Sign Out</a>
+        </div>
+    </header>
+    
+    <h1>Activity History</h1>
     <div class="search-bar">
-        <input type="text" placeholder="Buscar actividades...">
+        <input type="text" placeholder="Search activities...">
         <button>🔍</button>
     </div>
     <div class="table-container">
@@ -94,32 +144,32 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Estado</th>
-                    <th>Cantidad</th>
-                    <th>Fecha de Registro</th>
+                    <th>Name</th>
+                    <th>State</th>
+                    <th>Amount</th>
+                    <th>Registration Date</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                
                 $servername = "localhost";
                 $username = "root";
                 $password = "";
                 $dbname = "UnityClass";
 
-                
+                // Crear conexión
                 $conn = new mysqli($servername, $username, $password, $dbname);
 
+                // Verificar conexión
                 if ($conn->connect_error) {
                     die("Conexión fallida: " . $conn->connect_error);
                 }
 
-                
+                // Obtener datos de actividades
                 $sql = "SELECT idactividades, nombre, estado, cantidad, fecha_registro FROM Actividades";
                 $result = $conn->query($sql);
 
-                
+                // Mostrar datos
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>
@@ -131,10 +181,9 @@
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5'>No hay actividades registradas</td></tr>";
+                    echo "<tr><td colspan='5'>There are no registered activities</td></tr>";
                 }
 
-                
                 $conn->close();
                 ?>
             </tbody>
