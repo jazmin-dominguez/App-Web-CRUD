@@ -32,6 +32,7 @@
         <button id="historial-btn" class="btn btn-primary"><i class="fa-solid fa-history"></i> Historial</button>
     </div>
 
+
     <div class="container">
         <h1>Activity register</h1>
 
