@@ -129,7 +129,7 @@
 </head>
 <body>
     <div class="carousel">
-        <img src="../img/c1.jpg" alt="Slide 1">
+        <img src="../../img/c1.jpg" alt="Slide 1">
         <img src="../img/c2.jpg" alt="Slide 2">
         <img src="../img/c3.jpg" alt="Slide 3">
     </div>
@@ -250,5 +250,7 @@
             });
         }
     </script>
+
+    <?php include '../../footer.php'; ?>
 </body>
 </html>

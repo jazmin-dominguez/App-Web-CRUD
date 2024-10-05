@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; // Cambia esto según tu configuración
 $password = ""; // Cambia esto según tu configuración
-$dbname = "UnityClass";
+$dbname = "unityclass";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
