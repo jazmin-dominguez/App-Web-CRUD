@@ -128,6 +128,8 @@
     </style>
 </head>
 <body>
+    <?php include '../../Donantes/Donaciones/header_donantes.php'; ?>
+
     <div class="carousel">
         <img src="../../img/c1.jpg" alt="Slide 1">
         <img src="../../img/c2.jpg" alt="Slide 2">
@@ -250,5 +252,7 @@
             });
         }
     </script>
+
+    <?php include '../../footer.php'; ?>
 </body>
 </html>

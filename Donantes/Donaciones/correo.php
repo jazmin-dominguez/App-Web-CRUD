@@ -17,4 +17,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error al enviar el correo";
     }
 } else {
-    http_response_code(
+    http_response_code( 
