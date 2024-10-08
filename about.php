@@ -14,12 +14,10 @@
         <link rel="stylesheet" href="./css/style_navBar.css">
         <link rel="stylesheet" href="./css/style_default.css">
         <link rel="stylesheet" href="./css/style_footer.css"> --> 
-        <link rel="stylesheet" href="./css/style_about.css">
+        <link rel="stylesheet" href="CSS/style_about.css">
         <title>About - Unity Class</title>
     </head>
     <body>
-
-
         <!-- About -->
         <section>
             <div class="heading">
@@ -29,7 +27,7 @@
             <div class="container-about">
                 <div class="About">
                     <div class="about-image">
-                        <img src="img/pexels-mirrographer-1164572.jpg"> <br>
+                        <img src="SRC/pexels-mirrographer-1164572.jpg"> <br>
                     </div>
                     <div class="about-content">
                         <br><br><h2>Our mission</h2>

@@ -55,9 +55,9 @@
     </div>
     <div class="footer">
         <div>
-            <img src="img/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo">
+            <img src="SRC/WhatsApp Image 2024-09-04 at 9,55,54 PM_processed.jpeg" alt="Logo">
             <p>Unity class | Khan Academy &#x2714;</p>
-            <img src="img/images.png" alt="Logo"><br>
+            <img src="SRC/images.png" alt="Logo"><br>
             <p>&copy; Copyright 2024</p><br>
             <p>&#174; Khan Academy</p>
         </div>
