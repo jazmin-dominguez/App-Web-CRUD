@@ -44,11 +44,11 @@
                 ?>
                 <div class="w-full h-full flex flex-col">
                     <header class="w-full bg-white py-4 px-6">
-                        <h1 class="text-2xl text-gray-700">Panel de Administración</h1>
+                        <h1 class="text-2xl text-gray-700">Administration Panel</h1>
                     </header>
                     <div class="flex-grow bg-gray-100 p-6">
-                        <h2 class="text-4xl font-bold text-gray-800">Bienvenido <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
-                        <p class="text-gray-600 mt-2">Seleccione una opción del menú para comenzar.</p>
+                        <h2 class="text-4xl font-bold text-gray-800">Welcome <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
+                        <p class="text-gray-600 mt-2">Select an option from the menu to begin.</p>
                     </div>
                 </div>
                 <?php
@@ -57,11 +57,11 @@
                 ?>
                 <div class="w-full h-full flex flex-col">
                     <header class="w-full bg-white py-4 px-6">
-                        <h1 class="text-2xl text-gray-700">Panel de Administración</h1>
+                        <h1 class="text-2xl text-gray-700">Administration Panel</h1>
                     </header>
                     <div class="flex-grow bg-gray-100 p-6">
-                        <h2 class="text-4xl font-bold text-gray-800">Bienvenido <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
-                        <p class="text-gray-600 mt-2">Seleccione una opción del menú para comenzar.</p>
+                        <h2 class="text-4xl font-bold text-gray-800">Welcome <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
+                        <p class="text-gray-600 mt-2">Select an option from the menu to begin.</p>
                     </div>
                 </div>
                 <?php
@@ -69,7 +69,7 @@
             if ($showForm0):
                 include('crearusuario.php');
             endif;
-             if ($showForm1):
+            if ($showForm1):
                 include('listar_usuario.php');
             endif;
             if ($showForm2):
