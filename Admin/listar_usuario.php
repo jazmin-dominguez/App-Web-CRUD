@@ -7,19 +7,19 @@ require_once '../Conexion/contacto.php';
                     ?>
                     <div class="w-full h-full flex flex-col">
                         <header class="w-full bg-white py-4 px-6">
-                            <h1 class="text-2xl text-gray-700">Listado de Usuarios</h1>
+                            <h1 class="text-2xl text-gray-700">List of Users</h1>
                         </header>
                         <div class="flex-grow bg-gray-100 p-6">
                             <div class="overflow-x-auto">
                                 <table class="min-w-full bg-white border border-gray-300 rounded-lg">
                                     <thead>
                                         <tr>
-                                            <th class="px-4 py-2 border-b border-gray-300">Nombre</th>
-                                            <th class="px-4 py-2 border-b border-gray-300">Correo</th>
-                                            <th class="px-4 py-2 border-b border-gray-300">Género</th>
-                                            <th class="px-4 py-2 border-b border-gray-300">Edad</th>
-                                            <th class="px-4 py-2 border-b border-gray-300">Tipo de Usuario</th>
-                                            <th class="px-4 py-2 border-b border-gray-300">Fecha de Nacimiento</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">Name</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">Email</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">Gender</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">Age</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">User Type</th>
+                                            <th class="px-4 py-2 border-b border-gray-300">Date of Birth</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,6 +41,6 @@ require_once '../Conexion/contacto.php';
                     <?php
                 } else {
                     // Mensaje de error si no hay resultados o hubo un problema con la consulta
-                    echo '<p class="text-center text-red-500">No se encontraron usuarios o hubo un error en la consulta.</p>';
+                    echo '<p class="text-center text-red-500">No users were found or there was an error in the query.</p>';
                 }
                 ?>
