@@ -1,36 +1,39 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-	class Conexion
-	{
-		private $host='localhost';
-		private $usuario='root';
-		private $password = '';
-		private $base='unityclass';
-		public $sentencia;
-		private $rows =array();
-		private $conexion;	
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-		private function abrir_conexion(){
-			$this->conexion = new mysqli($this->host,$this->usuario,$this->password,$this->base);
-		}
+class Conexion {
+    private $host = 'localhost';
+    private $usuario = 'root';
+    private $password = '';
+    private $base = 'unityclass';
+    public $sentencia;
+    private $rows = array();
+    private $conexion;    
 
-		private function cerrar_conexion(){
-			$this->conexion->close(); 
-		}
-		public function ejecutar_sentencia(){
-			$this->abrir_conexion();
-			$bandera = $this->conexion->query($this->sentencia);
-			$this->cerrar_conexion();
-			return $bandera;
-		}
+    private function abrir_conexion() {
+        $this->conexion = new mysqli($this->host, $this->usuario, $this->password, $this->base);
+        if ($this->conexion->connect_error) {
+            die("Error de conexión: " . $this->conexion->connect_error);
+        }
+    }
 
-		public function obtener_sentencia(){
-			$this->abrir_conexion();
-			$result = $this->conexion->query($this->sentencia);
-			return $result;
-		}
-	}
+    private function cerrar_conexion() {
+        $this->conexion->close(); 
+    }
 
+    public function ejecutar_sentencia() {
+        $this->abrir_conexion();
+        $bandera = $this->conexion->query($this->sentencia);
+        $this->cerrar_conexion();
+        return $bandera;
+    }
+
+    public function obtener_sentencia() {
+        $this->abrir_conexion();
+        $result = $this->conexion->query($this->sentencia);
+        return $result;
+    }
+}
 ?>
