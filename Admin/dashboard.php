@@ -9,6 +9,7 @@
   $showForm1 = isset($_GET['action']) && $_GET['action'] == 'listarusuarios';
   $showForm2 = isset($_GET['action']) && $_GET['action'] == 'modificarusuario';
   $showForm3 = isset($_GET['action']) && $_GET['action'] == 'eliminarusuario';
+  $showForm4 = isset($_GET['action']) && $_GET['action'] == 'crearmateria';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,7 +41,7 @@
 
     <main class="flex-grow ml-64">
         <?php
-            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3):
+            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4):
                 ?>
                 <div class="w-full h-full flex flex-col">
                     <header class="w-full bg-white py-4 px-6">
@@ -77,6 +78,9 @@
             endif;
             if ($showForm3):
                 include('eliminar_usuario.php');
+            endif;
+            if ($showForm4):
+              include('crearmateria.php');
             endif;
         ?>
     </main>
