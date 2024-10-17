@@ -82,5 +82,11 @@
             $result = $this->ejecutar_sentencia();
             return $result;
         }
+        public function crear_materia($nombre_materia, $descripcion)
+        {
+            $this->sentencia = "INSERT INTO materias (nombre_materia,objetivos) VALUES ('$nombre_materia','$descripcion');";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
     }
 ?>
