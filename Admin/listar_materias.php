@@ -6,35 +6,49 @@ error_reporting(E_ALL);
 // Incluir la conexión a la base de datos
 require_once '../Conexion/conexion.php';
 
-// Crear una instancia de la clase Conexion
+
 $conexion = new Conexion();
 
-// Definir la consulta para obtener las materias
+
 $query = "SELECT * FROM materias";
 $conexion->sentencia = $query;
 
-// Ejecutar la consulta usando el método de la clase
-$result = $conexion->obtener_sentencia();
 
-if ($result) {
-    if ($result->num_rows > 0) {
-        echo "<table class='table-auto w-full'>";
-        echo "<thead><tr><th>ID</th><th>Nombre de la Materia</th><th>Objetivos</th><th>Actividades</th><th>Unidad</th></tr></thead>";
-        echo "<tbody>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["id"] . "</td>";
-            echo "<td>" . $row["nombre_materia"] . "</td>";
-            echo "<td>" . $row["objetivos"] . "</td>";
-            echo "<td>" . $row["actividades"] . "</td>";
-            echo "<td>" . $row["unidad"] . "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody></table>";
-    } else {
-        echo "No hay materias registradas.";
-    }
-} else {
-    echo "Error en la consulta.";
-}
+$result = $conexion->obtener_sentencia();
 ?>
+
+<?php if ($result && $result->num_rows > 0): ?>
+    <div class="w-full h-full flex flex-col">
+        <header class="w-full bg-white py-4 px-6">
+            <h1 class="text-2xl text-gray-700">List of Subjects</h1>
+        </header>
+        <div class="flex-grow bg-gray-100 p-6">
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 border-b border-gray-300">ID</th>
+                            <th class="px-4 py-2 border-b border-gray-300">Subject Name</th>
+                            <th class="px-4 py-2 border-b border-gray-300">Objectives</th>
+                            <th class="px-4 py-2 border-b border-gray-300">Activities</th>
+                            <th class="px-4 py-2 border-b border-gray-300">Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["id"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["nombre_materia"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["objetivos"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["actividades"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["unidad"] ?? ''); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <p class="text-center text-red-500">No subjects were found or there was an error in the query.</p>
+<?php endif; ?>
