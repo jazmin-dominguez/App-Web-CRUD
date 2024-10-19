@@ -88,5 +88,29 @@
             $result = $this->ejecutar_sentencia();
             return $result;
         }
+        public function listar_materias()
+        {
+            $this->sentencia = "SELECT * FROM materias";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
+        public function obtener_materia_por_id($id)
+        {
+            $this->sentencia = "SELECT * FROM materias WHERE id = $id";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
+        public function modificar_materia($id, $nombre_materia, $objetivos)
+        {
+            $this->sentencia = "UPDATE materias SET nombre_materia='$nombre_materia', objetivos='$objetivos' WHERE id = $id";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
+        public function eliminar_materia($id)
+        {
+            $this->sentencia = "DELETE FROM materias WHERE id = $id";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
     }
 ?>
