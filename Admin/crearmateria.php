@@ -7,13 +7,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label for="nombre_materia" class="block text-gray-700 font-bold mb-2">
-                                        <i class="fas fa-user"></i> Subject name:
+                                        <i class="fa-solid fa-book-open-reader"></i> Subject name:
                                     </label>
                                     <input type="text" id="nombre_materia" name="nombre_materia" placeholder="Assing a name to your subject" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                                 </div>
                                 <div>
                                     <label for="descripcion" class="block text-gray-700 font-bold mb-2">
-                                        <i class="fas fa-hashtag"></i> Description:
+                                        <i class="fas fa-info-circle"></i> Description:
                                     </label>
                                     <input type="text" id="descripcion" name="descripcion" placeholder="Describe your subject" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                                 </div>
@@ -22,7 +22,7 @@
                             <!-- Contenedor de actividades -->
                             <div class="mb-4">
                                 <label for="actividades" class="block text-gray-700 font-bold mb-2">
-                                    <i class="fas fa-user-tag"></i> Select an activity:
+                                    <i class="fas fa-book-open"></i> Select an activity:
                                 </label>
                                 <select id="actividades" name="actividades" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                                     <option value="activity1">activity 1</option>
