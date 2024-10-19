@@ -12,6 +12,8 @@ $showForm2 = isset($_GET['action']) && $_GET['action'] == 'modificarusuario';
 $showForm3 = isset($_GET['action']) && $_GET['action'] == 'eliminarusuario';
 $showForm4 = isset($_GET['action']) && $_GET['action'] == 'crearmateria';
 $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria'; 
+$showForm6 = isset($_GET['action']) && $_GET['action'] == 'modificarmateria';
+$showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,6 +23,7 @@ $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria';
     <title>Dashboard Administrativo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         .submenu {
@@ -44,7 +47,7 @@ $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria';
         <main class="flex-grow ml-64">
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5):
+                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         <header class="w-full bg-white py-4 px-6">
@@ -77,7 +80,7 @@ $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria';
                     include('listar_usuario.php');
                 endif;
                 if ($showForm2):
-                    include('modificar_usuario.php');
+                    include('modicar_usuario.php');
                 endif;
                 if ($showForm3):
                     include('eliminar_usuario.php');
@@ -87,6 +90,12 @@ $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria';
                 endif;
                 if ($showForm5):
                     include('listar_materias.php');
+                endif;
+                if($showForm6):
+                    include('modificar_materia.php');
+                endif;
+                if ($showForm7):
+                    include('eliminar_materias.php');
                 endif;
             ?>
         </main>
