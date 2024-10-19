@@ -24,24 +24,24 @@ $result = $conexion->obtener_sentencia();
         </header>
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border border-gray-300 rounded-lg">
-                    <thead>
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-4 py-2 border-b border-gray-300">ID</th>
-                            <th class="px-4 py-2 border-b border-gray-300">Subject Name</th>
-                            <th class="px-4 py-2 border-b border-gray-300">Objectives</th>
-                            <th class="px-4 py-2 border-b border-gray-300">Activities</th>
-                            <th class="px-4 py-2 border-b border-gray-300">Unit</th>
+                            
+                            <th class="w-1/4 px-6 py-3 text-center text-sm font-medium text-gray-700 border-b border-gray-300"">Subject Name</th>
+                            <th class="w-1/2 px-6 py-3 text-center text-sm font-medium text-gray-700 border-b border-gray-300"">Objectives</th>
+                            <th class="w-1/4 px-6 py-3 text-center text-sm font-medium text-gray-700 border-b border-gray-300"">Activities</th>
+                            
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-200">
                         <?php while ($row = $result->fetch_assoc()): ?>
-                            <tr>
-                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["id"] ?? ''); ?></td>
-                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["nombre_materia"] ?? ''); ?></td>
-                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["objetivos"] ?? ''); ?></td>
-                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["actividades"] ?? ''); ?></td>
-                                <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row["unidad"] ?? ''); ?></td>
+                            <tr class="hover:bg-gray-50">
+                                
+                                <td class="w-1/4 px-6 py-4  text-sm text-gray-800 align-top break-words border-b border-gray-300"><?php echo htmlspecialchars($row["nombre_materia"] ?? ''); ?></td>
+                                <td class="w-1/2 px-6 py-4 text-sm text-gray-800 align-top break-words border-b border-gray-300"><?php echo htmlspecialchars($row["objetivos"] ?? ''); ?></td>
+                                <td class="w-1/4 px-6 py-4 text-sm text-gray-800 align-top break-words border-b border-gray-300"><?php echo htmlspecialchars($row["actividades"] ?? ''); ?></td>
+                                
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
