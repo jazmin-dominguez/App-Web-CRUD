@@ -77,6 +77,7 @@
                         </form>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
     if(isset($_POST['submit']))
@@ -89,8 +90,30 @@
         $tipo_usuario = $_POST['tipo_usuario'];
         $fecha_nac = $_POST['fecha_nac'];
 
+        $fecha_nac_timestamp = strtotime($fecha_nac);
+        $edad_calculada = date('Y') - date('Y', $fecha_nac_timestamp);
+
+        if ($edad_calculada != $edad) {
+            echo    '<script>
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "La edad y la fecha de nacimiento no coinciden"
+                        });
+                    </script>';
+        } else {
         require_once ('../Conexion/contacto.php');
         $obj = new Contacto();
         $obj->crear_usuario($nombre, $edad, $correo, $password, $genero, $tipo_usuario, $fecha_nac);
+        
+        // Mostrar mensaje de registro exitoso
+        echo '<script>
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Registro exitoso!",
+                    text: "Tu cuenta ha sido creada correctamente"
+                });
+            </script>';
+        }
     }
 ?>
