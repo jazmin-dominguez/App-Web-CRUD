@@ -112,5 +112,11 @@
             $result = $this->ejecutar_sentencia();
             return $result;
         }
+        public function crear_programa($nombre_programa, $descripcion_programa, $materia, $tipo_usuario)
+        {
+            $this->sentencia = "INSERT INTO programas (nombre, descripcion, FK_materia, FK_tipo_usuario) VALUES ('$nombre_programa', '$descripcion_programa', '$materia', '$tipo_usuario')";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
     }
 ?>
