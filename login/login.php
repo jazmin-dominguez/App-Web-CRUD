@@ -81,7 +81,7 @@
       </div>
 
       <div class="col-lg-6 mb-5 mb-lg-0">
-        <img src="../SRC/niño_login.png" class="w-100 rounded-4 shadow-4" alt="" />
+        <img src="../SRC/nino_login.png" class="w-100 rounded-4 shadow-4" alt="" />
       </div>
     </div>
   </div>

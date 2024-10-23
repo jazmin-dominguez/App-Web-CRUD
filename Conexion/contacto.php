@@ -46,9 +46,9 @@
         }
 
         // Método para registrar un nuevo usuario
-        public function crear_usuario($nombre, $edad, $correo, $password, $genero, $tipo_usuario, $fecha_nac)
+        public function crear_usuario($nombre, $correo, $password, $genero, $edad, $tipo_usuario, $fecha_nac)
         {
-            $this->sentencia = "INSERT INTO usuarios (nombre,correo, password, genero, edad, tipo_usuario, fecha_nac) VALUES ('$nombre','$correo','$password','$genero','$edad','$tipo_usuario','$fecha_nac');";
+            $this->sentencia = "INSERT INTO usuarios (nombre, correo, password, genero, edad,tipo_usuario, fecha_nac) VALUES ('$nombre','$correo','$password','$genero',$edad,'$tipo_usuario','$fecha_nac');";
             $result = $this->ejecutar_sentencia();
             return $result;
         }
