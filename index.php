@@ -38,7 +38,7 @@
                         <a href="#about" class="nav-link active">About</a>
                     </li>
                     <li>
-                        <a href="#login" class="nav-link">Login</a>
+                        <a href="login/login.php" class="nav-link">Login</a>
                     </li>
                     <li>
                         <a href="#Popular" class="nav-link">Popular</a>
@@ -506,7 +506,7 @@
                 <div class="flex flex-col gap-1">
                     <a href="#home">Home</a>
                     <a href="#about">About </a>
-                    <a href="#login">Login</a>
+                    <a href="login/login.php">Login</a>
                     <a href="#Popular">Popular</a>
                     <a href="#review">Review</a>
                 </div>
