@@ -12,6 +12,7 @@ $showForm4 = isset($_GET['action']) && $_GET['action'] == 'crearmateria';
 $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria'; 
 $showForm6 = isset($_GET['action']) && $_GET['action'] == 'modificarmateria';
 $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
+$showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -88,6 +89,9 @@ $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
                 endif;
                 if ($showForm7):
                     include('eliminar_materias.php');
+                endif;
+                if ($showForm8):
+                    include('crearprograma.php');
                 endif;
             ?>
         </main>

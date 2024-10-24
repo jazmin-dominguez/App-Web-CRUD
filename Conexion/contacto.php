@@ -112,5 +112,24 @@
             $result = $this->ejecutar_sentencia();
             return $result;
         }
+        public function crear_programa($nombre_programa, $descripcion_programa, $materia, $tipo_usuario)
+        {
+            $this->sentencia = "INSERT INTO programas (nombre, descripcion, FK_materia, FK_tipo_usuario) VALUES ('$nombre_programa', '$descripcion_programa', '$materia', '$tipo_usuario')";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
+        // Función para obtener todos los usuarios que son 'teachers'
+public function obtener_usuarios_teachers() {
+    $this->sentencia = "SELECT id, nombre FROM usuarios WHERE tipo_usuario = 'Teacher'";
+    $resultado = $this->ejecutar_sentencia();
+    return $resultado->fetch_all(MYSQLI_ASSOC);
+}
+// Función para obtener todas las materias
+public function obtener_todas_materias() {
+    $this->sentencia = "SELECT id, nombre_materia FROM materias";
+    $resultado = $this->ejecutar_sentencia();
+    return $resultado->fetch_all(MYSQLI_ASSOC);
+}
+
     }
 ?>
