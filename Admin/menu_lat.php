@@ -21,9 +21,6 @@
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=crearusuario">Create Users</a></li>
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarusuarios">List Users</a></li>
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=modificarusuario">Modify Users</a></li>
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=eliminarusuario">Delete Users</a></li>
-              
             </ul>
           </li>
           <!-- Programas -->

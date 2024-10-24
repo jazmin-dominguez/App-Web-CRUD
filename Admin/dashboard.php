@@ -8,8 +8,6 @@ if (!isset($_SESSION['nombre'])) {
 $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
 $showForm0 = isset($_GET['action']) && $_GET['action'] == 'crearusuario';
 $showForm1 = isset($_GET['action']) && $_GET['action'] == 'listarusuarios';
-$showForm2 = isset($_GET['action']) && $_GET['action'] == 'modificarusuario';
-$showForm3 = isset($_GET['action']) && $_GET['action'] == 'eliminarusuario';
 $showForm4 = isset($_GET['action']) && $_GET['action'] == 'crearmateria';
 $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria'; 
 $showForm6 = isset($_GET['action']) && $_GET['action'] == 'modificarmateria';
@@ -47,7 +45,7 @@ $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
         <main class="flex-grow ml-64">
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7):
+                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         <header class="w-full bg-white py-4 px-6">
@@ -78,12 +76,6 @@ $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
                 endif;
                 if ($showForm1):
                     include('listar_usuario.php');
-                endif;
-                if ($showForm2):
-                    include('modicar_usuario.php');
-                endif;
-                if ($showForm3):
-                    include('eliminar_usuario.php');
                 endif;
                 if ($showForm4):
                     include('crearmateria.php');

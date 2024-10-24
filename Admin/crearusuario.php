@@ -11,12 +11,6 @@
                                     </label>
                                     <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                                 </div>
-                                <div>
-                                    <label for="edad" class="block text-gray-700 font-bold mb-2">
-                                        <i class="fas fa-hashtag"></i> Age:
-                                    </label>
-                                    <input type="number" id="edad" name="edad" placeholder="Edad" min="10" max="99" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                                </div>
                             </div>
 
                             <!-- Contenedor de correo y contraseña -->
@@ -83,7 +77,6 @@
     if(isset($_POST['submit']))
     {
         $nombre = $_POST['nombre'];
-        $edad = $_POST['edad'];
         $correo = $_POST['correo'];
         $password = $_POST['password'];
         $genero = $_POST['genero'];
@@ -93,18 +86,9 @@
         $fecha_nac_timestamp = strtotime($fecha_nac);
         $edad_calculada = date('Y') - date('Y', $fecha_nac_timestamp);
 
-        if ($edad_calculada != $edad) {
-            echo    '<script>
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "La edad y la fecha de nacimiento no coinciden"
-                        });
-                    </script>';
-        } else {
         require_once ('../Conexion/contacto.php');
         $obj = new Contacto();
-        $obj->crear_usuario($nombre, $edad, $correo, $password, $genero, $tipo_usuario, $fecha_nac);
+        $obj->crear_usuario($nombre, $correo, $password, $genero, $edad_calculada, $tipo_usuario, $fecha_nac);
         
         // Mostrar mensaje de registro exitoso
         echo '<script>
@@ -114,6 +98,5 @@
                     text: "Tu cuenta ha sido creada correctamente"
                 });
             </script>';
-        }
     }
 ?>
