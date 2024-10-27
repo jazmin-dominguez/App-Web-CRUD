@@ -9,7 +9,9 @@
   $showForm1 = isset($_GET['action']) && $_GET['action'] == 'listarusuarios';
   $showForm2 = isset($_GET['action']) && $_GET['action'] == 'modificarusuario';
   $showForm3 = isset($_GET['action']) && $_GET['action'] == 'eliminarusuario';
-  $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminar_materias';
+  $showForm4 = isset($_GET['action']) && $_GET['action'] == 'eliminar_materias';
+  $showForm5 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
+  $showForm6 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +43,7 @@
 
     <main class="flex-grow ml-64">
         <?php
-            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm7):
+            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm6):
                 ?>
                 <div class="w-full h-full flex flex-col">
                     <header class="w-full bg-white py-4 px-6">
@@ -79,8 +81,14 @@
             if ($showForm3):
                 include('eliminar_usuario.php');
             endif;
-            if($showForm7):
+            if($showForm4):
               include('eliminar_materias.php');
+            endif;
+            if($showForm5):
+              include('crearprograma.php');
+            endif;
+            if($showForm6):
+              include('listarprogramas.php');
             endif;
         ?>
     </main>
