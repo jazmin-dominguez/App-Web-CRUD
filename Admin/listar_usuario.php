@@ -5,14 +5,16 @@ $result = $obj->listar_usuarios();
 
 if ($result && $result->num_rows > 0) {
 ?>
+
+<link rel="stylesheet" href="../CSS/tabla.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css"/>
 <div class="w-full h-full flex flex-col">
     <header class="w-full bg-white py-4 px-6">
         <h1 class="text-2xl text-gray-700">List of Users</h1>
     </header>
     <div class="flex-grow bg-gray-100 p-6">
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+        <div class="table-container">
+            <table class="table">
                 <thead>
                     <tr>
                         <th class="px-4 py-2 border-b border-gray-300">Name</th>
