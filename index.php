@@ -23,9 +23,9 @@
 <body>
     <!--HEADER -->
     <header id="navbar" class="bg-cyan-700 fixed w-full top-0 left-0 z-50">
-        <nav class="container flex items-center justify-between h-16 sm:h-20">
-            <div class="font-Lobster sm:text-2xl">Unity Class</div>
-
+        <nav class="container flex items-center justify-between h-16 sm:h-20">   
+        <div class="font-Lobster sm:text-2xl">Unity Class</div>
+        <div id="google_translate_element" class="text-white text-sm bg-cyan-700 rounded px-2 py-1"></div>   
             <div id="nav-menu" class="absolute top-0 left-[-100%] min-h-[80vh] w-full
             bg-cyan-700/80 backdrop-blur-sm flex items-center 
             justify-center duration-300 overflow-hidden lg:static lg:min-h-fit
@@ -566,7 +566,34 @@
 
     <!--mainjs-->
     <script src="./inicio/main.js"></script>
+    
+    <script type="text/javascript">
+        function googleTranslateElementInit(){
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        }
+    </script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
+<style>
+    /* Oculta la marca de Google y el enlace traducir */
+    .goog-logo-link, .goog-te-gadget span {
+        display: none !important;
+    }
+    /* Ajusta la altura del contenedor para que no quede espacio en blanco adicional */
+    .goog-te-gadget {
+        height: auto !important;
+    }
+    /* Ajusta el tamaño del select */
+    #google_translate_element select {
+        background-color: #00ACC1; /* Cambia a tu color preferido */
+        color: white;
+        border: none;
+        border-radius: 0.375rem; /* Tailwind: rounded-md */
+        padding: 0.25rem 0.5rem; /* Tailwind: px-2 py-1 */
+    }
+</style>
 </body>
 </html>
