@@ -12,6 +12,8 @@
   $showForm4 = isset($_GET['action']) && $_GET['action'] == 'crearmateria';
   $showForm5 = isset($_GET['action']) && $_GET['action'] == 'listarmateria';
   $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminar_materias';
+  $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
+  $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +47,7 @@
     <main class="flex-grow ml-64">
         <?php
 
-            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm7):
+            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm7 && !$showForm8 && !$showForm9):
 
                 ?>
                 <div class="w-full h-full flex flex-col">
@@ -88,11 +90,11 @@
             if ($showForm5):
               include('listar_materias.php');
           endif;
-           
-            if($showForm5):
+      
+            if($showForm8):
               include('crearprograma.php');
             endif;
-            if($showForm6):
+            if($showForm9):
               include('listarprogramas.php');
             endif;
         ?>
