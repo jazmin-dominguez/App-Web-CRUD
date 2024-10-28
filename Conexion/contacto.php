@@ -31,7 +31,7 @@
                             header("location: ../Donacion/dashboard.php");
                             break;
                         case 'Cordinator':
-                            header("location: ../Cordinador/dashboard.php");
+                            header("location: ../Coordinador/dashboard.php");
                             break;
                         default:
                             header("location: login.php?error=1");
