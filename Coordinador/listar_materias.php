@@ -1,57 +1,62 @@
 <?php
-require_once '../Conexion/contacto.php';
-$obj = new Contacto();
-$result = $obj->listar_programas();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-if ($result === false) {
-    echo '<p class="text-center text-red-500">Error en la consulta a la base de datos.</p>';
-} elseif ($result->num_rows === 0) {
-    echo '<p class="text-center text-red-500">No se encontraron programas.</p>';
-} else {
-    ?>
+// Incluir la conexión a la base de datos
+require_once '../Conexion/conexion.php';
+
+
+$conexion = new Conexion();
+
+
+$query = "SELECT * FROM materias";
+$conexion->sentencia = $query;
+
+
+$result = $conexion->obtener_sentencia();
+?>
+
+<?php if ($result && $result->num_rows > 0): ?>
     <div class="w-full h-full flex flex-col">
         <header class="w-full bg-white py-4 px-6 shadow-md mb-4">
-            <h1 class="text-2xl font-semibold text-gray-700">List of Programs</h1>
+            <h1 class="text-2xl text-gray-700">List of Subjects</h1>
         </header>
-        
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">
                 <table id="programTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg font-Jost">
                     <thead class="bg-gray-200 ">
                         <tr>
-                            <th class="px-4 py- border border-gray-300  text-white bg-cyan-700">Name</th>
-                            <th class="px-4 py-2 border  border-gray-300 font-serif text-white bg-cyan-700">Description</th>
-                            <th class="px-4 py-2 border  border-gray-300 font-sans text-white bg-cyan-700">Subject</th>
-                            <th class="px-4 py-2 border  border-gray-300 font-sans text-white bg-cyan-700">Name Teacher</th>
-                            <th class="px-4 py-2 border  border-gray-300 font-sans text-white bg-cyan-700">User Type</th>
-                            <th class="px-4 py-2 border border-gray-300 font-sans text-white bg-cyan-700">Actions</th>
+                            
+                            <th class="px-4 py-2 border border-gray-300  text-white bg-cyan-700">Subject Name</th>
+                            <th class="px-4 py-2 border border-gray-300  text-white bg-cyan-700">Objectives</th>
+                            <th class="px-4 py-2 border border-gray-300  text-white bg-cyan-700">Activities</th>
+                            <th class="px-4 py-2 border border-gray-300  text-white bg-cyan-700">Activities</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <?php while ($row = $result->fetch_assoc()) { ?>
-                            <tr class="border border-gray-300 hover:bg-gray-100">
-                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row['programa_nombre']); ?></td>
-                                <td class="px-4 py-2 border border-gray-300 max-w-md"><?php echo htmlspecialchars($row['descripcion']); ?></td>
-                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row['nombre_materia']); ?></td>
-                                <td class="px-4 py-2 border border-gray-300"><?php echo htmlspecialchars($row['nombre']); ?></td>
-                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row['tipo_usuario']); ?></td>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr class="border hover:bg-gray-50">
+                                
+                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row["nombre_materia"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row["objetivos"] ?? ''); ?></td>
+                                <td class="px-4 py-2 border  border-gray-300"><?php echo htmlspecialchars($row["actividades"] ?? ''); ?></td>
                                 
                                 <td class="px-4 py-2 border-b border-gray-300 text-center">
                                     <div class="flex justify-center space-x-2">
                                         <a href="modificarprograma.php?id=<?php echo !empty($row['id']) ? urlencode($row['id']) : '#'; ?>" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"><i class="fas fa-edit"></i></a>
-                                        <a href="eliminar_programa.php?id=<?php echo !empty($row['id']) ? urlencode($row['id']) : '#'; ?>" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="return confirm('¿Estás seguro de que deseas eliminar este programa?');"><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <?php
-}
-?>
+<?php else: ?>
+    <p class="text-center text-red-500">No subjects were found or there was an error in the query.</p>
+<?php endif; ?>
 
 <!-- Incluye las bibliotecas de DataTables y ajusta el estilo del buscador y la paginación -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
@@ -95,7 +100,7 @@ if ($result === false) {
         margin: 0 0.25rem;
         border-radius: 0.375rem;
         background-color: #f3f4f6;
-        color: #4b5563;
+        
         font-size: 0.875rem;
         border: 1px solid #ddd;
     }
@@ -107,6 +112,6 @@ if ($result === false) {
     }
     .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
         background-color: #e5e7eb;
-        color: #111827;
     }
 </style>
+
