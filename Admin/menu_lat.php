@@ -39,7 +39,7 @@
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=crearprograma">Create Program</a></li>
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarprograma">List Programs</a></li>
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=crearprograma">Modify Programs</a></li>
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=modificarprograma">Modify Programs</a></li>
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=eliminarprograma">Delete Programs</a></li>
             </ul>
           </li>

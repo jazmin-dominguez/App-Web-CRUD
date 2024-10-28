@@ -14,6 +14,7 @@ $showForm6 = isset($_GET['action']) && $_GET['action'] == 'modificarmateria';
 $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
 $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
 $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
+$showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,7 +48,7 @@ $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
         <main class="flex-grow ml-64">
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7 && !$showForm8 && !$showForm9):
+                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7 && !$showForm8 && !$showForm9 && !$showForm10):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         <header class="w-full bg-white py-4 px-6">
@@ -96,6 +97,9 @@ $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
                 endif;
                 if($showForm9):
                     include('listarprogramas.php');
+                endif;
+                if ($showForm10):
+                    include('modificar_programa.php');
                 endif;
             ?>
         </main>
