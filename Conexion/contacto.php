@@ -118,6 +118,12 @@
             $result = $this->ejecutar_sentencia();
             return $result;
         }
+        public function eliminar_programa($id)
+        {
+            $this->sentencia = "DELETE FROM programas WHERE id = $id";
+            $result = $this->ejecutar_sentencia();
+            return $result;
+        }
         // Función para obtener todos los usuarios que son 'teachers'
 public function obtener_usuarios_teachers() {
     $this->sentencia = "SELECT id, nombre FROM usuarios WHERE tipo_usuario = 'Teacher'";
@@ -159,6 +165,7 @@ public function modificar_programa($id, $nombre_programa, $descripcion_programa,
                             FK_tipo_usuario = $FK_tipo_usuario 
                         WHERE id = $id";
     return $this->ejecutar_sentencia();
+
 }
 
 
