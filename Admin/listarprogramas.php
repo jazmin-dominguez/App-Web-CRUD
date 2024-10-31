@@ -20,18 +20,18 @@ if ($result === false) {
         
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">
-                <table id="programTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
-                    <thead class="bg-gray-200 text-black uppercase text-sm leading-normal">
+                <table id="programTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg font-Jost">
+                    <thead class="bg-gray-200">
                         <tr>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Name</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Description</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Subject</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Name Teacher</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">User Type</th>
-                            <th class="px-4 py-2 border border-gray-300 text-center text-blue-800">Actions</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Name</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Description</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Subject</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Name Teacher</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">User Type</th>
+                            <th class="px-4 py-2 border border-gray-300 text-center text-white bg-cyan-700">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="text-black-700 text-sm font-light">
+                    <tbody class="divide-y divide-gray-200">
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr class="border border-gray-300 hover:bg-gray-100">
                                 <td class="px-4 py-2 border border-gray-300"><?php echo htmlspecialchars($row['programa_nombre']); ?></td>
