@@ -15,15 +15,15 @@ if ($result && $result->num_rows > 0) {
                 <table id="userTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
                     <thead class="bg-gray-200 text-black uppercase text-sm leading-normal">
                         <tr>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Name</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Email</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Gender</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Age</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">User Type</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Date of Birth</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Name</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Email</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Gender</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Age</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">User Type</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Date of Birth</th>
                         </tr>
                     </thead>
-                    <tbody class="text-black-700 text-sm font-light">
+                    <tbody class="divide-y divide-gray-200">
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr class="border border-gray-300 hover:bg-gray-100">
                                 <td class="px-4 py-2 border border-gray-300"><?php echo htmlspecialchars($row['nombre']); ?></td>

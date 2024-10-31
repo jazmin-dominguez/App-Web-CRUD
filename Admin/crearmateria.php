@@ -1,4 +1,7 @@
+
+
 <div class="w-full h-full flex flex-col">
+                    
                     <div class="flex-grow bg-gray-100 p-6">
                         <form method="post" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
                             <h2 class="text-2xl font-bold mb-6 text-gray-700">Create subject</h2>

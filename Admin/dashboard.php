@@ -5,6 +5,7 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 
+
 $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
 $showForm0 = isset($_GET['action']) && $_GET['action'] == 'crearusuario';
 $showForm1 = isset($_GET['action']) && $_GET['action'] == 'listarusuarios';
@@ -16,9 +17,12 @@ $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
 $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
 $showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
 ?>
+<?php include '../funciones.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<?php incluirWeglot(); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Administrativo</title>

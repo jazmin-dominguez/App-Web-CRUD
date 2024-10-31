@@ -18,6 +18,15 @@
 
     <link href="./inicio/output.css" rel="stylesheet">
     <title>Landing Website</title>
+
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>
+    Weglot.initialize({
+        api_key: 'wg_9ec94632da65fbf9be08565c3fe0a96b1',
+        save_language: true // Añade esta línea
+         // Establece el idioma basado en la sesión
+    });
+</script>
 </head>
 
 <body>
@@ -567,33 +576,6 @@
     <!--mainjs-->
     <script src="./inicio/main.js"></script>
     
-    <script type="text/javascript">
-        function googleTranslateElementInit(){
-            new google.translate.TranslateElement(
-                {pageLanguage: 'en'},
-                'google_translate_element'
-            );
-        }
-    </script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<style>
-    /* Oculta la marca de Google y el enlace traducir */
-    .goog-logo-link, .goog-te-gadget span {
-        display: none !important;
-    }
-    /* Ajusta la altura del contenedor para que no quede espacio en blanco adicional */
-    .goog-te-gadget {
-        height: auto !important;
-    }
-    /* Ajusta el tamaño del select */
-    #google_translate_element select {
-        background-color: #00ACC1; /* Cambia a tu color preferido */
-        color: white;
-        border: none;
-        border-radius: 0.375rem; /* Tailwind: rounded-md */
-        padding: 0.25rem 0.5rem; /* Tailwind: px-2 py-1 */
-    }
-</style>
+    
 </body>
 </html>
