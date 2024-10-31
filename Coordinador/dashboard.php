@@ -15,10 +15,10 @@
   $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
   $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
 
-?>
+?><?php include '../funciones.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head><?php incluirWeglot(); ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Coordinador</title>
