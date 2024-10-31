@@ -1,10 +1,13 @@
 <?php
 session_start();
+
 ?>
+<?php include '../funciones.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php incluirWeglot(); ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up Page</title>
