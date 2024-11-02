@@ -1,16 +1,16 @@
 <?php
 require_once '../Conexion/contacto.php';
-$obj = new Contacto();
 
-if (isset($_POST['id_eliminar'])) {
-    $id = $_POST['id_eliminar'];
-    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $obj = new Contacto();
+    $id = $_POST['id'];
+
     if ($obj->eliminar_usuario($id)) {
-        // Return a success response
-        echo "User successfully deleted";
+        echo "User deleted successfully";
     } else {
-        // Handle error
-        echo "Error deleting user.";
+        echo "Error deleting user";
     }
+} else {
+    echo "Invalid request method";
 }
 ?>
