@@ -8,13 +8,18 @@ if ($result && $result->num_rows > 0) {
 
 <link rel="stylesheet" href="../CSS/tabla.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css"/>
-<div class="w-full h-full flex flex-col">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="w-full h-full flex flex-col">    
     <header class="w-full bg-white py-4 px-6">
         <h1 class="text-2xl text-gray-700">List of Users</h1>
     </header>
     <div class="flex-grow bg-gray-100 p-6">
         <div class="table-container">
-            <table class="table">
+            <table id="userTable" class="table">
                 <thead>
                     <tr>
                         <th class="px-4 py-2 border-b border-gray-300">Name</th>
@@ -155,7 +160,44 @@ if ($result && $result->num_rows > 0) {
             document.getElementById('editUserAge').value = age;  // Asignar la edad calculada
         }
     }
+    
+    function deleteUser(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "delete_user_ajax.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            Swal.fire(
+                                'Deleted!',
+                                'User has been deleted.',
+                                'success'
+                            ).then(() => {
+                                location.reload();  // Recargar la página después de eliminar
+                            });
+                        } else {
+                            Swal.fire('Error!', 'Error deleting user', 'error');
+                        }
+                    }
+                };
+                xhr.send("id=" + id);
+            }
+        });
+    }
 
+
+
+    // Manejo del formulario de edición para enviar datos al servidor
     // Manejo del formulario de edición para enviar datos al servidor
     document.getElementById('editUserForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Evitar que el formulario se envíe de inmediato
@@ -167,25 +209,54 @@ if ($result && $result->num_rows > 0) {
         xhr.open("POST", "guardar_usuario.php", true); // URL de tu script PHP para guardar los datos
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
                 closeModal();
-                alert("User updated successfully");
+
+                // Alerta de SweetAlert para confirmar que se guardaron los cambios
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'User updated successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload(); // Recargar la página después de guardar
+                });
+
             } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                alert("Error updating user");
+                // Alerta de error si no se pudieron guardar los cambios
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error updating the user.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
             }
         };
         xhr.send(formData);  // Enviar el formulario con los datos
     });
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('#userTable').DataTable({
+            "pageLength": 5,
+            "lengthMenu": [5, 10, 25, 50],
+            "dom": '<"flex justify-between items-center mb-4"l<"flex items-center"f>>rt<"flex justify-between items-center mt-4"ip>',
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search...",
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "paginate": {
+                    "first": "<<",
+                    "last": ">>",
+                    "next": ">",
+                    "previous": "<"
+                }
+            }
+        });
+    });
 </script>
 
 <?php
-    if (isset($_POST['eliminar'])) {
-        $id = $_POST['id_eliminar'];
-        if ($obj->eliminar_usuario($id)) {
-            echo "<p class='text-blue-600 mt-4'>User successfully deleted</p>";
-        } else {
-            echo "<p class='text-red-600 mt-4'>Error deleting user.</p>";
-        }
-    }
 }
 ?>
