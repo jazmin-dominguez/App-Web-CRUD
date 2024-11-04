@@ -43,6 +43,7 @@
                         </form>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
     if(isset($_POST['submit']))
@@ -53,5 +54,14 @@
         require_once ('../Conexion/contacto.php');
         $obj = new Contacto();
         $obj->crear_materia($nombre_materia, $descripcion);
+
+        echo '<script>
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Registration successful!",
+                    text: "Your subject has been created successfully"
+                });
+            </script>';
+
     }
 ?>
