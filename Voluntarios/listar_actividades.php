@@ -44,11 +44,11 @@ if ($result === false) {
                                 <td class="px-4 py-2 border-b border-gray-300 text-center">
                                     <div class="flex justify-center space-x-2">
                                         <button onclick="openActivityModal(
-                                            <?php echo $row['id']; ?>, 
-                                            <?php echo json_encode($row['nombre_actividad']); ?>, 
-                                            <?php echo json_encode($row['descripcion']); ?>, 
-                                            <?php echo json_encode($row['fk_materia'] ?? ''); ?>, 
-                                            <?php echo json_encode($row['fk_teacher'] ?? ''); ?>
+                                            '<?php echo $row['id']; ?>', 
+                                            '<?php echo htmlspecialchars($row['nombre_actividad'], ENT_QUOTES, 'UTF-8'); ?>', 
+                                            '<?php echo htmlspecialchars($row['descripcion'], ENT_QUOTES, 'UTF-8'); ?>', 
+                                            '<?php echo $row['fk_materia'] ?? ''; ?>', 
+                                            '<?php echo $row['fk_teacher'] ?? ''; ?>'
                                         )" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
                                             <i class="fas fa-edit"></i>
                                         </button>
@@ -64,28 +64,24 @@ if ($result === false) {
             </div>
         </div>
     </div>
-<?php
-}
-?>
+<?php } ?>
 
-<!-- Modal para editar actividad -->
+<!-- Modal for editing activity -->
 <div id="editActivityModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
   <div class="flex items-center justify-center min-h-screen">
     <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full p-6">
       <h2 class="text-xl font-semibold mb-4">Edit Activity</h2>
-      <form id="editActivityForm" class="space-y-6">
+      <form id="editActivityForm" class="space-y-6" onsubmit="saveActivity(event)">
         <input type="hidden" id="editActivityId" name="id">
 
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-                <label for="editActivityName" class="block text-sm font-medium text-gray-700">Activity Name:</label>
-                <input type="text" name="nombre_actividad" id="editActivityName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-            </div>
+        <div>
+            <label for="editActivityName" class="block text-sm font-medium text-gray-700">Activity Name:</label>
+            <input type="text" name="nombre_actividad" id="editActivityName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+        </div>
 
-            <div>
-                <label for="editActivityDescription" class="block text-sm font-medium text-gray-700">Description:</label>
-                <input type="text" name="descripcion" id="editActivityDescription" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-            </div>
+        <div>
+            <label for="editActivityDescription" class="block text-sm font-medium text-gray-700">Description:</label>
+            <input type="text" name="descripcion" id="editActivityDescription" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
         </div>
 
         <div>
@@ -149,34 +145,9 @@ if ($result === false) {
         document.getElementById('editActivityModal').classList.add('hidden');
     }
 
-    function deleteActivity(id) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch("eliminar_actividad.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: `id=${id}`
-                })
-                .then(response => response.text())
-                .then(response => {
-                    if (response.trim() === "success") {
-                        Swal.fire("Deleted!", "Your activity has been deleted.", "success").then(() => location.reload());
-                    }
-                });
-            }
-        });
-    }
-
-    document.getElementById('editActivityForm').addEventListener('submit', function(event) {
+    function saveActivity(event) {
         event.preventDefault();
+        
         const id = document.getElementById('editActivityId').value;
         const nombre_actividad = document.getElementById('editActivityName').value;
         const descripcion = document.getElementById('editActivityDescription').value;
@@ -193,7 +164,38 @@ if ($result === false) {
             if (response.trim() === "success") {
                 closeActivityModal();
                 Swal.fire("Activity updated", "The activity has been updated successfully.", "success").then(() => location.reload());
+            } else {
+                Swal.fire("Error", "There was a problem updating the activity.", "error");
             }
         });
-    });
+    }
+
+    function deleteActivity(id) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("eliminar_actividad.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `id=${id}`
+                })
+                .then(response => response.text())
+                .then(response => {
+                    if (response.trim() === "success") {
+                        Swal.fire("Eliminado", "La actividad ha sido eliminada.", "success").then(() => location.reload());
+                    } else {
+                        Swal.fire("Error", "Hubo un problema al eliminar la actividad.", "error");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    }
 </script>
