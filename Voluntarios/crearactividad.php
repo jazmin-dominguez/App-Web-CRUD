@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Actividad</title>
+    <title>Create Activity</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -43,29 +43,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="w-full h-full flex flex-col">
     <div class="flex-grow bg-gray-100 p-6">
         <form id="activityForm" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-6 text-gray-700">Crear Actividad</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-700">Create Activity</h2>
 
             <!-- Nombre de la Actividad y Descripción -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label for="nombre_actividad" class="block text-gray-700 font-bold mb-2">Nombre de la Actividad:</label>
+                    <label for="nombre_actividad" class="block text-gray-700 font-bold mb-2">Activity Name:</label>
                     <input type="text" id="nombre_actividad" name="nombre_actividad" placeholder="Asigna un nombre" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                 </div>
                 <div>
-                    <label for="descripcion" class="block text-gray-700 font-bold mb-2">Descripción:</label>
+                    <label for="descripcion" class="block text-gray-700 font-bold mb-2">Description:</label>
                     <input type="text" id="descripcion" name="descripcion" placeholder="Describe la actividad" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                 </div>
             </div>
 
             <!-- Fecha -->
             <div class="mb-4">
-                <label for="fecha" class="block text-gray-700 font-bold mb-2">Fecha:</label>
+                <label for="fecha" class="block text-gray-700 font-bold mb-2">Date:</label>
                 <input type="date" id="fecha" name="fecha" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
             </div>
 
             <!-- Materia -->
             <div class="mb-4">
-                <label for="id_materia" class="block text-gray-700 font-bold mb-2">Materia:</label>
+                <label for="id_materia" class="block text-gray-700 font-bold mb-2">Subject:</label>
                 <select id="id_materia" name="id_materia" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
                     <?php foreach ($materias as $materia): ?>
                         <option value="<?php echo $materia['id']; ?>"><?php echo $materia['nombre_materia']; ?></option>
