@@ -1,41 +1,78 @@
 <?php
-include ('conexion.php');
+include('conexion.php');
+
 class Contacto extends Conexion
 {
     public function login($correo, $password)
     {
-        $this->sentencia="SELECT * FROM usuarios WHERE correo='$correo' AND password='$password'";
+        $this->sentencia = "SELECT * FROM usuarios WHERE correo='$correo' AND password='$password'";
         $resultado = $this->ejecutar_sentencia();
 
-        if ($row = $resultado->fetch_assoc()) {
-            session_start();
-            $_SESSION['nombre'] = $row['nombre'];
-            $_SESSION['correo'] = $row['correo'];
-            $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
+        if ($resultado && $row = $resultado->fetch_assoc()) {
+            // Verificar si el usuario ya tiene una sesión activa
+            if (isset($row['session_activa']) && $row['session_activa'] == 1) {
+                echo "<script>alert('La cuenta ya está activa en otro lugar.'); window.location.href='login.php';</script>";
+                return false;
+            } else {
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
 
-            switch ($row['tipo_usuario']) {
-                case 'Administrator':
-                    header("location: ../Admin/dashboard.php");
-                    break;
-                case 'Student':
-                    header("location: ../Alumno/dashboard.php");
-                    break;
-                case 'Teacher':
-                    header("location: ../Voluntarios/dashboard.php");
-                    break;
-                case 'Donor':
-                    header("location: ../Donacion/dashboard.php");
-                    break;
-                case 'Cordinator':
-                    header("location: ../Coordinador/dashboard.php");
-                    break;
-                default:
-                    header("location: login.php?error=1");
-                    break;
+                $_SESSION['nombre'] = $row['nombre'];
+                $_SESSION['correo'] = $row['correo'];
+                $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
+                $_SESSION['user_id'] = $row['id']; // Almacenar el ID del usuario en la sesión
+
+                // Actualizar session_activa en la base de datos
+                $this->sentencia = "UPDATE usuarios SET session_activa = 1 WHERE id = " . $row['id'];
+                $this->ejecutar_sentencia();
+
+                // Redirigir según el tipo de usuario
+                switch ($row['tipo_usuario']) {
+                    case 'Administrator':
+                        header("location: ../Admin/dashboard.php");
+                        break;
+                    case 'Student':
+                        header("location: ../Alumno/dashboard.php");
+                        break;
+                    case 'Teacher':
+                        header("location: ../Voluntarios/dashboard.php");
+                        break;
+                    case 'Donor':
+                        header("location: ../Donacion/dashboard.php");
+                        break;
+                    case 'Cordinator':
+                        header("location: ../Coordinador/dashboard.php");
+                        break;
+                    default:
+                        header("location: login.php?error=1");
+                        break;
+                }
+                exit();
             }
-            exit();
         } else {
+            // Credenciales incorrectas
             header("location: login.php?error=1");
+            exit();
+        }
+    }
+
+    public function logout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
+
+            // Actualizar session_activa a 0 en la base de datos
+            $this->sentencia = "UPDATE usuarios SET session_activa = 0 WHERE id = $user_id";
+            $this->ejecutar_sentencia();
+
+            // Destruir la sesión
+            session_destroy();
+            header("Location: login.php");
             exit();
         }
     }
@@ -54,7 +91,7 @@ class Contacto extends Conexion
 
     public function crear_materia($nombre_materia, $descripcion)
     {
-        $this->sentencia = "INSERT INTO materias (nombre_materia,objetivos) VALUES ('$nombre_materia','$descripcion');";
+        $this->sentencia = "INSERT INTO materias (nombre_materia, objetivos) VALUES ('$nombre_materia', '$descripcion');";
         return $this->ejecutar_sentencia();
     }
 
@@ -70,7 +107,8 @@ class Contacto extends Conexion
         return $this->ejecutar_sentencia();
     }
 
-    public function listar_programas() {
+    public function listar_programas()
+    {
         $this->sentencia = "
             SELECT 
                 programas.id, 
@@ -86,13 +124,15 @@ class Contacto extends Conexion
         return $this->ejecutar_sentencia();
     }
 
-    public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_teacher) {
+    public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_teacher)
+    {
         $this->sentencia = "INSERT INTO actividades (nombre_actividad, descripcion, fecha, fk_materia, fk_teacher) 
                             VALUES ('$nombre_actividad', '$descripcion', '$fecha', '$id_materia', '$id_teacher')";
         return $this->ejecutar_sentencia();
     }
 
-    public function listar_actividades() {
+    public function listar_actividades()
+    {
         $this->sentencia = "
             SELECT 
                 actividades.id, 
@@ -107,7 +147,8 @@ class Contacto extends Conexion
         return $this->ejecutar_sentencia();
     }
 
-    public function modificar_actividad($id, $nombre_actividad, $descripcion, $fk_materia, $fk_teacher) {
+    public function modificar_actividad($id, $nombre_actividad, $descripcion, $fk_materia, $fk_teacher)
+    {
         $this->sentencia = "UPDATE actividades 
                             SET nombre_actividad='$nombre_actividad', 
                                 descripcion='$descripcion', 
@@ -117,27 +158,32 @@ class Contacto extends Conexion
         return $this->ejecutar_sentencia();
     }
 
-    public function eliminar_actividad($id) {
+    public function eliminar_actividad($id)
+    {
         $this->sentencia = "DELETE FROM actividades WHERE id = $id";
         return $this->ejecutar_sentencia();
     }
 
-    public function obtener_usuarios_teachers() {
+    public function obtener_usuarios_teachers()
+    {
         $this->sentencia = "SELECT id, nombre FROM usuarios WHERE tipo_usuario = 'Teacher'";
         return $this->ejecutar_sentencia()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function obtener_todas_materias() {
+    public function obtener_todas_materias()
+    {
         $this->sentencia = "SELECT id, nombre_materia FROM materias";
         return $this->ejecutar_sentencia()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function obtener_programa_por_id($id) {
+    public function obtener_programa_por_id($id)
+    {
         $this->sentencia = "SELECT * FROM programas WHERE id = $id";
         return $this->ejecutar_sentencia()->fetch_assoc();
     }
 
-    public function modificar_programa($id, $nombre_programa, $descripcion_programa, $FK_materia, $FK_tipo_usuario) {
+    public function modificar_programa($id, $nombre_programa, $descripcion_programa, $FK_materia, $FK_tipo_usuario)
+    {
         $this->sentencia = "UPDATE programas 
                             SET nombre = '$nombre_programa', 
                                 descripcion = '$descripcion_programa', 
