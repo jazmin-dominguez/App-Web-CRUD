@@ -55,8 +55,10 @@ $showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
             <header class="w-full bg-white py-4 px-6 flex justify-between items-center">
                 <h1 class="text-2xl text-gray-700">Administration Panel</h1>
                 <div class="text-gray-700">
+                <a href="../login/logout.php" class="hover:underline">   
                     <p class="font-semibold"><?php echo htmlspecialchars($_SESSION['nombre']); ?></p>
                     <p class="text-sm text-gray-500"><?php echo htmlspecialchars($tipo_usuario); ?></p> <!-- Tipo de usuario -->
+                </a>
                 </div>
             </header>
 
