@@ -18,6 +18,41 @@
                     <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividades">List Activities</a></li>
                 </ul>
             </li>
+            <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
+            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+              Programs 
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
+                  class="arrow-down" 
+                  :class="{ 'hidden': open, 'block': !open }"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 15l-7-7-7 7" 
+                  class="arrow-up hidden" 
+                  :class="{ 'block': open, 'hidden': !open }"></path>
+              </svg>
+            </button>
+            <ul class="submenu bg-gray-700 text-gray-200 pl-4">
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarprogramasinscritos">List Programs</a></li>
+              
+            </ul>
+          </li>
+          <!-- Usuarios -->
+          <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
+            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+              Users
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
+                  class="arrow-down" 
+                  :class="{ 'hidden': open, 'block': !open }"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 15l-7-7-7 7" 
+                  class="arrow-up hidden" 
+                  :class="{ 'block': open, 'hidden': !open }"></path>
+              </svg>
+            </button>
+            <ul class="submenu bg-gray-700 text-gray-200 pl-4">
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarmateria">List Users </a></li>
+              
+            </ul>
+          </li>
         </ul>
     </div>
     <div class="px-8 py-4">
