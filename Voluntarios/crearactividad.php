@@ -110,8 +110,8 @@ document.getElementById("activityForm").addEventListener("submit", function(even
             // Muestra la alerta de éxito con SweetAlert2
             Swal.fire({
                 icon: 'success',
-                title: '¡Actividad creada exitosamente!',
-                text: 'Tu actividad ha sido creada correctamente.',
+                title: 'Activity created successfully!',
+                text: 'Your activity has been created successfully.',
                 confirmButtonText: 'OK'
             });
             
@@ -122,7 +122,7 @@ document.getElementById("activityForm").addEventListener("submit", function(even
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Hubo un problema al crear la actividad. Inténtalo de nuevo.',
+                text: 'There was a problem creating the activity. Please try again.',
                 confirmButtonText: 'OK'
             });
         }
@@ -132,7 +132,7 @@ document.getElementById("activityForm").addEventListener("submit", function(even
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Hubo un problema al crear la actividad. Inténtalo de nuevo.',
+            text: 'There was a problem creating the activity. Please try again.',
             confirmButtonText: 'OK'
         });
     });
