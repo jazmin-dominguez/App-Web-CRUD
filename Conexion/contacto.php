@@ -35,7 +35,7 @@
                             header("location: ../Admin/dashboard.php");
                             break;
                         case 'Student':
-                            header("location: ../Alumno/dashboard.php");
+                            header("location: ../Beneficiarios/dashboard.php");
                             break;
                         case 'Teacher':
                             header("location: ../Voluntarios/dashboard.php");
