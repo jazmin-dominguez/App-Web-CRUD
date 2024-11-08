@@ -47,7 +47,7 @@ $showForm11 = isset($_GET['action']) && $_GET['action'] == 'listarprogramasinscr
         <main class="flex-grow ml-64">
         <!-- Encabezado con el Tipo de Usuario -->
             <header class="w-full bg-white py-4 px-6 flex justify-between items-center">
-                <h1 class="text-2xl text-gray-700">Coordinator Panel</h1>
+                <h1 class="text-2xl text-gray-700">Volunteer Panel</h1>
                 <div class="text-gray-700">
                 <a href="../login/logout.php" class="hover:underline">
                     <p class="font-semibold"><?php echo htmlspecialchars($_SESSION['nombre']); ?></p>
