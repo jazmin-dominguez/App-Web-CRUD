@@ -223,6 +223,33 @@ public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_mat
         return $this->ejecutar_sentencia();
     }
 
+    public function obtenerRegistrosPorPeriodo($periodo) {
+        switch ($periodo) {
+            case 'daily':
+                $this->sentencia = "SELECT DATE(fecha_registro) as periodo, COUNT(*) as total FROM usuarios GROUP BY DATE(fecha_registro)";
+                break;
+            case 'weekly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, WEEK(fecha_registro) AS week, COUNT(*) as total 
+                                    FROM usuarios 
+                                    GROUP BY year, week";
+                break;
+            case 'monthly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, MONTH(fecha_registro) AS month, COUNT(*) as total 
+                                    FROM usuarios 
+                                    GROUP BY year, month";
+                break;
+            default:
+                return [];
+        }
+        
+        $result = $this->obtener_sentencia();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+    
 public function obtener_programa_por_id($id) {
     $this->sentencia = "SELECT * FROM programas WHERE id = $id";
     $result = $this->ejecutar_sentencia();
