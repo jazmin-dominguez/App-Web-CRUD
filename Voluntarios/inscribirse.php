@@ -10,7 +10,7 @@ if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'Teacher')
     // Verificar si se ha enviado el ID del programa mediante POST
     if (isset($_POST['programa_id'])) {
         // Asignar valores de user_id y programa_id antes de llamar a la función
-        $user_id = $_SESSION['id'];  // ID del usuario de la sesión
+        $user_id = $_SESSION['user_id'];  // ID del usuario de la sesión
         $programa_id = $_POST['programa_id']; // ID del programa enviado por POST
 
         // Verificar si el usuario ya está inscrito en el programa
@@ -19,15 +19,14 @@ if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'Teacher')
         if (!$inscrito) {
             // Inscribir al usuario si no está inscrito
             $contacto->inscribir_usuario_en_programa($user_id, $programa_id);
-            echo "<p style='color: green;'>Inscripción exitosa.</p>";
+            echo "success"; // Respuesta en caso de éxito
         } else {
-            echo "<p style='color: red;'>Ya estás inscrito en este programa.</p>";
+            echo "already_enrolled"; // Respuesta si ya está inscrito
         }
-        
     } else {
-        echo "<p style='color: red;'>Selecciona un programa para inscribirte.</p>";
+        echo "no_program_selected"; // Respuesta si no se envió un programa
     }
 } else {
-    echo "<p style='color: red;'>No tienes permisos para inscribirte en programas.</p>";
+    echo "no_permission"; // Respuesta si el usuario no tiene permisos
 }
 ?>
