@@ -365,6 +365,75 @@ public function obtener_todos_programas() {
         return $programas;
     }
     
+    public function verificar_inscripcion_materia($user_id, $materia_id) {
+        $this->abrir_conexion();
+    
+        $sql = "SELECT COUNT(*) AS count FROM inscripciones_materias WHERE user_id = ? AND materia_id = ?";
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->conexion->error);
+        }
+    
+        $stmt->bind_param("ii", $user_id, $materia_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+    
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $row['count'] > 0;
+    }
+    
+
+    public function inscribir_usuario_en_materia($user_id, $materia_id) {
+        $this->abrir_conexion();
+    
+        $sql = "INSERT INTO inscripciones_materias (user_id, materia_id) VALUES (?, ?)";
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            echo "Error en la preparación: " . $this->conexion->error;
+            return false;
+        }
+    
+        $stmt->bind_param("ii", $user_id, $materia_id);
+        $resultado = $stmt->execute();
+    
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $resultado;
+    }
+
+    public function obtener_programas_por_materia_inscrita($user_id) {
+        $this->abrir_conexion();
+    
+        $sql = "
+            SELECT p.id, p.nombre, p.descripcion, m.nombre_materia
+            FROM programas p
+            INNER JOIN materias m ON p.FK_materia = m.id
+            INNER JOIN inscripciones_materias im ON m.id = im.materia_id
+            WHERE im.user_id = ?
+        ";
+        
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->conexion->error);
+        }
+    
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $programas = $result->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $programas;
+    }
 
 }
 ?>

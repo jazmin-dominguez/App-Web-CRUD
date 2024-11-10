@@ -8,6 +8,7 @@ if (!isset($_SESSION['nombre'])) {
 $tipo_usuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : 'Desconocido';
 
 $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
+$showForm06 = isset($_GET['action']) && $_GET['action'] == 'obtenerprogramassegunmateria';
 
 ?>
 <?php include '../funciones.php'; ?>
@@ -56,13 +57,14 @@ $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
 
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm):
+                if (!$showForm && !$showForm06):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         
                         <div class="flex-grow bg-gray-100 p-6">
                             <h2 class="text-4xl font-bold text-gray-800">Welcome <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
                             <p class="text-gray-600 mt-2">Select an option from the menu to begin.</p>
+                            <?php include('materias_disponibles.php'); ?>
                         </div>
                     </div>
                     <?php
@@ -70,15 +72,17 @@ $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
                 if ($showForm):
                     ?>
                     <div class="w-full h-full flex flex-col">
-                        <header class="w-full bg-white py-4 px-6">
-                            <h1 class="text-2xl text-gray-700">Beneficiary Panel</h1>
-                        </header>
+                        
                         <div class="flex-grow bg-gray-100 p-6">
                             <h2 class="text-4xl font-bold text-gray-800">Welcome <?php echo htmlspecialchars($_SESSION['nombre']); ?></h2>
                             <p class="text-gray-600 mt-2">Select an option from the menu to begin.</p>
+                            <?php include('materias_disponibles.php'); ?>
                         </div>
                     </div>
                     <?php
+                endif;
+                if ($showForm06):
+                    include('mostrar_programas_segunmaterias.php');
                 endif;
                 
                 
