@@ -8,7 +8,9 @@ if (!isset($_SESSION['nombre'])) {
 $tipo_usuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : 'Desconocido';
 
 $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
+$showForm01 = isset($_GET['action']) && $_GET['action'] == 'mostrarmaestrossegunmaterias';
 $showForm06 = isset($_GET['action']) && $_GET['action'] == 'obtenerprogramassegunmateria';
+
 
 ?>
 <?php include '../funciones.php'; ?>
@@ -57,7 +59,7 @@ $showForm06 = isset($_GET['action']) && $_GET['action'] == 'obtenerprogramassegu
 
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm && !$showForm06):
+                if (!$showForm && !$showForm01 && !$showForm06):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         
@@ -81,9 +83,13 @@ $showForm06 = isset($_GET['action']) && $_GET['action'] == 'obtenerprogramassegu
                     </div>
                     <?php
                 endif;
+                if($showForm01):
+                    include('mostrarmaestros_segunmaterias.php');
+                endif;
                 if ($showForm06):
                     include('mostrar_programas_segunmaterias.php');
                 endif;
+                
                 
                 
             ?>
