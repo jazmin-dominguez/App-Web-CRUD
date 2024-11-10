@@ -435,5 +435,37 @@ public function obtener_todos_programas() {
         return $programas;
     }
 
+    public function obtener_maestro_y_materia_por_usuario($user_id) {
+        $this->abrir_conexion();
+    
+        $sql = "
+            SELECT u.nombre AS maestro_nombre, u.correo AS maestro_correo, 
+                    m.nombre_materia, m.objetivos
+            FROM usuarios u
+            INNER JOIN programas p ON p.FK_tipo_usuario = u.id
+            INNER JOIN materias m ON p.FK_materia = m.id
+            INNER JOIN inscripciones_materias im ON m.id = im.materia_id
+            WHERE im.user_id = ? AND u.tipo_usuario = 'Teacher'
+        ";
+    
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->conexion->error);
+        }
+    
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $materias_info = $result->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $materias_info;
+    }
+    
+    
+
 }
 ?>
