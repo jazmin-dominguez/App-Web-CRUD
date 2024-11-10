@@ -39,7 +39,7 @@
             </button>
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
               
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividad">List Teachers</a></li>
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=mostrarmaestrossegunmaterias">List Teachers</a></li>
             </ul>
           </li>
           <!-- Programas -->
