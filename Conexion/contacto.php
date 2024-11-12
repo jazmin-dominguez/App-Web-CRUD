@@ -41,7 +41,7 @@
                             header("location: ../Voluntarios/dashboard.php");
                             break;
                         case 'Donor':
-                            header("location: ../Donacion/dashboard.php");
+                            header("location: ../Donantes/dashboard.php");
                             break;
                         case 'Cordinator':
                             header("location: ../Coordinador/dashboard.php");
