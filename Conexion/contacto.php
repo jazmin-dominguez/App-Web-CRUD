@@ -465,6 +465,31 @@ public function obtener_todos_programas() {
         return $materias_info;
     }
     
+    public function guardar_donacion($nombre_donacion, $fecha_donacion, $FK_tipo_Usuario, $monto) {
+        if (!$this->conexion) {
+            $this->abrir_conexion();
+        }
+    
+        
+        $this->sentencia = "INSERT INTO donaciones (nombre_donacion, fecha_donacion, FK_tipo_Usuario, monto) VALUES (?, ?, ?, ?)";
+        
+        
+        if ($stmt = $this->conexion->prepare($this->sentencia)) {
+            $stmt->bind_param("ssii", $nombre_donacion, $fecha_donacion, $FK_tipo_Usuario, $monto);
+    
+            // Verificar ejecución
+            if ($stmt->execute()) {
+                return "Donación guardada con éxito";
+            } else {
+                return "Error al guardar la donación: " . $stmt->error;
+            }
+    
+            $stmt->close();
+        } else {
+            return "Error en la preparación de la consulta: " . $this->conexion->error;
+        }
+    }
+    
     
 
 }
