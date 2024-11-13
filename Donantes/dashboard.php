@@ -111,10 +111,216 @@ session_start();
     </section>
 
     <!-- Sección de Donaciones -->
-    <section id="donations" class="h-screen text-black flex flex-col items-center justify-center" style="background-color: #5BA0B3;">
-        <h1 class="text-4xl font-bold mb-4">DONATIONS</h1>
-        <p class="text-xl">Make a donation and help us make a difference!</p>
-    </section>
+    <section id="donaciones" class="relative flex items-center justify-center h-screen bg-blue-900 text-white" style="background-color: #5EA2B5;">
+    <!-- Imagen izquierda -->
+    <img src="../SRC/hero_student_collage_US_1x.png" alt="Imagen Estudiante" class="absolute left-0 top-1/2 transform -translate-y-1/2 max-w-xs opacity-70" style="margin-left: 20px;">
+
+    <div id="form-container" style="width: 100%; max-width: 800px; padding: 20px; text-align: center;">
+        <!-- Formulario que envía datos a guardar_donacion.php -->
+        <form id="donation-form" action="guardar_donacion.php" method="POST">
+            <!-- Welcome Step -->
+            <div id="step-welcome" class="form-step active">
+                <h2 class="text-center">Ayúdanos a proporcionar educación y apoyo a niños vulnerables.</h2>
+                <p class="text-center mb-8">Tu donación será completamente deducible de impuestos.</p>
+                <button type="button" class="button" onclick="nextStep()">Donar</button>
+            </div>
+
+            <!-- Name Step -->
+            <div id="step-name" class="form-step hidden">
+                <p class="question">¿Cuál es tu nombre?</p>
+                <input type="text" id="first-name" name="nombre_donacion" class="input-field" placeholder="Tu nombre" required>
+                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+            </div>
+
+            <!-- Last Name Step -->
+            <div id="step-last-name" class="form-step hidden">
+                <p class="question">¿Y cuál es tu apellido?</p>
+                <input type="text" id="last-name" class="input-field" placeholder="Tu apellido" required>
+                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+            </div>
+
+            <!-- Amount Step -->
+            <div id="step-amount" class="form-step hidden">
+                <p class="question">¿Cuánto te gustaría donar, <span id="display-name"></span>?</p>
+                <div id="amount-options">
+                    <span class="option-button" onclick="selectAmount(25)">$25</span>
+                    <span class="option-button" onclick="selectAmount(50)">$50</span>
+                    <span class="option-button" onclick="selectAmount(100)">$100</span>
+                    <span class="option-button" onclick="selectAmount(150)">$150</span>
+                    <span class="option-button" onclick="selectAmount(200)">$200</span>
+                </div>
+                <input type="hidden" name="monto" id="monto_donacion">
+                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+            </div>
+
+            <!-- Contact Step -->
+            <div id="step-contact" class="form-step hidden">
+                <p class="question">Por favor, ingresa tu correo electrónico</p>
+                <input type="email" id="email" name="email" class="input-field" placeholder="Correo electrónico" required>
+                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+            </div>
+
+            <!-- Payment Step -->
+            <div id="step-payment" class="form-step hidden">
+                <p class="question">Confirma tu donación de <span id="confirm-amount"></span> USD</p>
+                <input type="text" id="card-number" class="input-field" placeholder="Número de tarjeta" maxlength="19" required>
+                <input type="text" id="expiry-date" class="input-field" placeholder="Fecha de vencimiento (MM/AA)" maxlength="5" required>
+                <input type="text" class="input-field" placeholder="CVC" maxlength="3" required>
+                <input type="hidden" name="fecha_donacion" id="fecha_donacion" value="<?php echo date('Y-m-d'); ?>">
+                <input type="hidden" name="FK_tipo_Usuario" value="1"> <!-- Ajusta según corresponda -->
+                <button type="submit" class="button">Enviar</button>
+            </div>
+
+            <!-- Thank You Step -->
+            <div id="step-thank-you" class="form-step hidden">
+                <h2>¡Gracias!</h2>
+                <p>Muchas gracias por tu donación, <span id="thank-name"></span>. Tu contribución marcará la diferencia.</p>
+                <button type="button" class="button" onclick="resetForm()">Volver al inicio</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Imagen derecha -->
+    <img src="../SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png" alt="Imagen Niño" class="absolute right-0 top-1/2 transform -translate-y-1/2 max-w-xs opacity-70" style="margin-right: 20px;">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
+
+        body, .form-step {
+            font-family: 'League Spartan', sans-serif;
+        }
+        
+        .form-step {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.3s ease;
+        }
+        .form-step.active {
+            display: block;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #ffcc00;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #e6b800;
+        }
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            color: black;
+        }
+        .question {
+            font-size: 1.8rem;
+            margin: 20px 0;
+        }
+        .option-button {
+            display: inline-block;
+            background-color: #004080;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .option-button.selected {
+            background-color: #ffcc00;
+            color: black;
+        }
+    </style>
+
+    <script>
+        let currentStep = 0;
+        let selectedAmount = 0;
+
+        function nextStep() {
+            const steps = document.querySelectorAll('.form-step');
+            const currentElement = steps[currentStep];
+            let valid = true;
+            const inputs = currentElement.querySelectorAll("input[required]");
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    input.reportValidity(); 
+                    valid = false;
+                }
+            });
+
+            if (!valid) return;
+
+            steps[currentStep].classList.remove('active');
+            currentStep++;
+            steps[currentStep].classList.add('active');
+            
+            if (currentStep === 3) {
+                const firstName = document.getElementById('first-name').value;
+                document.getElementById('display-name').textContent = firstName;
+                document.getElementById('thank-name').textContent = firstName;
+            }
+        }
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            document.querySelectorAll('.option-button').forEach(button => button.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.getElementById('monto_donacion').value = amount;
+            document.getElementById('confirm-amount').textContent = amount;
+        }
+
+        function resetForm() {
+            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+            document.getElementById("step-welcome").classList.add('active');
+            currentStep = 0;
+        }
+
+        // Formato para número de tarjeta
+        const cardNumberInput = document.getElementById('card-number');
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = value;
+        });
+
+        cardNumberInput.addEventListener('keydown', function(e) {
+            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                e.preventDefault();
+            }
+        });
+
+        // Formato para fecha de vencimiento
+        const expiryDateInput = document.getElementById('expiry-date');
+        expiryDateInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        expiryDateInput.addEventListener('keydown', function(e) {
+            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</section>
 
     <!-- Sección de Contacto -->
     <section id="contact" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #0F758C;">
