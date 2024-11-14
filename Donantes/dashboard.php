@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../Conexion/contacto.php'; // Asegúrate de que esta ruta es correcta
 
 // Crear una instancia de la clase Contacto
@@ -143,6 +144,45 @@ $result = $contacto->listar_programas();
 
 </body>
 </html>
+<!-- Sección de Historial de Donaciones -->
+<section id="historial_donaciones" class="relative flex flex-col items-center justify-center h-screen bg-blue-100 text-gray-900">
+    <h1 class="text-4xl font-bold mb-4 flex items-center text-cyan-800">
+        <i class="ri-money-dollar-circle-fill mr-2 text-yellow-500"></i> <!-- Icono de dinero -->
+            Donation History
+    </h1>
+    <p class="text-lg mb-4 text-cyan-700">Here you can see the history of all your donations made.</p>
+    
+    <!-- Consulta y visualización del historial de donaciones -->
+    <div class="container mx-auto px-4">
+        <?php
+        // Obtener el historial de donaciones usando el método de la clase Contacto
+        $historial = $contacto->listar_historial_donaciones(); 
+        if ($historial->num_rows > 0): ?>
+            <table class="w-full text-left bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-cyan-800 text-black">
+                        <th class="px-4 py-2">Donation date</th>
+                        <th class="px-4 py-2">Donor Name</th>
+                        <th class="px-4 py-2">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($donacion = $historial->fetch_assoc()): ?>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
+                            <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
+                            <td class="px-4 py-2"><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="text-center text-gray-700">No hay donaciones registradas.</p>
+        <?php endif; ?>
+    </div>
+</section>
+
+
 
 
     <!-- Sección de Donaciones -->
