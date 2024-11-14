@@ -1,6 +1,13 @@
 <?php
-session_start();
+include '../Conexion/contacto.php'; // Asegúrate de que esta ruta es correcta
+
+// Crear una instancia de la clase Contacto
+$contacto = new Contacto();
+
+// Obtener los programas usando el método de la clase Contacto
+$result = $contacto->listar_programas();
 ?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -106,18 +113,16 @@ session_start();
 <main class="pt-20">
     <!-- Sección de Información -->
     <section id="information" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #164E63;">
-       
-        
-        <div class="container w-full grid grid-cols-1 gap-x-8 gap-y-36
-            md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                <!--Cadr 1-->
+        <div class="container w-full grid grid-cols-1 gap-x-8 gap-y-36 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <!-- Tarjeta de Programa -->
                 <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="../SRC/5078755.png" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2  duration-500">
-
-                    <h3 class="italic">Basic Literacy</h3>
-                    <p>Jazmin Dguez</p>
+                    <!-- Imagen del programa -->
+                    <img src="../SRC/2654513.png" alt="program_image" class="w-52 absolute -top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 duration-500">
+                    
+                    <h3 class="italic mt-5"><?php echo htmlspecialchars($row['nombre']); ?></h3>
+                    <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
 
                     <div class="text-yellow-500 text-xs py-3">
                         <i class="ri-star-fill"></i>
@@ -126,63 +131,19 @@ session_start();
                         <i class="ri-star-line text-gray-400"></i>
                         <i class="ri-star-line text-gray-400"></i>
                     </div>
+
+                    <!-- Enlace para ver más detalles -->
+                    <a href="programa_detalle.php?id=<?php echo $row['id']; ?>" class="text-blue-500 hover:text-blue-700 mt-4 inline-block">Ver más</a>
                 </div>
-
-                <!--Cadr 2-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="../SRC/símbolo-matemático.webp" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2 duration-500">
-
-                    <h3 class="italic">Basic Mathematics</h3>
-                    <p>Luis Gonzalez</p>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!--Cadr 3-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="../SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2 duration-500">
-
-                    <h3 class="italic">Digital Skills Development</h3>
-                    <p>Pablo Diaz</>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!--Cadr 4-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="../SRC/2654513.png" alt="popular_image"
-                    class="w-40 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2  duration-500">
-
-                    <h3 class="italic">Personal and Social Development</h3>
-                    <p>Pati Rodriguez</p>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
-            </div>
+            <?php endwhile; ?>
+            
+        </div>
     </section>
+</main>
+
+</body>
+</html>
+
 
     <!-- Sección de Donaciones -->
     <section id="donaciones" class="relative flex items-center justify-center h-screen bg-blue-900 text-white" style="background-color: #5EA2B5;">
