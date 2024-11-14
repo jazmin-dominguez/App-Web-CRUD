@@ -106,8 +106,82 @@ session_start();
 <main class="pt-20">
     <!-- Sección de Información -->
     <section id="information" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #164E63;">
-        <h1 class="text-4xl font-bold mb-4">INFORMATION</h1>
-        <p class="text-xl">Explore our reports to see how your contributions are changing lives.</p>
+       
+        
+        <div class="container w-full grid grid-cols-1 gap-x-8 gap-y-36
+            md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <!--Cadr 1-->
+                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
+                    <img src="../SRC/5078755.png" alt="popular_image"
+                    class="w-52 absolute -top-5 left-1/2 transform
+                    -translate-x-1/2 -translate-y-1/2  duration-500">
+
+                    <h3 class="italic">Basic Literacy</h3>
+                    <p>Jazmin Dguez</p>
+
+                    <div class="text-yellow-500 text-xs py-3">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!--Cadr 2-->
+                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
+                    <img src="../SRC/símbolo-matemático.webp" alt="popular_image"
+                    class="w-52 absolute -top-5 left-1/2 transform
+                    -translate-x-1/2 -translate-y-1/2 duration-500">
+
+                    <h3 class="italic">Basic Mathematics</h3>
+                    <p>Luis Gonzalez</p>
+
+                    <div class="text-yellow-500 text-xs py-3">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!--Cadr 3-->
+                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
+                    <img src="../SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png" alt="popular_image"
+                    class="w-52 absolute -top-5 left-1/2 transform
+                    -translate-x-1/2 -translate-y-1/2 duration-500">
+
+                    <h3 class="italic">Digital Skills Development</h3>
+                    <p>Pablo Diaz</>
+
+                    <div class="text-yellow-500 text-xs py-3">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!--Cadr 4-->
+                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
+                    <img src="../SRC/2654513.png" alt="popular_image"
+                    class="w-40 absolute -top-5 left-1/2 transform
+                    -translate-x-1/2 -translate-y-1/2  duration-500">
+
+                    <h3 class="italic">Personal and Social Development</h3>
+                    <p>Pati Rodriguez</p>
+
+                    <div class="text-yellow-500 text-xs py-3">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                        <i class="ri-star-line text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
     </section>
 
     <!-- Sección de Donaciones -->
@@ -120,28 +194,22 @@ session_start();
         <form id="donation-form" action="guardar_donacion.php" method="POST">
             <!-- Welcome Step -->
             <div id="step-welcome" class="form-step active">
-                <h2 class="text-center">Ayúdanos a proporcionar educación y apoyo a niños vulnerables.</h2>
-                <p class="text-center mb-8">Tu donación será completamente deducible de impuestos.</p>
-                <button type="button" class="button" onclick="nextStep()">Donar</button>
+                <h2 class="text-center">Help us provide education and support to vulnerable children.</h2>
+                <p class="text-center mb-8">Your donation will be completely tax deductible.</p>
+                <button type="button" class="button" onclick="nextStep()">Donate</button>
             </div>
 
             <!-- Name Step -->
             <div id="step-name" class="form-step hidden">
-                <p class="question">¿Cuál es tu nombre?</p>
-                <input type="text" id="first-name" name="nombre_donacion" class="input-field" placeholder="Tu nombre" required>
-                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+                <p class="question">Card Holders Name</p>
+                <input type="text" id="first-name" name="nombre_donacion" class="input-field" placeholder="Your name" required>
+                <button type="button" class="button" onclick="nextStep()">Accept</button>
             </div>
 
-            <!-- Last Name Step -->
-            <div id="step-last-name" class="form-step hidden">
-                <p class="question">¿Y cuál es tu apellido?</p>
-                <input type="text" id="last-name" class="input-field" placeholder="Tu apellido" required>
-                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
-            </div>
-
+        
             <!-- Amount Step -->
             <div id="step-amount" class="form-step hidden">
-                <p class="question">¿Cuánto te gustaría donar, <span id="display-name"></span>?</p>
+                <p class="question">How much would you like to donate <span id="display-name"></span>?</p>
                 <div id="amount-options">
                     <span class="option-button" onclick="selectAmount(25)">$25</span>
                     <span class="option-button" onclick="selectAmount(50)">$50</span>
@@ -150,25 +218,25 @@ session_start();
                     <span class="option-button" onclick="selectAmount(200)">$200</span>
                 </div>
                 <input type="hidden" name="monto" id="monto_donacion">
-                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+                <button type="button" class="button" onclick="nextStep()">Accept</button>
             </div>
 
             <!-- Contact Step -->
             <div id="step-contact" class="form-step hidden">
-                <p class="question">Por favor, ingresa tu correo electrónico</p>
-                <input type="email" id="email" name="email" class="input-field" placeholder="Correo electrónico" required>
-                <button type="button" class="button" onclick="nextStep()">Aceptar</button>
+                <p class="question">Please enter your email</p>
+                <input type="email" id="email" name="email" class="input-field" placeholder="Email" required>
+                <button type="button" class="button" onclick="nextStep()">Accept</button>
             </div>
 
             <!-- Payment Step -->
             <div id="step-payment" class="form-step hidden">
-                <p class="question">Confirma tu donación de <span id="confirm-amount"></span> USD</p>
-                <input type="text" id="card-number" class="input-field" placeholder="Número de tarjeta" maxlength="19" required>
-                <input type="text" id="expiry-date" class="input-field" placeholder="Fecha de vencimiento (MM/AA)" maxlength="5" required>
+                <p class="question">Confirm your donation <span id="confirm-amount"></span> USD</p>
+                <input type="text" id="card-number" class="input-field" placeholder="Card number" maxlength="19" required>
+                <input type="text" id="expiry-date" class="input-field" placeholder="Due Date (MM/YY)" maxlength="5" required>
                 <input type="text" class="input-field" placeholder="CVC" maxlength="3" required>
                 <input type="hidden" name="fecha_donacion" id="fecha_donacion" value="<?php echo date('Y-m-d'); ?>">
                 <input type="hidden" name="FK_tipo_Usuario" value="1"> <!-- Ajusta según corresponda -->
-                <button type="submit" class="button">Enviar</button>
+                <button type="submit" class="button">Send</button>
             </div>
 
             <!-- Thank You Step -->
