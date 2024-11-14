@@ -406,7 +406,20 @@ public function obtener_todos_programas() {
     
         return $resultado;
     }
-
+    public function listar_historial_donaciones() {
+        // Abre la conexión
+        $this->abrir_conexion();
+    
+        // Define la consulta SQL
+        $this->sentencia = "SELECT fecha_donacion, nombre_donacion, monto, FK_tipo_Usuario FROM donaciones ORDER BY fecha_donacion DESC";
+        
+        // Ejecuta la consulta usando obtener_sentencia
+        $resultado = $this->obtener_sentencia();
+    
+        // No se llama a cerrar_conexion aquí, ya que se ejecuta en obtener_sentencia
+        return $resultado;
+    }
+    
     public function obtener_programas_por_materia_inscrita($user_id) {
         $this->abrir_conexion();
     
