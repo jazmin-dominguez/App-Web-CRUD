@@ -489,6 +489,26 @@ public function obtener_todos_programas() {
             return "Error en la preparación de la consulta: " . $this->conexion->error;
         }
     }
+    public function obtener_materias_por_programa($id_programa) {
+        $this->abrir_conexion();
+        
+        // Actualizamos la consulta para seleccionar las columnas correctas
+        $this->sentencia = "
+            SELECT nombre_materia, objetivos
+            FROM materias
+            WHERE id IN (SELECT FK_materia FROM programas WHERE id = ?)
+        ";
+        
+        $stmt = $this->conexion->prepare($this->sentencia);
+        $stmt->bind_param("i", $id_programa);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $this->cerrar_conexion();
+        return $result;
+    }
+    
+    
     
     
 
