@@ -103,7 +103,7 @@ if ($result === false) {
         }).then((result) => {
             if (result.isConfirmed) {
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", "eliminar_materia.php", true);
+                xhr.open("POST", "../Admin/eliminar_materias.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
@@ -133,7 +133,7 @@ if ($result === false) {
         const objectives = document.getElementById('editSubjectObjectives').value;
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "modificar_materia.php", true);
+        xhr.open("POST", "../Admin/modificar_materia.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
