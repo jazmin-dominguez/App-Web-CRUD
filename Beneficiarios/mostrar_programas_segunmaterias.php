@@ -16,7 +16,7 @@ $programas = $obj->obtener_programas_por_materia_inscrita($user_id);
         <?php if (!empty($programas)): ?>
             <?php foreach($programas as $programa): ?>
                 <div class="border-2 border-red-500 rounded-md p-4 text-center">
-                    <img src="../SRC/icono-de-concepto-programas-educativos.webp" alt="Imagen del Programa" class="mx-auto mb-3" style="width: 150px; height: auto;" />
+                    <img src="../SRC/icono-de-concepto-programas-educativos_processe.webp" alt="Imagen del Programa" class="mx-auto mb-3" style="width: 150px; height: auto;" />
                     <h3 class="text-xl font-bold"><?php echo htmlspecialchars($programa['nombre']); ?></h3>
                     <p class="text-gray-700"><?php echo htmlspecialchars($programa['descripcion']); ?></p>
                     <p class="text-gray-500"><?php echo htmlspecialchars($programa['nombre_materia']); ?></p>

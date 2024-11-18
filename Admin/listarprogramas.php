@@ -13,10 +13,14 @@ if ($result === false) {
     echo '<p class="text-center text-red-500">No se encontraron programas.</p>';
 } else {
 ?>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <div class="w-full h-full flex flex-col">
-        <header class="w-full bg-white py-4 px-6 shadow-md mb-4">
-            <h1 class="text-2xl font-semibold text-gray-700">List of Programs</h1>
-        </header>
+        <br>
+        <br>
+        <h1 class="text-2xl font-semibold text-gray-700">List of Programs</h1>
         
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">
@@ -52,9 +56,7 @@ if ($result === false) {
             </div>
         </div>
     </div>
-<?php
-}
-?>
+
 
 <!-- Modal para editar programa -->
 <div id="editProgramModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
@@ -134,28 +136,39 @@ if ($result === false) {
     }
 
     function deleteProgram(id) {
-        if (confirm("Are you sure you want to delete this program?")) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This program will be permanently deleted!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "eliminar_programa.php", true);
+            xhr.open("POST", "eliminar_programa.php", true); // Asegúrate de tener un archivo PHP para manejar la eliminación de programas
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Program deleted",
-                        text: "The program has been deleted successfully."
-                    }).then(() => location.reload());
-                } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: "There was a problem deleting the program."
-                    });
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Program has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload(); // Recargar la página después de eliminar
+                        });
+                    } else {
+                        Swal.fire('Error!', 'Error deleting program', 'error');
+                    }
                 }
             };
             xhr.send("id=" + id);
         }
-    }
+    });
+}
+
 
     document.getElementById('editProgramForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -188,10 +201,10 @@ if ($result === false) {
     });
 </script>
 
+
+
 <!-- Estilos y configuración de DataTables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#programTable').DataTable({
@@ -213,3 +226,40 @@ if ($result === false) {
         });
     });
 </script>
+
+<style>
+    /* Estilo para el campo de búsqueda de DataTables */
+    
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        width: 200px; /* Ajusta el tamaño aquí */
+        margin-left: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .dataTables_wrapper {
+        overflow-y: hidden; /* Ocultar barra de desplazamiento vertical */
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.25rem 0.75rem;
+        margin: 0 0.25rem;
+        border-radius: 0.375rem;
+        background-color: #f3f4f6;
+        
+        font-size: 0.875rem;
+        border: 1px solid #ddd;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background-color: #1d4ed8;
+        color: white;
+        font-weight: bold;
+        border-color: #1d4ed8;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #e5e7eb;
+    }
+</style>
+<?php
+}
+?>

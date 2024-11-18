@@ -7,13 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
     $nombre_materia = isset($_POST['nombre_materia']) ? trim($_POST['nombre_materia']) : '';
     $objetivos = isset($_POST['objetivos']) ? trim($_POST['objetivos']) : '';
-
+    $actividades = isset($_POST['actividades']) ? intval($_POST['actividades']) : 0;
+    
     // Verificar que todos los datos requeridos están presentes
-    if ($id && $nombre_materia && $objetivos) {
+    if ($id && $nombre_materia && $objetivos && $actividades && $actividades) {
         $obj = new Contacto();
 
         // Llamar a la función de modificación del programa
-        $resultado = $obj->modificar_materia($id, $nombre_materia, $objetivos);
+        $resultado = $obj->modificar_materia($id, $nombre_materia, $objetivos, $actividades);
 
         if ($resultado) {
             echo "Subject updated successfully";
@@ -26,7 +27,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Missing or invalid data";
     }
 }
-
-
 ?>
-

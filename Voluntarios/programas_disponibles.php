@@ -29,7 +29,7 @@ $user_id = $_SESSION['user_id'];
                     $inscrito = $obj->verificar_inscripcion($user_id, $programa['id']);
                 ?>
                 <div class="border-2 border-red-500 rounded-md p-4 text-center">
-                    <img src="../SRC/icono-de-concepto-programas-educativos.webp" alt="Imagen del Programa" class="mx-auto mb-3" style="width: 170px; height: auto;">
+                    <img src="../SRC/icono-de-concepto-programas-educativos_processe.webp" alt="Imagen del Programa" class="mx-auto mb-3" style="width: 170px; height: auto;">
                     <h3 class="text-xl font-bold"><?php echo $programa['nombre']; ?></h3>
                     <p class="text-gray-700"><?php echo $programa['descripcion']; ?></p>
                     <p class="text-gray-500"><?php echo $programa['nombre_materia']; ?></p>
