@@ -12,25 +12,29 @@ if ($result === false) {
     echo '<p class="text-center text-red-500">No se encontraron programas.</p>';
 } else {
 ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <div class="w-full h-full flex flex-col">
-        <header class="w-full bg-white py-4 px-6 shadow-md mb-4">
-            <h1 class="text-2xl font-semibold text-gray-700">List of Programs</h1>
-        </header>
+        <br>
+        <br>
+        <h1 class="text-2xl font-bold text-gray-700">List of Programs</h1>
+        
         
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">
-                <table id="programTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
-                    <thead class="bg-gray-200 text-black uppercase text-sm leading-normal ">
+                <table id="programTable" class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg font-Jost">
+                    <thead class="bg-gray-200 ">
                         <tr>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Name</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Description</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Subject</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">Name Teacher</th>
-                            <th class="px-4 py-2 border border-gray-300 text-blue-800">User Type</th>
-                            <th class="px-4 py-2 border border-gray-300 text-center text-blue-800">Actions</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Name</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Description</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Subject</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">Name Teacher</th>
+                            <th class="px-4 py-2 border border-gray-300 text-white bg-cyan-700">User Type</th>
+                            <th class="px-4 py-2 border border-gray-300 text-center text-white bg-cyan-700">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="text-black-700 text-sm font-light">
+                    <tbody class="divide-y divide-gray-200">
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr class="border border-gray-300 hover:bg-gray-100">
                                 <td class="px-4 py-2 border border-gray-300"><?php echo htmlspecialchars($row['programa_nombre']); ?></td>
@@ -196,11 +200,9 @@ if ($result === false) {
         xhr.send(`id=${id}&programa_nombre=${name}&descripcion=${description}&materia=${subject}&tipo_usuario=${teacher}`);
     });
 </script>
+<br>
 
-<!-- DataTables Configuración -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#programTable').DataTable({
@@ -222,3 +224,36 @@ if ($result === false) {
         });
     });
 </script>
+<style>
+    /* Estilo para el campo de búsqueda de DataTables */
+    
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        width: 200px; /* Ajusta el tamaño aquí */
+        margin-left: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .dataTables_wrapper {
+        overflow-y: hidden; /* Ocultar barra de desplazamiento vertical */
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.25rem 0.75rem;
+        margin: 0 0.25rem;
+        border-radius: 0.375rem;
+        background-color: #f3f4f6;
+        
+        font-size: 0.875rem;
+        border: 1px solid #ddd;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background-color: #1d4ed8;
+        color: white;
+        font-weight: bold;
+        border-color: #1d4ed8;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #e5e7eb;
+    }
+</style>

@@ -6,9 +6,10 @@ $result = $obj->listar_usuarios();
 if ($result && $result->num_rows > 0) {
     ?>
     <div class="w-full h-full flex flex-col">
-        <header class="w-full bg-white py-4 px-6 shadow-md mb-4">
-            <h1 class="text-2xl font-semibold text-gray-700">List of Users</h1>
-        </header>
+        <br>
+        <br>
+        <h1 class="text-2xl font-semibold text-gray-700">List of Users</h1>
+        
 
         <div class="flex-grow bg-gray-100 p-6">
             <div class="overflow-x-auto">

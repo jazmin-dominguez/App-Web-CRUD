@@ -223,6 +223,25 @@ public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_mat
         return $this->ejecutar_sentencia();
     }
 
+    public function contarUsuarios() {
+        $this->sentencia = "SELECT COUNT(*) as total FROM usuarios";
+        $resultado = $this->obtener_sentencia();
+        return $resultado->fetch_assoc()['total'];
+    }
+    
+    public function contarProgramas() {
+        $this->sentencia = "SELECT COUNT(*) as total FROM programas";
+        $resultado = $this->obtener_sentencia();
+        return $resultado->fetch_assoc()['total'];
+    }
+    
+    public function contarMaterias() {
+        $this->sentencia = "SELECT COUNT(*) as total FROM materias";
+        $resultado = $this->obtener_sentencia();
+        return $resultado->fetch_assoc()['total'];
+    }
+    
+
     public function obtenerRegistrosPorPeriodo($periodo) {
         switch ($periodo) {
             case 'daily':
@@ -236,6 +255,59 @@ public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_mat
             case 'monthly':
                 $this->sentencia = "SELECT YEAR(fecha_registro) AS year, MONTH(fecha_registro) AS month, COUNT(*) as total 
                                     FROM usuarios 
+                                    GROUP BY year, month";
+                break;
+            default:
+                return [];
+        }
+        
+        $result = $this->obtener_sentencia();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    public function obtenerRegistrosProgramas($periodo) {
+        switch ($periodo) {
+            case 'daily':
+                $this->sentencia = "SELECT DATE(fecha_registro) as periodo, COUNT(*) as total FROM programas GROUP BY DATE(fecha_registro)";
+                break;
+            case 'weekly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, WEEK(fecha_registro) AS week, COUNT(*) as total 
+                                    FROM programas 
+                                    GROUP BY year, week";
+                break;
+            case 'monthly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, MONTH(fecha_registro) AS month, COUNT(*) as total 
+                                    FROM programas 
+                                    GROUP BY year, month";
+                break;
+            default:
+                return [];
+        }
+        
+        $result = $this->obtener_sentencia();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+    public function obtenerRegistrosMaterias($periodo) {
+        switch ($periodo) {
+            case 'daily':
+                $this->sentencia = "SELECT DATE(fecha_registro) as periodo, COUNT(*) as total FROM materias GROUP BY DATE(fecha_registro)";
+                break;
+            case 'weekly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, WEEK(fecha_registro) AS week, COUNT(*) as total 
+                                    FROM materias 
+                                    GROUP BY year, week";
+                break;
+            case 'monthly':
+                $this->sentencia = "SELECT YEAR(fecha_registro) AS year, MONTH(fecha_registro) AS month, COUNT(*) as total 
+                                    FROM materias 
                                     GROUP BY year, month";
                 break;
             default:
@@ -419,7 +491,7 @@ public function obtener_todos_programas() {
         // No se llama a cerrar_conexion aquí, ya que se ejecuta en obtener_sentencia
         return $resultado;
     }
-    
+
     public function obtener_programas_por_materia_inscrita($user_id) {
         $this->abrir_conexion();
     

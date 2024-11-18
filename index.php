@@ -273,8 +273,7 @@
                     <!--content-->
                     <div class="about__item__2-content  w-full lg:w-1/2">
                         <div class="space-y-5">
-                            <h3>Our <span class="text-yellow-500"></span> Mission
-                            </h3>
+                            
                             <p class="text-slate-300 font-Oswald">The goal of Unity Class is not only focused on the school environment, 
                                 but as creators of the project, we also seek to bring this message to our families and communities,
                                 highlighting that literacy is an essential pillar for the progress and well-being of
