@@ -22,20 +22,7 @@
                                 </div>
                             </div>
 
-                            <!-- Contenedor de actividades -->
-                            <div class="mb-4">
-                                <label for="actividades" class="block text-gray-700 font-bold mb-2">
-                                    <i class="fas fa-book-open"></i> Select an activity:
-                                </label>
-                                <select id="actividades" name="actividades" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                                    <option value="activity1">activity 1</option>
-                                    <option value="activity2">activity 2</option>
-                                    <option value="activity3">activity 3</option>
-                                    <option value="activity4">activity 4</option>
-                                    <option value="activity5">activity 5</option>
-                                    <option value="activity6">activity 6</option>
-                                </select>
-                            </div>
+                            
 
                             <div class="flex justify-center">
                                 <input type="submit" name="submit" value="Register" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600">
