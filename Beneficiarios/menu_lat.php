@@ -7,7 +7,7 @@
         <ul class="mt-4">
           <!-- Materias -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Subjects
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
@@ -26,7 +26,7 @@
           </li>
           <!-- Maestros -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Teachers
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
@@ -44,7 +44,7 @@
           </li>
           <!-- Programas -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Programs 
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
@@ -64,7 +64,7 @@
           
           <!-- Actividades -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Activities
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
@@ -83,7 +83,7 @@
           </li>
           <!-- Feedback a programas -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Feedback
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
@@ -96,12 +96,12 @@
             </button>
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
               
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividad">Create Feedback</a></li>
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=crear_feedback">Create Feedback</a></li>
             </ul>
           </li>
           <!-- acutalizar datos  -->
           <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu(event)" class="flex justify-between items-center w-full focus:outline-none">
+            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
               Update data
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
