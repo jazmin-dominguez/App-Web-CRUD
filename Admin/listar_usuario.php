@@ -14,11 +14,11 @@ if ($result && $result->num_rows > 0) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="w-full h-full flex flex-col">    
-    <header class="w-full bg-white py-4 px-6">
-        <h1 class="text-2xl text-gray-700">List of Users</h1>
-    </header>
+    <br>
+    <br>
+    <h1 class="text-2xl font-bold text-gray-700">List of Users</h1>
     <div class="flex-grow bg-gray-100 p-6">
-        <div class="table-container">
+        <div class="overflow-x-auto">
             <table id="userTable" class="table">
                 <thead>
                     <tr>
@@ -40,9 +40,11 @@ if ($result && $result->num_rows > 0) {
                             <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row['edad']); ?></td>
                             <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row['tipo_usuario']); ?></td>
                             <td class="px-4 py-2 border-b border-gray-300"><?php echo htmlspecialchars($row['fecha_nac']); ?></td>
-                            <td class="px-4 py-2 border-b border-gray-300">
-                                <button onclick="openModal(<?php echo $row['id']; ?>, '<?php echo $row['nombre']; ?>', '<?php echo $row['correo']; ?>', '<?php echo $row['genero']; ?>', '<?php echo $row['tipo_usuario']; ?>', '<?php echo $row['fecha_nac']; ?>')" class="bg-blue-500 text-white px-4 py-2 rounded"><i class="ri-edit-2-line"></i></button>
-                                <button onclick="deleteUser(<?php echo $row['id']; ?>)" class="bg-red-500 text-white px-4 py-2 rounded"><i class="ri-delete-bin-fill"></i></button>
+                            <td class="px-4 py-2 border-b border-gray-300 text-center">
+                                <div class="flex justify-center space-x-2">
+                                    <button onclick="openModal(<?php echo $row['id']; ?>, '<?php echo $row['nombre']; ?>', '<?php echo $row['correo']; ?>', '<?php echo $row['genero']; ?>', '<?php echo $row['tipo_usuario']; ?>', '<?php echo $row['fecha_nac']; ?>')" class="bg-blue-500 text-white px-4 py-2 rounded"><i class="ri-edit-2-line"></i></button>
+                                    <button onclick="deleteUser(<?php echo $row['id']; ?>)" class="bg-red-500 text-white px-4 py-2 rounded"><i class="ri-delete-bin-fill"></i></button>
+                                </div>
                             </td>
                         </tr>
                     <?php } ?>
@@ -257,6 +259,39 @@ if ($result && $result->num_rows > 0) {
     });
 </script>
 
+<style>
+    /* Estilo para el campo de búsqueda de DataTables */
+    
+    .dataTables_wrapper .dataTables_filter input {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        width: 200px; /* Ajusta el tamaño aquí */
+        margin-left: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .dataTables_wrapper {
+        overflow-y: hidden; /* Ocultar barra de desplazamiento vertical */
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.25rem 0.75rem;
+        margin: 0 0.25rem;
+        border-radius: 0.375rem;
+        background-color: #f3f4f6;
+        
+        font-size: 0.876rem;
+        border: 1px solid #ddd;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        background-color: #1d4ed8;
+        color: white;
+        font-weight: bold;
+        border-color: #1d4ed8;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        background-color: #e5e7eb;
+    }
+</style>
 <?php
 }
 ?>
