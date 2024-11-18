@@ -184,11 +184,60 @@ public function listar_programas() {
     ";
     return $this->ejecutar_sentencia();
 }
+public function crear_feedback($usuario_id, $programa_id, $comentario) {
+    $sql = "INSERT INTO feedback (usuario_id, programa_id, comentario) VALUES (?, ?, ?)";
+    $stmt = $this->conexion->prepare($sql);
+    return $stmt->execute([$usuario_id, $programa_id, $comentario]);
+}
 public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_teacher)
     {
         $this->sentencia = "INSERT INTO actividades (nombre_actividad, descripcion, fecha, fk_materia, fk_teacher) 
                             VALUES ('$nombre_actividad', '$descripcion', '$fecha', '$id_materia', '$id_teacher')";
         return $this->ejecutar_sentencia();
+    }
+    public function obtener_usuario_por_nombre($nombre) {
+        $this->sentencia = "SELECT * FROM usuarios WHERE nombre = '$nombre'";
+        $resultado = $this->obtener_sentencia();
+        return $resultado ? $resultado->fetch_assoc() : null;
+    }
+    public function obtener_feedback() {
+        $query = "SELECT u.nombre, f.comentario, p.nombre AS programa
+                  FROM feedback f
+                  JOIN usuarios u ON f.usuario_id = u.id
+                  JOIN programas p ON f.programa_id = p.id";
+        return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
+    public function obtener_usuario_por_id($id) {
+        $stmt = $this->conexion->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    
+
+    public function actualizar_usuario($id, $nombre, $correo, $fecha_nac, $genero, $edad) {
+        $sql = "UPDATE usuarios 
+                SET nombre = ?, correo = ?, fecha_nac = ?, genero = ?, edad = ? 
+                WHERE id = ?";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([$nombre, $correo, $fecha_nac, $genero, $edad, $id]);
+    }
+    
+    public function obtener_todos_los_programas() {
+        $sql = "SELECT id, nombre FROM programas";
+        $result = $this->obtener_sentencia($sql);
+        return $result; // Asegúrate de que esto esté retornando el resultado correctamente
+    }
+    
+    
+    
+    public function __construct() {
+        $this->conexion = new mysqli('localhost', 'root', '', 'unityclass');
+        
+        if ($this->conexion->connect_error) {
+            die("Connection failed: " . $this->conexion->connect_error);
+        }
     }
 
     public function listar_actividades()

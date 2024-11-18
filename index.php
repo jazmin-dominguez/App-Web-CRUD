@@ -373,106 +373,42 @@
 
         <!--Review-->
         <section id="review" class="relative mb-20 md:mb-28 overflow-hidden">
-
-            <!--<div class="review__leaf  absolute -top-8 -left-12 opacity-50">
-                <img src="/SRC/532e26143a0435e9c6ca7f436474389f-icono-de-libros.webp" alt="leaf_image"
-                class="w_40 md:w-52 xl:w-64">
-            </div> -->
-
-            <div class="review__top  flex flex-col items-center gap-3 text-center mb-10
-            md:mb-20">
+            <div class="review__top flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
                 <h2 class="title">User Reviews</h2>
                 <p class="max-w-2xl">What our users say</p>
             </div>
 
-            <div class="review__swiper  container">
+            <div class="review__swiper container">
                 <div class="swiper py-12">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide" >
-                            <div class="flex flex-col gap-5 bg-cyan-900
-                            rounded-md p-6"> 
-                                <p class="font-Oswald">
-                                    "I've never been good at reading, but this course made 
-                                    it easy for me. The interactive exercises are great."
-                                </p>
-                                <div class="flex items-center">
-                                    <img src="./SRC/3849119.png" alt="review_image"
-                                    class="w-12 h-12 rounded-full">
-                                    <div class="ml-2">
-                                        <p class="text-yellow-500 uppercase">Kevin Lopez</p>
-                                        <p>Student</p>
-                                    </div>
-                                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
-                                </div>
-                            </div>
-                        </li>
+                        <?php
+                        require_once('Conexion/contacto.php');
+                        $obj = new Contacto();
+                        $feedbacks = $obj->obtener_feedback(); // Devuelve 'nombre', 'comentario' y 'programa'
 
-                        <li class="swiper-slide">
-                            <div class="flex flex-col gap-5 bg-cyan-900
-                            rounded-md p-6"> 
-                                <p class="font-Oswald">
-                                    "I've always had a hard time with math, 
-                                    but I learned in a fun way here. The weekly 
-                                    challenges helped me stay motivated, and I 
-                                    now understand the problems in my classes better."
-                                </p>
-                                <div class="flex items-center">
-                                    <img src="./SRC/4305686.png" alt="review_image"
-                                    class="w-12 h-12 rounded-full">
-                                    <div class="ml-2">
-                                        <p class="text-yellow-500 uppercase">Sofia Bautista</p>
-                                        <p>Student</p>
+                        foreach ($feedbacks as $feedback) {
+                            echo "
+                            <li class='swiper-slide'>
+                                <div class='flex flex-col gap-5 bg-cyan-900 rounded-md p-6'> 
+                                    <p class='font-Oswald text-white'>{$feedback['comentario']}</p>
+                                    <div class='flex items-center'>
+                                        <img src='./SRC/3849119.png' alt='review_image' class='w-12 h-12 rounded-full'>
+                                        <div class='ml-2'>
+                                            <p class='text-yellow-500 uppercase'>{$feedback['nombre']}</p>
+                                            <p class='text-sm text-gray-300'>Program: {$feedback['programa']}</p>
+                                        </div>
+                                        <i class='ri-double-quotes-r text-4xl ml-auto text-white'></i>
                                     </div>
-                                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
                                 </div>
-                            </div>
-                        </li>
-
-                        <li class="swiper-slide">
-                            <div class="flex flex-col gap-5 bg-cyan-900
-                            rounded-md p-6"> 
-                                <p class="font-Oswald">
-                                    "I wasn't very good with computers, but this program helped 
-                                    me learn the basics. I feel more prepared for the workforce now. 
-                                    It just needs a little more depth on some advanced topics."
-                                </p>
-                                <div class="flex items-center">
-                                    <img src="./SRC/3849119.png" alt="review_image"
-                                    class="w-12 h-12 rounded-full">
-                                    <div class="ml-2">
-                                        <p class="text-yellow-500 uppercase">Luis Garcia</p>
-                                        <p>Student</p>
-                                    </div>
-                                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="swiper-slide">
-                            <div class="flex flex-col gap-5 bg-cyan-900
-                            rounded-md p-6"> 
-                                <p class="font-Oswald">
-                                    "This course changed the way I talk to people. I learned to 
-                                    communicate better, especially in discussions with friends and 
-                                    family. I wish I had taken it sooner!"
-                                </p>
-                                <div class="flex items-center">
-                                    <img src="./SRC/4305686.png" alt="review_image"
-                                    class="w-12 h-12 rounded-full">
-                                    <div class="ml-2">
-                                        <p class="text-yellow-500 uppercase">Andrea Velazquez</p>
-                                        <p>Student</p>
-                                    </div>
-                                    <i class="ri-double-quotes-r text-4xl ml-auto"></i>
-                                </div>
-                            </div>
-                        </li>
+                            </li>";
+                        }
+                        ?>
                     </ul>
-
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <!--Footer-->
