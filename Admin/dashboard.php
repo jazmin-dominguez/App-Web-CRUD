@@ -18,6 +18,7 @@ $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminarmateria';
 $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
 $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
 $showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
+$showForm11 = isset($_GET['action']) && $_GET['action'] == 'historialdonaciones';
 ?>
 <?php include '../funciones.php'; ?>
 
@@ -64,7 +65,7 @@ $showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
             </header>
 
             <?php
-                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7 && !$showForm8 && !$showForm9 && !$showForm10):
+                if (!$showForm && !$showForm0 && !$showForm1 && !$showForm4 && !$showForm5 && !$showForm6 && !$showForm7 && !$showForm8 && !$showForm9 && !$showForm10 && !$showForm11):
                     ?>
 
                         <div class="w-full h-full flex flex-col">
@@ -479,6 +480,9 @@ $showForm10 = isset($_GET['action']) && $_GET['action'] == 'modificarprograma';
                 endif;
                 if ($showForm10):
                     include('modificar_programa.php');
+                endif;
+                if ($showForm11):
+                    include('historialdonaciones.php');
                 endif;
             ?>
         </main>
