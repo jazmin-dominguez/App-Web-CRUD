@@ -289,85 +289,50 @@
         </section>
 
         <!--Popular-->
-        <section id="Popular" class="bg-cyan-900">
-            <div class="popular__top  flex flex-col items-center gap-3 text-center mb-40">
-                <h2 class="title">Popular Programs</h2>
-                <p class="max-w-2xl">find out about the most popular ones</p>
+        <section id="Popular" class="bg-cyan-900 py-10">
+            <div class="popular__top flex flex-col items-center gap-3 text-center mb-10">
+                <h2 class="title text-white">Popular Programs</h2>
+                <p class="text-gray-300 max-w-2xl">Find out about the most popular programs with the highest number of teachers.</p>
             </div>
 
-            <div class="container w-full grid grid-cols-1 gap-x-8 gap-y-36
-            md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                <!--Cadr 1-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="./SRC/5078755.png" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2  duration-500">
+            <div class="container mx-auto grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center pl-10 max-w-[95%]" >
+                <?php
+                require_once('Conexion/contacto.php');
+                $contacto = new Contacto();
+                $programasPopulares = $contacto->obtener_programas_populares();
 
-                    <h3 class="italic">Basic Literacy</h3>
-                    <p>Jazmin Dguez</p>
+                $imagenes = [
+                    "Science and Technology Program" => "./SRC/5078755.png",
+                    "Basic Mathematics" => "./SRC/símbolo-matemático.webp",
+                    "Cultural and Linguistic Exploration" => "./SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png",
+                ];
 
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
+                foreach ($programasPopulares as $programa) {
+                    $imagen = $imagenes[$programa['programa']] ?? './SRC/default_icon.png';
 
-                <!--Cadr 2-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="./SRC/símbolo-matemático.webp" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2 duration-500">
+                    if (!file_exists($imagen)) {
+                        $imagen = './SRC/default_icon.png'; // Imagen por defecto si la ruta es inválida
+                    }
 
-                    <h3 class="italic">Basic Mathematics</h3>
-                    <p>Luis Gonzalez</p>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!--Cadr 3-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="./SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png" alt="popular_image"
-                    class="w-52 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2 duration-500">
-
-                    <h3 class="italic">Digital Skills Development</h3>
-                    <p>Pablo Diaz</>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!--Cadr 4-->
-                <div class="popular_card bg-cyan-950 p-10 pt-24 rounded-md relative">
-                    <img src="./SRC/2654513.png" alt="popular_image"
-                    class="w-40 absolute -top-5 left-1/2 transform
-                    -translate-x-1/2 -translate-y-1/2  duration-500">
-
-                    <h3 class="italic">Personal and Social Development</h3>
-                    <p>Pati Rodriguez</p>
-
-                    <div class="text-yellow-500 text-xs py-3">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                        <i class="ri-star-line text-gray-400"></i>
-                    </div>
-                </div>
+                    echo "
+                    <div class='popular_card bg-cyan-950 p-10 rounded-md relative text-center flex flex-col items-center'>
+                        <div class='relative w-full flex justify-center'>
+                            <img src='$imagen' alt='Image of {$programa['programa']}'
+                                class='w-32 h-32 object-contain mb-5'>
+                        </div>
+                        <h3 class='italic text-white'>{$programa['programa']}</h3>
+                        <p class='text-gray-300'>Lead Teacher: {$programa['maestro_principal']}</p>
+                        <p class='text-gray-400 text-sm'>Teachers enrolled: {$programa['total_maestros']}</p>
+                        <div class='text-yellow-500 text-xs py-3'>
+                            <i class='ri-star-fill'></i>
+                            <i class='ri-star-fill'></i>
+                            <i class='ri-star-half-fill'></i>
+                            <i class='ri-star-line text-gray-400'></i>
+                            <i class='ri-star-line text-gray-400'></i>
+                        </div>
+                    </div>";
+                }
+                ?>
             </div>
         </section>
 

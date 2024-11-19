@@ -230,6 +230,19 @@ public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_mat
         return $result; // Asegúrate de que esto esté retornando el resultado correctamente
     }
     
+    public function obtener_programas_populares() {
+        $query = "
+            SELECT 
+                p.nombre AS programa,
+                COUNT(u.id) AS total_maestros,
+                MAX(u.nombre) AS maestro_principal
+            FROM programas p
+            LEFT JOIN usuarios u ON u.tipo_usuario = 'teacher' AND p.FK_tipo_usuario = u.id
+            GROUP BY p.id
+            ORDER BY total_maestros DESC
+            LIMIT 8"; // Muestra un máximo de 8 programas
+        return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
     
     
     public function __construct() {
