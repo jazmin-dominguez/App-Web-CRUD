@@ -240,21 +240,22 @@
         }
     }
 
-    public function listar_actividades()
-    {
-        $this->sentencia = "
+    public function listar_actividades() {
+        $query = "
             SELECT 
-                actividades.id, 
-                actividades.nombre_actividad, 
-                actividades.descripcion, 
-                actividades.fecha, 
-                materias.nombre_materia AS nombre_materia, 
-                usuarios.nombre AS nombre_teacher 
-            FROM actividades
-            LEFT JOIN materias ON actividades.fk_materia = materias.id
-            LEFT JOIN usuarios ON actividades.fk_teacher = usuarios.id";
-        return $this->ejecutar_sentencia();
+                a.id, 
+                a.nombre_actividad, 
+                a.descripcion, 
+                a.fecha, 
+                m.nombre_materia, 
+                a.fk_teacher, 
+                a.entregas_realizadas -- Aquí incluimos el campo entregas_realizadas
+            FROM actividades a
+            JOIN materias m ON a.fk_materia = m.id
+        ";
+        return $this->conexion->query($query);
     }
+    
     public function modificar_actividad($id, $nombre_actividad, $descripcion, $fk_materia, $fk_teacher)
     {
         $this->sentencia = "UPDATE actividades 
