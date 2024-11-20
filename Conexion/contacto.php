@@ -158,43 +158,43 @@
             return $result;
         }
         // Función para obtener todos los usuarios que son 'teachers'
-public function obtener_usuarios_teachers() {
-    $this->sentencia = "SELECT id, nombre FROM usuarios WHERE tipo_usuario = 'Teacher'";
-    $resultado = $this->ejecutar_sentencia();
-    return $resultado->fetch_all(MYSQLI_ASSOC);
-}
-// Función para obtener todas las materias
-public function obtener_todas_materias() {
-    $this->sentencia = "SELECT id, nombre_materia FROM materias";
-    $resultado = $this->ejecutar_sentencia();
-    return $resultado->fetch_all(MYSQLI_ASSOC);
-}
-public function listar_programas() {
-    $this->sentencia = "
-        SELECT 
-            programas.id, 
-            programas.nombre AS programa_nombre, 
-            programas.descripcion, 
-            materias.nombre_materia, 
-            usuarios.nombre AS nombre, 
-            usuarios.tipo_usuario 
-        FROM programas
-        LEFT JOIN materias ON programas.FK_materia = materias.id
-        LEFT JOIN usuarios ON programas.FK_tipo_usuario = usuarios.id
-    ";
-    return $this->ejecutar_sentencia();
-}
-public function crear_feedback($usuario_id, $programa_id, $comentario) {
-    $sql = "INSERT INTO feedback (usuario_id, programa_id, comentario) VALUES (?, ?, ?)";
-    $stmt = $this->conexion->prepare($sql);
-    return $stmt->execute([$usuario_id, $programa_id, $comentario]);
-}
-public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_teacher)
-    {
-        $this->sentencia = "INSERT INTO actividades (nombre_actividad, descripcion, fecha, fk_materia, fk_teacher) 
-                            VALUES ('$nombre_actividad', '$descripcion', '$fecha', '$id_materia', '$id_teacher')";
+    public function obtener_usuarios_teachers() {
+        $this->sentencia = "SELECT id, nombre FROM usuarios WHERE tipo_usuario = 'Teacher'";
+        $resultado = $this->ejecutar_sentencia();
+        return $resultado->fetch_all(MYSQLI_ASSOC);
+    }
+    // Función para obtener todas las materias
+    public function obtener_todas_materias() {
+        $this->sentencia = "SELECT id, nombre_materia FROM materias";
+        $resultado = $this->ejecutar_sentencia();
+        return $resultado->fetch_all(MYSQLI_ASSOC);
+    }
+    public function listar_programas() {
+        $this->sentencia = "
+            SELECT 
+                programas.id, 
+                programas.nombre AS programa_nombre, 
+                programas.descripcion, 
+                materias.nombre_materia, 
+                usuarios.nombre AS nombre, 
+                usuarios.tipo_usuario 
+            FROM programas
+            LEFT JOIN materias ON programas.FK_materia = materias.id
+            LEFT JOIN usuarios ON programas.FK_tipo_usuario = usuarios.id
+        ";
         return $this->ejecutar_sentencia();
     }
+    public function crear_feedback($usuario_id, $programa_id, $comentario) {
+        $sql = "INSERT INTO feedback (usuario_id, programa_id, comentario) VALUES (?, ?, ?)";
+        $stmt = $this->conexion->prepare($sql);
+        return $stmt->execute([$usuario_id, $programa_id, $comentario]);
+    }
+    public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_teacher)
+        {
+            $this->sentencia = "INSERT INTO actividades (nombre_actividad, descripcion, fecha, fk_materia, fk_teacher) 
+                                VALUES ('$nombre_actividad', '$descripcion', '$fecha', '$id_materia', '$id_teacher')";
+            return $this->ejecutar_sentencia();
+        }
     public function obtener_usuario_por_nombre($nombre) {
         $this->sentencia = "SELECT * FROM usuarios WHERE nombre = '$nombre'";
         $resultado = $this->obtener_sentencia();
@@ -371,21 +371,21 @@ public function crear_actividad($nombre_actividad, $descripcion, $fecha, $id_mat
         return $data;
     }
     
-public function obtener_programa_por_id($id) {
-    $this->sentencia = "SELECT * FROM programas WHERE id = $id";
-    $result = $this->ejecutar_sentencia();
-    return $result->fetch_assoc();
-}
-public function modificar_programa($id, $nombre_programa, $descripcion_programa, $FK_materia, $FK_tipo_usuario) {
-    $this->sentencia = "UPDATE programas 
-                        SET nombre = '$nombre_programa', 
-                            descripcion = '$descripcion_programa', 
-                            FK_materia = $FK_materia, 
-                            FK_tipo_usuario = $FK_tipo_usuario 
-                        WHERE id = $id";
-    return $this->ejecutar_sentencia();
+    public function obtener_programa_por_id($id) {
+        $this->sentencia = "SELECT * FROM programas WHERE id = $id";
+        $result = $this->ejecutar_sentencia();
+        return $result->fetch_assoc();
+    }
+    public function modificar_programa($id, $nombre_programa, $descripcion_programa, $FK_materia, $FK_tipo_usuario) {
+        $this->sentencia = "UPDATE programas 
+                            SET nombre = '$nombre_programa', 
+                                descripcion = '$descripcion_programa', 
+                                FK_materia = $FK_materia, 
+                                FK_tipo_usuario = $FK_tipo_usuario 
+                            WHERE id = $id";
+        return $this->ejecutar_sentencia();
 
-}
+    }
 
 public function obtener_todos_programas() {
     //$sql = "SELECT id, nombre, descripcion, FK_materia FROM programas";
@@ -402,19 +402,6 @@ public function obtener_todos_programas() {
     $result = $this->obtener_sentencia();
     return $result ? $result ->fetch_all(MYSQLI_ASSOC): [];
 }
-
-//public function ejecutar_sentencia() {
-   // if (!$this->conexion) {
-     //   die("Conexión no inicializada.");
-   // }
-
-   // $resultado = $this->conexion->query($this->sentencia);
-    //if (!$resultado) {
-      //  die("Error en la consulta: " . $this->conexion->error);
-    //}
-    //return $resultado;
-//}
-
 
     // Verificar si el usuario ya está inscrito en el programa
     public function verificar_inscripcion($user_id, $programa_id) {
@@ -484,6 +471,26 @@ public function obtener_todos_programas() {
         $this->cerrar_conexion();
         
         return $programas;
+    }
+
+    public function obtener_materias_inscritas($user_id) {
+        $this->abrir_conexion();
+        
+        $sql = "SELECT m.id, m.nombre_materia, m.objetivos
+                FROM materias m
+                INNER JOIN inscripciones_materias i ON m.id = i.materia_id
+                WHERE i.user_id = ?";
+        
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $materias = $result->fetch_all(MYSQLI_ASSOC);
+        
+        $stmt->close();
+        $this->cerrar_conexion();
+        
+        return $materias;
     }
     
     public function verificar_inscripcion_materia($user_id, $materia_id) {
@@ -689,11 +696,38 @@ public function obtener_todos_programas() {
     
         return $result->fetch_all(MYSQLI_ASSOC); // Devolver los resultados como un array asociativo
     }
+    
+    public function desinscribir_materia($user_id, $materia_id) {
+        $this->abrir_conexion(); // Asegúrate de que la conexión esté abierta
+    
+        // Preparar la consulta para eliminar la inscripción
+        $sql = "DELETE FROM inscripciones_materias WHERE user_id = ? AND materia_id = ?";
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            // Si hay un error al preparar la consulta, retornar false
+            $this->cerrar_conexion();
+            return false;
+        }
+    
+        // Enlazar los parámetros y ejecutar la consulta
+        $stmt->bind_param("ii", $user_id, $materia_id);
+        $resultado = $stmt->execute();
+    
+        // Cerrar la conexión y liberar los recursos
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $resultado; // Retorna true si se eliminó correctamente, o false en caso contrario
+    }
+    
+    // Función para obtener todas las materias con toda su informacion
+    public function obtener_todas_materiasinfo() {
+        $this->sentencia = "SELECT id, nombre_materia, objetivos FROM materias";
+        $resultado = $this->ejecutar_sentencia();
+        return $resultado->fetch_all(MYSQLI_ASSOC);
+    }
 
-    
-    
-    
-    
 
 }
 ?>
