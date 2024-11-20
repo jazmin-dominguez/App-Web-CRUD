@@ -229,7 +229,40 @@
         $result = $this->obtener_sentencia($sql);
         return $result; // Asegúrate de que esto esté retornando el resultado correctamente
     }
+
+    public function verificar_correo($correo) {
+        $conexion = $this->abrir_conexion(); // Obtenemos la conexión activa.
     
+        $query = "SELECT COUNT(*) AS total FROM usuarios WHERE correo = ?";
+        $stmt = $conexion->prepare($query);
+    
+        if (!$stmt) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+    
+        $stmt->bind_param('s', $correo);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $data = $resultado->fetch_assoc();
+        $stmt->close();
+        $this->cerrar_conexion(); // Cerramos la conexión correctamente.
+    
+        return $data['total'] > 0;
+    }
+    
+    public function obtener_programas_populares() {
+        $query = "
+            SELECT 
+                p.nombre AS programa,
+                COUNT(u.id) AS total_maestros,
+                MAX(u.nombre) AS maestro_principal
+            FROM programas p
+            LEFT JOIN usuarios u ON u.tipo_usuario = 'teacher' AND p.FK_tipo_usuario = u.id
+            GROUP BY p.id
+            ORDER BY total_maestros DESC
+            LIMIT 8"; // Muestra un máximo de 8 programas
+        return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
     
     
     public function __construct() {
