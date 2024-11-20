@@ -2,30 +2,73 @@
 require_once ('../Conexion/contacto.php');
 $contacto = new Contacto();
 
-// Obtener todos los usuarios 'teachers' y todas las materias
-$teachers = $contacto->obtener_usuarios_teachers();
-$materias = $contacto->obtener_todas_materias();
+// Verificar si la sesión ya está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verificar que la conexión a la base de datos está activa
+if (!$contacto->conexion || $contacto->conexion->connect_error) {
+    die("Error en la conexión a la base de datos: " . $contacto->conexion->connect_error);
+}
+
+// Obtener la conexión activa
+$user_id = $_SESSION['user_id'];
+$db = $contacto->conexion;
+
+// Obtener todos los programas en los que está inscrito el usuario
+$query_programas = "SELECT programa_id FROM inscripciones WHERE user_id = ?";
+$stmt = $db->prepare($query_programas);
+if (!$stmt) {
+    die("Error al preparar la consulta: " . $db->error);
+}
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$programas = $result->fetch_all(MYSQLI_ASSOC);
+
+// Si hay programas, obtener las materias asociadas
+$materias = [];
+if ($programas) {
+    $programa_ids = array_column($programas, 'programa_id');
+    $placeholders = implode(',', array_fill(0, count($programa_ids), '?'));
+
+    $query_materias = "
+        SELECT DISTINCT m.id, m.nombre_materia
+        FROM materias m
+        JOIN programas p ON p.FK_materia = m.id
+        WHERE p.id IN ($placeholders)";
+    $stmt = $db->prepare($query_materias);
+    if (!$stmt) {
+        die("Error al preparar la consulta: " . $db->error);
+    }
+    $stmt->bind_param(str_repeat('i', count($programa_ids)), ...$programa_ids);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $materias = $result->fetch_all(MYSQLI_ASSOC);
+}
 
 // Procesar la solicitud de creación de actividad
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos del formulario
     $nombre_actividad = $_POST['nombre_actividad'];
     $descripcion = $_POST['descripcion'];
     $fecha = $_POST['fecha'];
     $id_materia = $_POST['id_materia'];
-    $id_usuario = $_POST['id_usuario'];
 
-    // Crear la actividad en la base de datos
-    $resultado = $contacto->crear_actividad($nombre_actividad, $descripcion, $fecha, $id_materia, $id_usuario);
+    $query_insert = "INSERT INTO actividades (nombre_actividad, descripcion, fk_materia, fecha, fk_teacher) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $db->prepare($query_insert);
+    if (!$stmt) {
+        die("Error al preparar la consulta: " . $db->error);
+    }
+    $stmt->bind_param("ssisi", $nombre_actividad, $descripcion, $id_materia, $fecha, $user_id);
+    $stmt->execute();
 
-    if ($resultado) {
-        // Enviar respuesta de éxito
+    if ($stmt->affected_rows > 0) {
         echo "success";
     } else {
-        // Enviar respuesta de error
         echo "error";
     }
-    exit; // Terminar el script después de enviar la respuesta
+    exit;
 }
 ?>
 
@@ -73,16 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </div>
 
-            <!-- Teacher -->
-            <div class="mb-4">
-                <label for="id_usuario" class="block text-gray-700 font-bold mb-2">Teacher:</label>
-                <select id="id_usuario" name="id_usuario" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
-                    <?php foreach ($teachers as $teacher): ?>
-                        <option value="<?php echo $teacher['id']; ?>"><?php echo $teacher['nombre']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
             <!-- Botón de Crear Actividad -->
             <div class="flex justify-center">
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600">Crear Actividad</button>
@@ -94,12 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script>
 // Manejar el envío del formulario mediante JavaScript y Fetch API
 document.getElementById("activityForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evita el envío tradicional del formulario
+    event.preventDefault();
 
-    // Crea un objeto FormData para enviar los datos
     var formData = new FormData(this);
 
-    // Enviar la solicitud AJAX
     fetch("crearactividad.php", {
         method: "POST",
         body: formData
@@ -107,18 +138,14 @@ document.getElementById("activityForm").addEventListener("submit", function(even
     .then(response => response.text())
     .then(response => {
         if (response.trim() === "success") {
-            // Muestra la alerta de éxito con SweetAlert2
             Swal.fire({
                 icon: 'success',
                 title: 'Activity created successfully!',
                 text: 'Your activity has been created successfully.',
                 confirmButtonText: 'OK'
             });
-            
-            // Limpiar el formulario después de la creación exitosa
             document.getElementById("activityForm").reset();
         } else {
-            // Muestra una alerta de error si la respuesta no es "success"
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -128,7 +155,6 @@ document.getElementById("activityForm").addEventListener("submit", function(even
         }
     })
     .catch(error => {
-        console.error("Error:", error);
         Swal.fire({
             icon: 'error',
             title: 'Error',

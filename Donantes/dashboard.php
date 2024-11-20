@@ -148,7 +148,7 @@ $result = $contacto->listar_programas();
 <section id="historial_donaciones" class="relative flex flex-col items-center justify-center h-screen bg-blue-100 text-gray-900">
     <h1 class="text-4xl font-bold mb-4 flex items-center text-cyan-800">
         <i class="ri-money-dollar-circle-fill mr-2 text-yellow-500"></i> <!-- Icono de dinero -->
-            Donation History
+        Donation History
     </h1>
     <p class="text-lg mb-4 text-cyan-700">Here you can see the history of all your donations made.</p>
     
@@ -158,29 +158,33 @@ $result = $contacto->listar_programas();
         // Obtener el historial de donaciones usando el método de la clase Contacto
         $historial = $contacto->listar_historial_donaciones(); 
         if ($historial->num_rows > 0): ?>
-            <table class="w-full text-left bg-white rounded-lg shadow-lg overflow-hidden">
-                <thead>
-                    <tr class="bg-cyan-800 text-black">
-                        <th class="px-4 py-2">Donation date</th>
-                        <th class="px-4 py-2">Donor Name</th>
-                        <th class="px-4 py-2">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($donacion = $historial->fetch_assoc()): ?>
-                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                            <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
-                            <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
-                            <td class="px-4 py-2"><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
+            <!-- Contenedor scrollable -->
+            <div class="max-h-96 overflow-y-auto border rounded-lg shadow-lg">
+                <table class="w-full text-left bg-white rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="bg-cyan-800 text-black">
+                            <th class="px-4 py-2">Donation date</th>
+                            <th class="px-4 py-2">Donor Name</th>
+                            <th class="px-4 py-2">Amount</th>
                         </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php while ($donacion = $historial->fetch_assoc()): ?>
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
+                                <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
+                                <td class="px-4 py-2"><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php else: ?>
             <p class="text-center text-gray-700">No hay donaciones registradas.</p>
         <?php endif; ?>
     </div>
 </section>
+
 
 
 
@@ -391,12 +395,37 @@ $result = $contacto->listar_programas();
     </script>
 </section>
 
-    <!-- Sección de Contacto -->
-    <section id="contact" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #0F758C;">
-        <h1 class="text-4xl font-bold mb-4">CONTACT</h1>
-        <p class="text-xl">Get in touch with us for any inquiries or support.</p>
-    </section>
-</main>
+<!-- Sección de Contacto -->
+<section id="contact" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #0F758C;">
+    <h1 class="text-4xl font-bold mb-4">CONTACT</h1>
+    <p class="text-xl mb-6">Get in touch with us for any inquiries or support.</p>
+
+    <!-- Formulario de contacto -->
+    <div class="container mx-auto px-4 max-w-lg">
+        <form method="POST" class="bg-white p-6 rounded-lg shadow-md text-gray-900">
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-bold mb-2">Name</label>
+                <input type="text" name="name" id="name" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Name" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-bold mb-2">Email</label>
+                <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Email" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block text-sm font-bold mb-2">Message</label>
+                <textarea name="message" id="message" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Message" rows="4" required></textarea>
+            </div>
+            <button type="submit" name="enviar" class="bg-black text-white py-2 px-4 border rounded-lg hover:bg-cyan-700 font-bold">Send Message</button>
+            <?php
+                if(isset($_POST["enviar"])) {
+                    $contenido = $_POST['message'];
+                    include ("sendmail.php");
+                }
+            ?>
+        </form>
+    </div>
+</section>
+
 
 <!-- Footer -->
 <footer class="bg-yellow-100 text-cyan-950 pt-20 pb-10 md:pt-28 relative">
