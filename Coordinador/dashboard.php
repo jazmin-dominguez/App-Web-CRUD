@@ -17,6 +17,7 @@ $tipo_usuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : '
   $showForm7 = isset($_GET['action']) && $_GET['action'] == 'eliminar_materias';
   $showForm8 = isset($_GET['action']) && $_GET['action'] == 'crearprograma';
   $showForm9 = isset($_GET['action']) && $_GET['action'] == 'listarprograma';
+  $showForm10 = isset($_GET['action']) && $_GET['action'] == 'historialdonaciones';
 
 ?><?php include '../funciones.php'; ?>
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ $tipo_usuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : '
             </header>
         <?php
 
-            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm7 && !$showForm8 && !$showForm9):
+            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm3 && !$showForm4 && !$showForm5 && !$showForm7 && !$showForm8 && !$showForm9 && !$showForm10):
 
                 ?>
                 <div class="w-full h-full flex flex-col">
@@ -472,6 +473,9 @@ $tipo_usuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : '
             if($showForm9):
               include('listarprogramas.php');
             endif;
+            if($showForm10):
+                include('historialdonaciones.php');
+              endif;
         ?>
     </main>
   </div>
