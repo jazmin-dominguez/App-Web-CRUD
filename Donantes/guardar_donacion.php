@@ -3,11 +3,12 @@ include '../Conexion/contacto.php';
 
 // Crear una instancia de la clase Contacto
 $contacto = new Contacto();
+session_start();
 
 // Datos a insertar (capturados del formulario con $_POST)
 $nombre_donacion = $_POST['nombre_donacion'];
 $fecha_donacion = $_POST['fecha_donacion'];
-$FK_tipo_Usuario = $_POST['FK_tipo_Usuario'];
+$FK_tipo_Usuario = $_SESSION['user_id'];
 $monto = $_POST['monto'];
 
 // Llamar a la función para guardar la donación
