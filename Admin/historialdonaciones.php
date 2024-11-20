@@ -18,7 +18,6 @@ $result = $contacto->listar_historial_donaciones();
     <!-- Consulta y visualización del historial de donaciones -->
     <div class="container mx-auto px-4">
         <?php
-        // Obtener el historial de donaciones usando el método de la clase Contacto
         $historial = $contacto->listar_historial_donaciones(); 
         if ($historial->num_rows > 0): ?>
             
@@ -28,22 +27,46 @@ $result = $contacto->listar_historial_donaciones();
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
+            <style>
+                /* Estilos personalizados para la tabla */
+                .table-container table {
+                    border-collapse: collapse; /* Evitar espacios entre bordes */
+                    width: 100%;
+                }
+                .table-container th,
+                .table-container td {
+                    border: 1px solid #ccc; /* Bordes para separar columnas */
+                    padding: 8px 12px;
+                    text-align: left;
+                }
+                .table-container th {
+                    background-color: #007b83; /* Fondo para encabezado */
+                    color: white;
+                }
+                .table-container tr:nth-child(even) {
+                    background-color: #f9f9f9; /* Color alternativo para filas pares */
+                }
+                .table-container tr:hover {
+                    background-color: #eef; /* Resaltar fila al pasar el cursor */
+                }
+            </style>
+
             <!-- Tabla con DataTables -->
             <div class="table-container">
-                <table id="donationTable" class="table w-full text-left bg-white rounded-lg overflow-hidden">
+                <table id="donationTable" class="table bg-white rounded-lg overflow-hidden">
                     <thead>
-                        <tr class="bg-cyan-800 text-white">
-                            <th class="px-4 py-2">Donation date</th>
-                            <th class="px-4 py-2">Donor Name</th>
-                            <th class="px-4 py-2">Amount</th>
+                        <tr>
+                            <th>Donation date</th>
+                            <th>Donor Name</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($donacion = $historial->fetch_assoc()): ?>
                             <tr>
-                                <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
-                                <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
-                                <td class="px-4 py-2"><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
+                                <td><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
+                                <td><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
+                                <td><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -68,7 +91,8 @@ $result = $contacto->listar_historial_donaciones();
                                 "next": ">",
                                 "previous": "<"
                             }
-                        }
+                        },
+                        "responsive": true
                     });
                 });
             </script>
