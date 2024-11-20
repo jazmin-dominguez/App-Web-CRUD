@@ -641,6 +641,55 @@ public function obtener_todos_programas() {
         $this->cerrar_conexion();
         return $result;
     }
+
+    public function listar_usuarios_por_materia($id_profesor) {
+        $this->abrir_conexion();
+    
+        $sql = "
+            SELECT u.nombre, u.correo, u.genero, u.edad, u.tipo_usuario, u.fecha_nac
+            FROM usuarios u
+            INNER JOIN inscripciones_materias im ON u.id = im.user_id
+            INNER JOIN materias m ON im.materia_id = m.id
+            INNER JOIN actividades a ON m.id = a.fk_materia
+            WHERE a.fk_teacher = ?;
+        ";
+    
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("i", $id_profesor);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $usuarios = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $usuarios;
+    }
+
+    public function obtenerActividades() {
+        $sql = "
+            SELECT 
+                actividades.id AS actividad_id,
+                actividades.nombre_actividad,
+                actividades.descripcion,
+                actividades.fecha,
+                materias.nombre_materia,
+                usuarios.nombre AS nombre_teacher
+            FROM actividades
+            LEFT JOIN materias ON actividades.fk_materia = materias.id
+            LEFT JOIN usuarios ON actividades.fk_teacher = usuarios.id
+        ";
+    
+        $result = $this->conexion->query($sql);
+    
+        if ($result === false) {
+            // Depurar el error de la consulta
+            die("Error en la consulta: " . $this->conexion->error);
+        }
+    
+        return $result->fetch_all(MYSQLI_ASSOC); // Devolver los resultados como un array asociativo
+    }
+
     
     
     

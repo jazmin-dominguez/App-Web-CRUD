@@ -13,6 +13,7 @@ $showForm1 = isset($_GET['action']) && $_GET['action'] == 'listaractividades';
 $showForm2 = isset($_GET['action']) && $_GET['action'] == 'modificaractividad';
 $showForm3 = isset($_GET['action']) && $_GET['action'] == 'eliminaractividad';
 $showForm11 = isset($_GET['action']) && $_GET['action'] == 'listarprogramasinscritos';
+$showForm4 = isset($_GET['action']) && $_GET['action'] == 'listarusuarios';
 ?>
 <?php include '../funciones.php'; ?>
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ $showForm11 = isset($_GET['action']) && $_GET['action'] == 'listarprogramasinscr
             </header>
 
             <?php
-            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm11):
+            if (!$showForm && !$showForm0 && !$showForm1 && !$showForm2 && !$showForm11 && !$showForm4):
                 ?>
                 <div class="w-full h-full flex flex-col">
                     
@@ -91,6 +92,9 @@ $showForm11 = isset($_GET['action']) && $_GET['action'] == 'listarprogramasinscr
             endif;
             if ($showForm11):
                 include('listar_programas_inscritos.php');
+            endif;
+            if ($showForm4):
+                include('listar_usuario.php');
             endif;
             ?>
         </main>
