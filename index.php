@@ -303,7 +303,7 @@
 
                 $imagenes = [
                     "Science and Technology Program" => "./SRC/5078755.png",
-                    "Basic Mathematics" => "./SRC/símbolo-matemático.webp",
+                    "Basic Matematics" => "./SRC/símbolo-matemático.webp",
                     "Cultural and Linguistic Exploration" => "./SRC/desktop_77e774f8-a8db-4a84-a2f4-a09bd867809c.png",
                 ];
 

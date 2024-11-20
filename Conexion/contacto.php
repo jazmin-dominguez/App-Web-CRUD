@@ -229,6 +229,26 @@
         $result = $this->obtener_sentencia($sql);
         return $result; // Asegúrate de que esto esté retornando el resultado correctamente
     }
+
+    public function verificar_correo($correo) {
+        $conexion = $this->abrir_conexion(); // Obtenemos la conexión activa.
+    
+        $query = "SELECT COUNT(*) AS total FROM usuarios WHERE correo = ?";
+        $stmt = $conexion->prepare($query);
+    
+        if (!$stmt) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+    
+        $stmt->bind_param('s', $correo);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $data = $resultado->fetch_assoc();
+        $stmt->close();
+        $this->cerrar_conexion(); // Cerramos la conexión correctamente.
+    
+        return $data['total'] > 0;
+    }
     
     public function obtener_programas_populares() {
         $query = "
