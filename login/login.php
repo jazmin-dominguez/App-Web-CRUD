@@ -31,7 +31,7 @@ session_start();
         <div class="card cascading-right bg-body-tertiary" style="backdrop-filter: blur(30px);">
           <div class="card-body p-5 shadow-5 text-center">
             <div class="d-flex align-items-center mb-3 pb-1">
-              <img src="../SRC/logo2.png" alt="Logo" style="height: 150px; margin-right: 10px;">
+              <img src="../SRC/plantita.png" alt="Logo" style="height: 90px; margin-right: 10px;">
               <span class="h1 fw-bold mb-0">Sign into your account</span>
             </div>
             <form method="post" onsubmit="return validateForm()">
