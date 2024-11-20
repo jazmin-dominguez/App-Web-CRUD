@@ -415,7 +415,7 @@ $result = $contacto->listar_programas();
                 <label for="message" class="block text-sm font-bold mb-2">Message</label>
                 <textarea name="message" id="message" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Message" rows="4" required></textarea>
             </div>
-            <button type="submit" name="enviar" class="bg-cyan-800 text-black py-2 px-4 rounded-lg hover:bg-cyan-700 font-bold">Send Message</button>
+            <button type="submit" name="enviar" class="bg-black text-white py-2 px-4 border rounded-lg hover:bg-cyan-700 font-bold">Send Message</button>
             <?php
                 if(isset($_POST["enviar"])) {
                     $contenido = $_POST['message'];
