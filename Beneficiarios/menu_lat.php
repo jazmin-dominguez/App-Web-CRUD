@@ -20,7 +20,7 @@
             </button>
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
             
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarmateria">List Subjects </a></li>
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listarmaterias">List Subjects </a></li>
               
             </ul>
           </li>
@@ -77,8 +77,7 @@
             </button>
             <ul class="submenu bg-gray-700 text-gray-200 pl-4">
               
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividad">List Activities</a></li>
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividad">Upload Activities</a></li>
+              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividades">List Activities</a></li>
             </ul>
           </li>
           <!-- Feedback a programas -->
@@ -99,32 +98,8 @@
               <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=crear_feedback">Create Feedback</a></li>
             </ul>
           </li>
-          <!-- acutalizar datos  -->
-          <li class="dropdown text-gray-300 py-2 px-4 hover:bg-gray-700 rounded-lg">
-            <button onclick="toggleMenu2(event)" class="flex justify-between items-center w-full focus:outline-none">
-              Update data
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" 
-                  class="arrow-down" 
-                  :class="{ 'hidden': open, 'block': !open }"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 15l-7-7-7 7" 
-                  class="arrow-up hidden" 
-                  :class="{ 'block': open, 'hidden': !open }"></path>
-              </svg>
-            </button>
-            <ul class="submenu bg-gray-700 text-gray-200 pl-4">
-              
-              <li class="py-2 hover:bg-gray-600 rounded-lg"><a href="?action=listaractividad">  My data</a></li>
-            </ul>
-          </li>
+          
         </ul>
       </div>
-      <div class="px-8 py-4">
-        <a href="../login/logout.php">
-            <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
-            Log Out
-            </button>
-        </a>
-        
-      </div>
+      
     </div>
