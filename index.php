@@ -17,6 +17,7 @@
     />
 
     <link href="./inicio/output.css" rel="stylesheet">
+    <link href="./CSS/eliminarcursor.css" rel="stylesheet">
     <title>Landing Website</title>
 
     <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>

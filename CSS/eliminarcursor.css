@@ -1,0 +1,11 @@
+/* Deshabilitar la selección de texto y mostrar el cursor predeterminado */
+* {
+    cursor: default; /* Cambia el cursor a su estado normal */
+    user-select: none; /* Desactiva la selección de texto */
+}
+
+/* Mantener selección de texto en áreas interactivas */
+input, textarea, button, select, a {
+    user-select: text; /* Permitir selección de texto en elementos interactivos */
+    cursor: pointer; /* Mostrar cursor de puntero en elementos clicables */
+}

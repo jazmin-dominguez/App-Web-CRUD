@@ -43,31 +43,62 @@ if (isset($_POST['submit_feedback'])) {
     // Obtener los datos del formulario
     $programa_id = $_POST['programa']; // Corregido para tomar el valor de 'programa'
     $comentario = $_POST['comentario'];
-        // Crear el objeto de contacto y ejecutar el método de creación de feedback
-        require_once('../Conexion/contacto.php');
-        $obj = new Contacto();
-        $resultado = $obj->crear_feedback($usuario_id, $programa_id, $comentario);
 
-        // Mostrar mensaje de feedback exitoso
-        if ($resultado) {
-            echo '<script>
-                    Swal.fire({
-                        icon: "success",
-                        title: "Thank you for your feedback!",
-                        text: "Your feedback has been successfully submitted.",
-                        confirmButtonText: "Awesome"
-                    });
-                </script>';
+    // Crear el objeto de contacto y ejecutar el método de creación de feedback
+    require_once('../Conexion/contacto.php');
+    $obj = new Contacto();
+    $resultado = $obj->crear_feedback($usuario_id, $programa_id, $comentario);
+
+    // Detectar el idioma actual con Weglot
+    echo '<script>
+        const idioma = Weglot.getCurrentLang(); // Obtener el idioma actual
+        let successTitle, successMessage, confirmButtonText, errorTitle, errorMessage;
+
+        // Textos en función del idioma
+        if (idioma === "es") {
+            successTitle = "¡Gracias por tu feedback!";
+            successMessage = "Tu opinión ha sido enviada exitosamente.";
+            confirmButtonText = "Genial";
+            errorTitle = "Error";
+            errorMessage = "Hubo un problema al enviar tu feedback. Por favor, inténtalo de nuevo.";
+        } else if (idioma === "fr") {
+            successTitle = "Merci pour votre avis!";
+            successMessage = "Votre avis a été soumis avec succès.";
+            confirmButtonText = "Super";
+            errorTitle = "Erreur";
+            errorMessage = "Un problème est survenu lors de la soumission de votre avis. Veuillez réessayer.";
         } else {
-            echo '<script>
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: "There was a problem submitting your feedback. Please try again.",
-                        confirmButtonText: "Okay"
-                    });
-                </script>';
+            successTitle = "Thank you for your feedback!";
+            successMessage = "Your feedback has been successfully submitted.";
+            confirmButtonText = "Awesome";
+            errorTitle = "Error";
+            errorMessage = "There was a problem submitting your feedback. Please try again.";
         }
+
+        // Mostrar el mensaje de SweetAlert según el resultado
+    ';
+
+    if ($resultado) {
+        echo '
+            Swal.fire({
+                icon: "success",
+                title: successTitle,
+                text: successMessage,
+                confirmButtonText: confirmButtonText
+            });
+        ';
+    } else {
+        echo '
+            Swal.fire({
+                icon: "error",
+                title: errorTitle,
+                text: errorMessage,
+                confirmButtonText: confirmButtonText
+            });
+        ';
     }
 
+    echo '</script>';
+}
 ?>
+
