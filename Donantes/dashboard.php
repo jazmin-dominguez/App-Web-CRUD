@@ -38,7 +38,7 @@ $result = $contacto->listar_programas();
             left: 0;
             width: 100%;
             z-index: 50;
-            background-color: rgba(22, 78, 99, 0.9); 
+            background-color: rgba(22, 78, 99); 
             transition: background-color 0.3s;
         }
 
@@ -47,6 +47,7 @@ $result = $contacto->listar_programas();
             font-weight: bold;
             font-size: 1rem;
             transition: color 0.3s;
+            padding-left: 50px;
         }
 
         .nav-link:hover {
@@ -68,6 +69,8 @@ $result = $contacto->listar_programas();
             cursor: pointer;
         }
 
+
+
         /* Logo y título */
         .logo {
             font-family: 'Lobster', cursive;
@@ -78,25 +81,25 @@ $result = $contacto->listar_programas();
     </style>
 </head>
 <body>
-
-<!-- HEADER -->
 <header id="navbar" class="fixed w-full top-0 left-0 z-50 bg-[#164E63]">
     <nav class="container flex items-center justify-between h-16 sm:h-20">
         <!-- Logo -->
-        <div class="logo">Unity Class</div>
+        <div class="font-Lobster text-white sm:text-2xl ml-20 italic">Unity Class</div>
 
         <!-- Menú -->
-        <div id="nav-menu" class="absolute top-0 left-[-100%] min-h-[80vh] w-full bg-transparent backdrop-blur-sm flex items-center justify-center duration-300 overflow-hidden lg:static lg:min-h-fit lg:bg-transparent lg:w-auto">
-            <ul class="flex flex-col items-center gap-8 lg:flex-row">
-                <li><a href="#information" class="nav-link" data-section="information">Information</a></li>
-                <li><a href="#donations" class="nav-link" data-section="donations">Donations</a></li>
-                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+        <div id="nav-menu" class="absolute top-0 left-0 min-h-[80vh] w-full 
+        bg-transparent backdrop-blur-sm flex items-center justify-start 
+        duration-300 overflow-hidden lg:static lg:min-h-fit lg:bg-transparent lg:w-auto">
+            <ul class="flex flex-col items-center gap-8 lg:flex-row lg:gap-6 nav-links">
+                <li><a href="#information" class="nav-link text-white hover:text-yellow-300" data-section="information">Information</a></li>
+                <li><a href="#donaciones" class="nav-link text-white hover:text-yellow-300" data-section="donations">Donations</a></li>
+                <li><a href="#contact" class="nav-link text-white hover:text-yellow-300" data-section="contact">Contact</a></li>
 
-                <!-- Botón de Logout, visible solo si el usuario ha iniciado sesión -->
+                <!-- Botón de Logout -->
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li>
                         <form action="../login/logout.php" method="POST">
-                            <button type="submit" class="nav-link font-bold">Logout</button>
+                            <button type="submit" class="nav-link text-white font-bold hover:text-yellow-300">Logout</button>
                         </form>
                     </li>
                 <?php endif; ?>
@@ -155,35 +158,49 @@ $result = $contacto->listar_programas();
     <!-- Consulta y visualización del historial de donaciones -->
     <div class="container mx-auto px-4">
         <?php
-        // Obtener el historial de donaciones usando el método de la clase Contacto
-        $historial = $contacto->listar_historial_donaciones(); 
-        if ($historial->num_rows > 0): ?>
+        // Obtener el ID del usuario desde la sesión
+        if (!isset($_SESSION['user_id'])) {
+            echo "<p class='text-center text-red-500'>Error: Usuario no autenticado.</p>";
+            exit();
+        }
+        $id_usuario = $_SESSION['user_id'];
+
+        // Obtener el historial de donaciones del usuario
+        try {
+            $historial = $contacto->listar_historial_donaciones_por_usuario($id_usuario);
+        } catch (Exception $e) {
+            echo "<p class='text-center text-red-500'>Error al obtener el historial de donaciones: " . htmlspecialchars($e->getMessage()) . "</p>";
+            exit();
+        }
+
+        if (!empty($historial)): ?>
             <!-- Contenedor scrollable -->
             <div class="max-h-96 overflow-y-auto border rounded-lg shadow-lg">
                 <table class="w-full text-left bg-white rounded-lg overflow-hidden">
                     <thead>
                         <tr class="bg-cyan-800 text-black">
-                            <th class="px-4 py-2">Donation date</th>
-                            <th class="px-4 py-2">Donor Name</th>
+                            <th class="px-4 py-2">Donation Date</th>
+                            <th class="px-4 py-2">Donation Name</th>
                             <th class="px-4 py-2">Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($donacion = $historial->fetch_assoc()): ?>
+                        <?php foreach ($historial as $donacion): ?>
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['fecha_donacion']); ?></td>
                                 <td class="px-4 py-2"><?php echo htmlspecialchars($donacion['nombre_donacion']); ?></td>
                                 <td class="px-4 py-2"><?php echo "$" . number_format($donacion['monto'], 2); ?></td>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         <?php else: ?>
-            <p class="text-center text-gray-700">No hay donaciones registradas.</p>
+            <p class="text-center text-gray-700">No donations recorded.</p>
         <?php endif; ?>
     </div>
 </section>
+
 
 
 
@@ -401,30 +418,69 @@ $result = $contacto->listar_programas();
     <p class="text-xl mb-6">Get in touch with us for any inquiries or support.</p>
 
     <!-- Formulario de contacto -->
-    <div class="container mx-auto px-4 max-w-lg">
-        <form method="POST" class="bg-white p-6 rounded-lg shadow-md text-gray-900">
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-bold mb-2">Name</label>
-                <input type="text" name="name" id="name" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Name" required>
-            </div>
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-bold mb-2">Email</label>
-                <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Email" required>
-            </div>
-            <div class="mb-4">
-                <label for="message" class="block text-sm font-bold mb-2">Message</label>
-                <textarea name="message" id="message" class="w-full px-3 py-2 border rounded-lg" placeholder="Your Message" rows="4" required></textarea>
-            </div>
-            <button type="submit" name="enviar" class="bg-black text-white py-2 px-4 border rounded-lg hover:bg-cyan-700 font-bold">Send Message</button>
-            <?php
-                if(isset($_POST["enviar"])) {
-                    $contenido = $_POST['message'];
-                    include ("sendmail.php");
-                }
-            ?>
-        </form>
-    </div>
-</section>
+<div class="container mx-auto px-4 max-w-lg">
+    <form method="POST" class="bg-white p-6 rounded-lg shadow-md text-gray-900">
+        <!-- Campo Nombre -->
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-bold mb-2">Name</label>
+            <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                class="w-full px-3 py-2 border rounded-lg" 
+                placeholder="Your Name" 
+                required 
+                minlength="4" 
+                maxlength="50" 
+                pattern="[A-Za-z\s]+" 
+                title="El nombre solo debe contener letras y espacios.">
+        </div>
+        
+        <!-- Campo Email -->
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-bold mb-2">Email</label>
+            <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                class="w-full px-3 py-2 border rounded-lg" 
+                placeholder="Your Email" 
+                required>
+        </div>
+        
+        <!-- Campo Mensaje -->
+        <div class="mb-4">
+            <label for="message" class="block text-sm font-bold mb-2">Message</label>
+            <textarea 
+                name="message" 
+                id="message" 
+                class="w-full px-3 py-2 border rounded-lg" 
+                placeholder="Your Message" 
+                rows="4" 
+                required 
+                minlength="10" 
+                maxlength="500" 
+                title="El mensaje debe tener entre 10 y 500 caracteres."></textarea>
+        </div>
+        
+        <!-- Botón de envío -->
+        <button 
+            type="submit" 
+            name="enviar" 
+            class="bg-black text-white py-2 px-4 border rounded-lg hover:bg-cyan-700 font-bold">
+            Send Message
+        </button>
+
+        <!-- PHP para manejar el formulario -->
+        <?php
+            if(isset($_POST["enviar"])) {
+                $contenido = $_POST['message'];
+                include ("sendmail.php");
+            }
+        ?>
+    </form>
+</div>
+        </section>
 
 
 <!-- Footer -->
