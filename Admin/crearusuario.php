@@ -71,6 +71,74 @@
                         </form>
                     </div>
                 </div>
+                <script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const nombre = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const password = document.getElementById('password').value;
+        const tipoUsuario = document.getElementById('tipo_usuario').value;
+        const fechaNac = document.getElementById('fecha_nac').value;
+
+        // Validar nombre
+        if (!/^[A-Za-z\s]+$/.test(nombre)) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Nombre inválido',
+                text: 'El nombre solo puede contener letras y espacios.'
+            });
+            return;
+        }
+
+        // Validar correo
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Correo inválido',
+                text: 'Introduce un correo electrónico válido.'
+            });
+            return;
+        }
+
+        // Validar contraseña
+        if (password.length < 8 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Contraseña inválida',
+                text: 'La contraseña debe tener al menos 8 caracteres, incluir letras y números.'
+            });
+            return;
+        }
+
+        // Validar tipo de usuario
+        if (tipoUsuario === "") {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Tipo de usuario no seleccionado',
+                text: 'Por favor, selecciona un tipo de usuario válido.'
+            });
+            return;
+        }
+
+        // Validar fecha de nacimiento
+        const fechaActual = new Date();
+        const fechaSeleccionada = new Date(fechaNac);
+        const edad = fechaActual.getFullYear() - fechaSeleccionada.getFullYear();
+        if (edad < 10 || edad > 110) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Fecha de nacimiento inválida',
+                text: 'La edad debe estar entre 10 y 110 años.'
+            });
+            return;
+        }
+    });
+</script>
+
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
