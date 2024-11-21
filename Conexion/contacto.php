@@ -264,7 +264,7 @@
         return $this->conexion->query($query)->fetch_all(MYSQLI_ASSOC);
     }
     
-    
+
     public function __construct() {
         $this->conexion = new mysqli('localhost', 'root', '', 'unityclass');
         
@@ -761,7 +761,57 @@ public function obtener_todos_programas() {
         $resultado = $this->ejecutar_sentencia();
         return $resultado->fetch_all(MYSQLI_ASSOC);
     }
+    public function desinscribir_programa($user_id, $programa_id) {
+        $this->abrir_conexion(); // Asegúrate de que la conexión esté abierta
+    
+        // Preparar la consulta para eliminar la inscripción
+        $sql = "DELETE FROM inscripciones WHERE user_id = ? AND programa_id = ?";
+        $stmt = $this->conexion->prepare($sql);
+    
+        if (!$stmt) {
+            // Si hay un error al preparar la consulta, retornar false
+            $this->cerrar_conexion();
+            return false;
+        }
+    
+        // Enlazar los parámetros y ejecutar la consulta
+        $stmt->bind_param("ii", $user_id, $materia_id);
+        $resultado = $stmt->execute();
+    
+        // Cerrar la conexión y liberar los recursos
+        $stmt->close();
+        $this->cerrar_conexion();
+    
+        return $resultado; // Retorna true si se eliminó correctamente, o false en caso contrario
+    }
 
-
+    public function obtener_actividades_por_usuario($user_id) {
+        $this->abrir_conexion(); // Abre la conexión a la base de datos
+    
+        $sql = "
+            SELECT a.id AS actividad_id, a.nombre_actividad, a.descripcion, a.fecha, a.fk_teacher, m.nombre_materia
+            FROM actividades a
+            INNER JOIN materias m ON a.fk_materia = m.id
+            INNER JOIN inscripciones_materias im ON m.id = im.materia_id
+            WHERE im.user_id = ?
+        ";
+    
+        $stmt = $this->conexion->prepare($sql); // Prepara la consulta
+        if (!$stmt) {
+            die("Error en la preparación de la consulta: " . $this->conexion->error);
+        }
+    
+        $stmt->bind_param("i", $user_id); // Vincula el ID del usuario
+        $stmt->execute(); // Ejecuta la consulta
+        $result = $stmt->get_result(); // Obtiene el resultado
+    
+        $actividades = $result->fetch_all(MYSQLI_ASSOC); // Convierte los resultados a un array asociativo
+    
+        $stmt->close(); // Cierra la declaración
+        $this->cerrar_conexion(); // Cierra la conexión
+    
+        return $actividades; // Devuelve las actividades
+    }
+    
 }
 ?>

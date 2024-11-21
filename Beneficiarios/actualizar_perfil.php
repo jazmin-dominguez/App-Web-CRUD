@@ -21,8 +21,8 @@ $resultado_actualizacion = $obj->actualizar_usuario($usuario_id, $nombre, $corre
 if ($resultado_actualizacion) {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['correo'] = $correo;
-    echo "Datos actualizados correctamente.";
+    echo json_encode(['status' => 'success']);
 } else {
-    echo "Error al actualizar los datos.";
+    echo json_encode(['status' => 'Error']);
 }
 ?>
