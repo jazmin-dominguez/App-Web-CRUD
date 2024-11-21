@@ -13,6 +13,10 @@ $dompdf = new Dompdf($options);
 $nombre_donacion = $_POST['nombre_donacion'];
 $fecha_donacion = $_POST['fecha_donacion'];
 $monto = $_POST['monto'];
+$direccion = $_POST['direccion'];
+$ciudad = $_POST['ciudad'];
+$estado = $_POST['estado'];
+$codigo_postal = $_POST['codigo_postal'];
 
 // Contenido HTML del PDF
 $html = '
@@ -21,22 +25,63 @@ $html = '
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { text-align: center; }
-        .logo { width: 80px; margin-bottom: 20px; }
-        .title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-        .info { font-size: 16px; margin: 5px 0; }
-        .footer { margin-top: 20px; font-size: 14px; color: #555; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .ticket {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px dashed #000;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .ticket img {
+            max-width: 80px;
+            margin-bottom: 10px;
+        }
+        .ticket h1 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .ticket p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .ticket .section {
+            margin: 10px 0;
+            border-top: 1px dashed #000;
+            padding-top: 10px;
+        }
+        .ticket .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="../SRC/plantita.png" class="logo" alt="Unity Class Logo">
-        <div class="title">Unity Class - Donation Receipt</div>
-        <div class="info">Donor Name: ' . htmlspecialchars($nombre_donacion) . '</div>
-        <div class="info">Donation Date: ' . htmlspecialchars($fecha_donacion) . '</div>
-        <div class="info">Donated Amount: $' . htmlspecialchars($monto) . ' USD</div>
-        <div class="footer">Thank you for your generous contribution. Your support helps provide education and resources to children who need it most.</div>
+    <div class="ticket">
+        <img src="../SRC/plantita.png" alt="Unity Class Logo">
+        <h1>Unity Class - Donation Receipt</h1>
+        <p><strong>Donor Name:</strong> ' . htmlspecialchars($nombre_donacion) . '</p>
+        <p><strong>Donation Date:</strong> ' . htmlspecialchars($fecha_donacion) . '</p>
+        <p><strong>Donated Amount:</strong> $' . htmlspecialchars($monto) . ' USD</p>
+        <div class="section">
+            <p><strong>Address:</strong> ' . htmlspecialchars($direccion) . '</p>
+            <p><strong>City:</strong> ' . htmlspecialchars($ciudad) . '</p>
+            <p><strong>State:</strong> ' . htmlspecialchars($estado) . '</p>
+            <p><strong>Postal Code:</strong> ' . htmlspecialchars($codigo_postal) . '</p>
+        </div>
+        <div class="footer">
+            Thank you for your generous contribution.<br>
+            Your support helps provide education and resources<br>
+            to children who need it most.
+        </div>
     </div>
 </body>
 </html>
@@ -45,8 +90,8 @@ $html = '
 // Cargar el contenido HTML en Dompdf
 $dompdf->loadHtml($html);
 
-// (Opcional) Establecer el tamaño y orientación de la página
-$dompdf->setPaper('A4', 'portrait');
+// (Opcional) Establecer el tamaño y orientación de la página (tipo ticket, estrecho)
+$dompdf->setPaper([0, 0, 300, 600]); // Tamaño en puntos (px), equivalente a 3x6 pulgadas
 
 // Renderizar el PDF
 $dompdf->render();

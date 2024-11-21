@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../Conexion/contacto.php'; // Asegúrate de que esta ruta es correcta
-
 // Crear una instancia de la clase Contacto
 $contacto = new Contacto();
 
@@ -207,7 +206,7 @@ $result = $contacto->listar_programas();
 
 
     <!-- Sección de Donaciones -->
-    <section id="donaciones" class="relative flex items-center justify-center h-screen bg-blue-900 text-white" style="background-color: #5EA2B5;">
+<section id="donaciones" class="relative flex items-center justify-center h-screen bg-blue-900 text-white" style="background-color: #5EA2B5;">
     <!-- Imagen izquierda -->
     <img src="../SRC/hero_student_collage_US_1x.png" alt="Imagen Estudiante" class="absolute left-0 top-1/2 transform -translate-y-1/2 max-w-xs opacity-70" style="margin-left: 20px;">
 
@@ -223,49 +222,114 @@ $result = $contacto->listar_programas();
 
             <!-- Name Step -->
             <div id="step-name" class="form-step hidden">
-                <p class="question">Card Holders Name</p>
-                <input type="text" id="first-name" name="nombre_donacion" class="input-field" placeholder="Your name" required>
-                <button type="button" class="button" onclick="nextStep()">Accept</button>
-            </div>
-
-        
-            <!-- Amount Step -->
-            <div id="step-amount" class="form-step hidden">
-                <p class="question">How much would you like to donate <span id="display-name"></span>?</p>
-                <div id="amount-options">
-                    <span class="option-button" onclick="selectAmount(25)">$25</span>
-                    <span class="option-button" onclick="selectAmount(50)">$50</span>
-                    <span class="option-button" onclick="selectAmount(100)">$100</span>
-                    <span class="option-button" onclick="selectAmount(150)">$150</span>
-                    <span class="option-button" onclick="selectAmount(200)">$200</span>
-                </div>
-                <input type="hidden" name="monto" id="monto_donacion">
+                <p class="question">Card Holder's Name</p>
+                <input 
+                    type="text" 
+                    id="first-name" 
+                    name="nombre_donacion" 
+                    class="input-field" 
+                    placeholder="Your name" 
+                    required 
+                    pattern="[A-Za-z\s]+" 
+                    title="Only letters are allowed.">
                 <button type="button" class="button" onclick="nextStep()">Accept</button>
             </div>
 
             <!-- Contact Step -->
             <div id="step-contact" class="form-step hidden">
                 <p class="question">Please enter your email</p>
-                <input type="email" id="email" name="email" class="input-field" placeholder="Email" required>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="input-field" 
+                    placeholder="Email" 
+                    value="<?php echo isset($_SESSION['correo']) ? htmlspecialchars($_SESSION['correo']) : ''; ?>" 
+                    required
+                >
                 <button type="button" class="button" onclick="nextStep()">Accept</button>
             </div>
+
+            <!-- Amount Step -->
+            <div id="step-amount" class="form-step hidden">
+                <p class="question">How much would you like to donate?</p>
+                <div id="amount-options">
+                    <span class="option-button" onclick="selectAmount(25)">$25</span>
+                    <span class="option-button" onclick="selectAmount(50)">$50</span>
+                    <span class="option-button" onclick="selectAmount(100)">$100</span>
+                    <span class="option-button" onclick="selectAmount(150)">$150</span>
+                    <span class="option-button" onclick="selectAmount(200)">$200</span>
+                    <!-- Campo de monto personalizado -->
+                    <input type="number" id="custom-amount" class="input-field inline-block w-32 ml-2" placeholder="Other" oninput="selectCustomAmount()" min="1">
+                </div>
+                <input type="hidden" name="monto" id="monto_donacion">
+                <button type="button" class="button" onclick="validateAmount()">Accept</button>
+            </div>
+
+           <!-- Invoice Details Step -->
+<div id="step-invoice" class="form-step hidden">
+    <h2 class="text-center">Please enter your details for invoicing purposes</h2>
+    
+    <!-- Address Field -->
+    <input 
+        type="text" 
+        name="direccion" 
+        class="input-field" 
+        placeholder="Address (Street, number, neighborhood)" 
+        required
+    >
+    
+    <!-- City Field -->
+    <input 
+        type="text" 
+        name="ciudad" 
+        class="input-field" 
+        placeholder="City" 
+        required 
+        onkeypress="return onlyLetters(event);" 
+        oninput="validateLetters(this);" 
+        pattern="[A-Za-z\s]+" 
+        title="Only letters and spaces are allowed."
+    >
+    
+    <!-- State Field -->
+    <input 
+        type="text" 
+        name="estado" 
+        class="input-field" 
+        placeholder="State" 
+        required 
+        onkeypress="return onlyLetters(event);" 
+        oninput="validateLetters(this);" 
+        pattern="[A-Za-z\s]+" 
+        title="Only letters and spaces are allowed."
+    >
+    
+    <!-- Postal Code Field -->
+    <input 
+        type="text" 
+        name="codigo_postal" 
+        class="input-field" 
+        placeholder="ZIP Code" 
+        required 
+        pattern="\d{5}" 
+        title="Please enter a valid 5-digit ZIP code."
+    >
+    
+    <button type="button" class="button" onclick="nextStep()">Accept</button>
+</div>
+
+
+
 
             <!-- Payment Step -->
             <div id="step-payment" class="form-step hidden">
                 <p class="question">Confirm your donation <span id="confirm-amount"></span> USD</p>
                 <input type="text" id="card-number" class="input-field" placeholder="Card number" maxlength="19" required>
-                <input type="text" id="expiry-date" class="input-field" placeholder="Due Date (MM/YY)" maxlength="5" required>
-                <input type="text" class="input-field" placeholder="CVC" maxlength="3" required>
+                <input type="text" id="expiry-date" class="input-field" placeholder="MM/YY" maxlength="5" required>
+                <input type="text" id="cvc" class="input-field" placeholder="CVC" maxlength="3" required>
                 <input type="hidden" name="fecha_donacion" id="fecha_donacion" value="<?php echo date('Y-m-d'); ?>">
-                <input type="hidden" name="FK_tipo_Usuario" value="1"> <!-- Ajusta según corresponda -->
                 <button type="submit" class="button">Send</button>
-            </div>
-
-            <!-- Thank You Step -->
-            <div id="step-thank-you" class="form-step hidden">
-                <h2>¡Gracias!</h2>
-                <p>Muchas gracias por tu donación, <span id="thank-name"></span>. Tu contribución marcará la diferencia.</p>
-                <button type="button" class="button" onclick="resetForm()">Volver al inicio</button>
             </div>
         </form>
     </div>
@@ -343,52 +407,65 @@ $result = $contacto->listar_programas();
 
         function nextStep() {
             const steps = document.querySelectorAll('.form-step');
-            const currentElement = steps[currentStep];
+            const inputs = steps[currentStep].querySelectorAll('input[required]');
             let valid = true;
-            const inputs = currentElement.querySelectorAll("input[required]");
+
             inputs.forEach(input => {
                 if (!input.checkValidity()) {
-                    input.reportValidity(); 
+                    input.reportValidity();
                     valid = false;
                 }
             });
 
-            if (!valid) return;
-
-            steps[currentStep].classList.remove('active');
-            currentStep++;
-            steps[currentStep].classList.add('active');
-            
-            if (currentStep === 3) {
-                const firstName = document.getElementById('first-name').value;
-                document.getElementById('display-name').textContent = firstName;
-                document.getElementById('thank-name').textContent = firstName;
+            if (valid) {
+                steps[currentStep].classList.remove('active');
+                steps[currentStep].classList.add('hidden');
+                currentStep++;
+                steps[currentStep].classList.add('active');
+                steps[currentStep].classList.remove('hidden');
             }
         }
 
         function selectAmount(amount) {
             selectedAmount = amount;
-            document.querySelectorAll('.option-button').forEach(button => button.classList.remove('selected'));
-            event.target.classList.add('selected');
             document.getElementById('monto_donacion').value = amount;
-            document.getElementById('confirm-amount').textContent = amount;
+            document.querySelectorAll('.option-button').forEach(button => button.classList.remove('selected'));
+            document.getElementById('custom-amount').value = '';
+            event.target.classList.add('selected');
         }
 
-        function resetForm() {
-            document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
-            document.getElementById("step-welcome").classList.add('active');
-            currentStep = 0;
+        function selectCustomAmount() {
+            const customInput = document.getElementById('custom-amount');
+            const customValue = parseFloat(customInput.value);
+
+            if (customValue > 0) {
+                selectedAmount = customValue;
+                document.getElementById('monto_donacion').value = customValue;
+                document.querySelectorAll('.option-button').forEach(button => button.classList.remove('selected'));
+            }
+        }
+
+        function validateAmount() {
+            if (selectedAmount <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please select or enter a valid donation amount.'
+                });
+                return;
+            }
+            nextStep();
         }
 
         // Formato para número de tarjeta
         const cardNumberInput = document.getElementById('card-number');
-        cardNumberInput.addEventListener('input', function(e) {
+        cardNumberInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             value = value.match(/.{1,4}/g)?.join(' ') || value;
             e.target.value = value;
         });
 
-        cardNumberInput.addEventListener('keydown', function(e) {
+        cardNumberInput.addEventListener('keydown', function (e) {
             if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
                 e.preventDefault();
             }
@@ -396,21 +473,33 @@ $result = $contacto->listar_programas();
 
         // Formato para fecha de vencimiento
         const expiryDateInput = document.getElementById('expiry-date');
-        expiryDateInput.addEventListener('input', function(e) {
+        expiryDateInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                value = value.slice(0, 2) + '/' + value.slice(2);
             }
             e.target.value = value;
         });
 
-        expiryDateInput.addEventListener('keydown', function(e) {
+        expiryDateInput.addEventListener('keydown', function (e) {
             if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
                 e.preventDefault();
             }
         });
+
+        // Formato para CVC
+        const cvcInput = document.getElementById('cvc');
+        cvcInput.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+        });
+
+        
     </script>
+
+    
 </section>
+
+
 
 <!-- Sección de Contacto -->
 <section id="contact" class="h-screen text-white flex flex-col items-center justify-center" style="background-color: #0F758C;">

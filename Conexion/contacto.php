@@ -668,16 +668,22 @@ public function obtener_todos_programas() {
             $this->abrir_conexion();
         }
     
-        
-        $this->sentencia = "INSERT INTO donaciones (nombre_donacion, fecha_donacion, FK_tipo_Usuario, monto) VALUES (?, ?, ?, ?)";
-        
-        
-        if ($stmt = $this->conexion->prepare($this->sentencia)) {
-            $stmt->bind_param("ssii", $nombre_donacion, $fecha_donacion, $FK_tipo_Usuario, $monto);
+        // Validación de conexión
+        if (!$this->conexion) {
+            return "Error en la conexión a la base de datos.";
+        }
     
-            // Verificar ejecución
+        // Consulta preparada
+        $this->sentencia = "INSERT INTO donaciones (nombre_donacion, fecha_donacion, FK_tipo_Usuario, monto) 
+                            VALUES (?, ?, ?, ?)";
+    
+        if ($stmt = $this->conexion->prepare($this->sentencia)) {
+            // Vincula los parámetros
+            $stmt->bind_param("ssdi", $nombre_donacion, $fecha_donacion, $FK_tipo_Usuario, $monto);
+    
+            // Ejecuta y verifica
             if ($stmt->execute()) {
-                return "Donación guardada con éxito";
+                return "Donación guardada con éxito.";
             } else {
                 return "Error al guardar la donación: " . $stmt->error;
             }
@@ -687,6 +693,7 @@ public function obtener_todos_programas() {
             return "Error en la preparación de la consulta: " . $this->conexion->error;
         }
     }
+    
     public function obtener_materias_por_programa($id_programa) {
         $this->abrir_conexion();
         
