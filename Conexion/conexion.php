@@ -19,10 +19,7 @@ class Conexion {
             die("Error de conexión: " . $this->conexion->connect_error);
         }
         
-        // Verificación extra de la conexión
-        if ($this->conexion === null) {
-            die("Error: La conexión no se pudo inicializar.");
-        }
+        return $this->conexion; // Asegúrate de retornar la conexión.
     }
     
 

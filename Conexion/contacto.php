@@ -229,7 +229,7 @@
         $result = $this->obtener_sentencia($sql);
         return $result; // Asegúrate de que esto esté retornando el resultado correctamente
     }
-    
+
     public function verificar_correo($correo) {
         $conexion = $this->abrir_conexion(); // Obtenemos la conexión activa.
     
