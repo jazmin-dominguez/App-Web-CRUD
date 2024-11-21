@@ -581,6 +581,29 @@ public function obtener_todos_programas() {
         // No se llama a cerrar_conexion aquí, ya que se ejecuta en obtener_sentencia
         return $resultado;
     }
+    public function listar_historial_donaciones_por_usuario($id_usuario) {
+        // Define la consulta SQL con el filtro por usuario
+        $this->sentencia = "
+            SELECT fecha_donacion, nombre_donacion, monto
+            FROM donaciones
+            WHERE FK_tipo_Usuario = $id_usuario
+            ORDER BY fecha_donacion DESC
+        ";
+    
+        // Ejecutar la sentencia
+        $resultado = $this->ejecutar_sentencia();
+    
+        // Procesar los datos en un arreglo
+        $donaciones = [];
+        if ($resultado) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $donaciones[] = $fila;
+            }
+        }
+    
+        // Devuelve el historial de donaciones como un arreglo
+        return $donaciones;
+    }
 
     public function obtener_programas_por_materia_inscrita($user_id) {
         $this->abrir_conexion();
