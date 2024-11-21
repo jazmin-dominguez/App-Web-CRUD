@@ -14,6 +14,9 @@ $showForm = isset($_GET['action']) && $_GET['action'] == 'dashboard';
 $showForm01 = isset($_GET['action']) && $_GET['action'] == 'mostrarmaestrossegunmaterias';
 $showForm02 = isset($_GET['action']) && $_GET['action'] == 'crear_feedback';
 $showForm06 = isset($_GET['action']) && $_GET['action'] == 'obtenerprogramassegunmateria';
+$showForm07 = isset($_GET['action']) && $_GET['action'] == 'listarmaterias';
+$showForm08 = isset($_GET['action']) && $_GET['action'] == 'listaractividades';
+
 
 $obj = new Contacto();
 
@@ -45,6 +48,8 @@ if (!$usuario_activo) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         .submenu {
             display: none;
@@ -137,9 +142,10 @@ if (!$usuario_activo) {
                 <h1 class="text-2xl text-gray-700">Beneficiary Panel</h1>
                 <div class="text-gray-700">
                     <div class="relative dropdown">
+                        <p class="font-semibold"><?php echo htmlspecialchars($_SESSION['nombre']); ?></p>
                         <button onclick="toggleMenu(event)" class="hover:underline focus:outline-none">
-                            <p class="font-semibold"><?php echo htmlspecialchars($_SESSION['nombre']); ?></p>
-                            <p class="text-sm text-gray-500"><?php echo htmlspecialchars($tipo_usuario); ?></p>
+                            
+                            <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <div class="submenu2">
                             <button onclick="openModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Edit perfil</button>
@@ -151,7 +157,7 @@ if (!$usuario_activo) {
 
             <?php
                 // Mostrar el panel de administración si no hay una acción específica seleccionada
-                if (!$showForm && !$showForm01 && !$showForm02 && !$showForm06):
+                if (!$showForm && !$showForm01 && !$showForm02 && !$showForm06 && !$showForm07 && !$showForm08):
                     ?>
                     <div class="w-full h-full flex flex-col">
                         
@@ -184,7 +190,12 @@ if (!$usuario_activo) {
                 if ($showForm06):
                     include('mostrar_programas_segunmaterias.php');
                 endif;
-                
+                if ($showForm07):
+                    include('materias_inscritas.php');
+                endif;
+                if ($showForm08):
+                    include('verActividades.php');
+                endif;
                 
                 
             ?>
@@ -217,14 +228,16 @@ if (!$usuario_activo) {
                             </select>
                         </div>
                         <div class="flex justify-end">
-                            <button type="button" id="cancelar" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-2">Cancelar</button>
-                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Guardar Cambios</button>
+                            <button type="button" id="cancelar" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 mr-2">Cancel</button>
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save Changes</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.weglot.com/weglot.min.js"></script>
+
     <script>
        function openModal() {
             document.getElementById('modal-editar').classList.remove('hidden');
@@ -245,50 +258,73 @@ if (!$usuario_activo) {
     });
     
     
-        // SweetAlert2 para guardar cambios
+        // SweetAlert2 para guardar cambios con soporte de Weglot
         document.getElementById('form-editar-usuario').addEventListener('submit', async function (e) {
-            e.preventDefault();
+            e.preventDefault(); // Evitar el envío tradicional del formulario
             const formData = new FormData(this);
-    
+
             try {
                 const response = await fetch('actualizar_perfil.php', {
                     method: 'POST',
                     body: formData
                 });
-    
-                const data = await response.text();
-    
-                if (response.ok) {
+
+                const data = await response.json(); // Supone que el PHP devuelve un JSON con 'status'
+
+                const idioma = Weglot.getCurrentLang(); // Detectar el idioma actual
+
+                // Define los textos dinámicos según el idioma
+                let successTitle, successMessage, errorTitle, errorMessage;
+                if (idioma === "es") {
+                    successTitle = "¡Cambios guardados!";
+                    successMessage = "Tus datos han sido actualizados con éxito.";
+                    errorTitle = "Error";
+                    errorMessage = "No se pudieron guardar los cambios.";
+                } else {
+                    // Idioma por defecto: inglés
+                    successTitle = "Changes Saved!";
+                    successMessage = "Your data has been updated successfully.";
+                    errorTitle = "Error";
+                    errorMessage = "Could not save changes.";
+                }
+
+                if (response.ok && data.status === "success") {
                     Swal.fire({
                         icon: 'success',
-                        title: '¡Cambios guardados!',
-                        text: 'Tus datos han sido actualizados con éxito.',
-                        confirmButtonColor: '#4a90e2'
+                        title: successTitle,
+                        text: successMessage,
+                        confirmButtonText: idioma === "es" ? "Aceptar" : "OK",
                     }).then(() => {
-                        location.reload(); // Recargar página para reflejar cambios
+                        location.reload(); // Recargar la página después de guardar los cambios
                     });
-    
-                    // Actualizar datos en la página dinámicamente
-                    document.querySelector('.font-semibold').textContent = formData.get('nombre');
-                    document.getElementById('modal-editar').classList.add('hidden');
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
-                        text: 'No se pudieron guardar los cambios.',
-                        confirmButtonColor: '#d33'
+                        title: errorTitle,
+                        text: errorMessage,
+                        confirmButtonText: idioma === "es" ? "Aceptar" : "OK",
                     });
                 }
             } catch (error) {
+                const idioma = Weglot.getCurrentLang(); // Detectar idioma
+                const errorTitle = idioma === "es" ? "Error" : "Error";
+                const errorMessage =
+                    idioma === "es"
+                        ? "Ocurrió un problema al enviar la solicitud. Por favor, inténtalo de nuevo."
+                        : "An error occurred while sending the request. Please try again.";
+
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
-                    text: 'Ocurrió un problema al enviar la solicitud.',
-                    confirmButtonColor: '#d33'
+                    title: errorTitle,
+                    text: errorMessage,
+                    confirmButtonText: idioma === "es" ? "Aceptar" : "OK",
                 });
             }
         });
+
     
     </script>
+
+
 </body>
 </html>
