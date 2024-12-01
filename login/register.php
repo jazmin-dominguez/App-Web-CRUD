@@ -80,9 +80,7 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <button type="button" id="registerButton" class="px-4 py-2 mb-4 bg-cyan-700 text-white font-bold rounded-md hover:bg-blue-600">
-                    Register
-                </button>
+                <input type="submit" name="submit" value="Register" class="px-4 py-2 bg-cyan-700 text-white font-bold rounded-md hover:bg-blue-600">    
                 <a href="login.php" class="text-blue-500 hover:underline">You have an account?</a>
             </div>
         </form>
